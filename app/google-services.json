@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "357181286024",
+    "firebase_url": "https://swolemate-bf294.firebaseio.com",
+    "project_id": "swolemate-bf294",
+    "storage_bucket": "swolemate-bf294.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357181286024:android:2020e63f9e2713c1",
+        "android_client_info": {
+          "package_name": "com.taitsmith.swolemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357181286024-fsgd9ac7iee755ro9d8el4aprm1jp685.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taitsmith.swolemate",
+            "certificate_hash": "883d5c591a3df390ae5040cf588714b65911dae4"
+          }
+        },
+        {
+          "client_id": "357181286024-j0cgb4djufuu5l86cc09bnntl5v3d3es.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrY6zQW3nSL-ajlyKdQdyN52eOsbTyl3c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357181286024-j0cgb4djufuu5l86cc09bnntl5v3d3es.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
