@@ -7,10 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.dbutils.WorkoutDbHelper;
 import com.taitsmith.swolemate.ui.PastWorkoutsDetailFragment;
 import com.taitsmith.swolemate.ui.PastWorkoutsListFragment;
-
-import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity {
     private AdView mAdView;
@@ -28,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
 
         setUi();
+
+        makeWorkouts();
     }
 
     private void setUi() {
@@ -47,5 +48,10 @@ public class MainActivity extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+
+    private void makeWorkouts() {
+        WorkoutDbHelper helper = new WorkoutDbHelper(this);
+        helper.getReadableDatabase();
     }
 }
