@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.taitsmith.swolemate"
+            android:name=".dbutils.WorkoutProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

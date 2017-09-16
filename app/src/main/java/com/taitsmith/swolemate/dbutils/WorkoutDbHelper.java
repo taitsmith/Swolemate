@@ -19,7 +19,7 @@ public class WorkoutDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        final String CREATE_SQL = "CREATE TABLE" + WorkoutDbContract.WorkoutEntry.TABLE_NAME + "(" +
+        final String CREATE_SQL = "CREATE TABLE " + WorkoutDbContract.WorkoutEntry.TABLE_NAME + "(" +
                 WorkoutDbContract.WorkoutEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WorkoutDbContract.WorkoutEntry.COLUMN_DATE + " TEXT NOT NULL, " + //timestamp will be stored as LocalDate.now();
                 WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME + " TEXT NOT NULL, " +

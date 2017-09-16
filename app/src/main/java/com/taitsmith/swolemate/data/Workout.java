@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class Workout {
-    public String date, thoughts;
+    public String date, thoughts, name;
     public int weight, reps;
 
     public String getDate() {
@@ -41,5 +41,13 @@ public class Workout {
 
     public void setThoughts(String thoughts) {
         this.thoughts = thoughts;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

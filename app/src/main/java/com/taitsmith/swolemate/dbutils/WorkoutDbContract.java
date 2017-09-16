@@ -15,7 +15,7 @@ import android.provider.BaseColumns;
 public class WorkoutDbContract {
     private static String PATH_WORKOUTS = "workouts";
 
-    private static final String CONTENT_AUTHORITY = "com.taitsmith.swolemate.data";
+    public static final String CONTENT_AUTHORITY = "com.taitsmith.swolemate";
 
     private static Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
