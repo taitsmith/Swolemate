@@ -2,4 +2,15 @@
     <string name="app_name">Swolemate</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
+    <!-- strings for add workout page -->
+    <string name="add_workout_date">Add workout for: %1$s</string>
+    <string name="workout_to_add">Select a workout:</string>
+    <string name="workout_sets">Sets completed:</string>
+    <string name="workout_reps">Reps per set:</string>
+    <string name="workout_weight">Weight used:</string>
+    <string name="workout_thoughts">Any thoughts?</string>
+    <string name="done_button">Done</string>
+    <string name="blank_input_error">Must not be blank</string>
+    <string name="double_check_toast">Please double check your input</string>
+
 </resources>

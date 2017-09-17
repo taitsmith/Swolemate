@@ -32,6 +32,7 @@ public class WorkoutDbContract {
         public static final String COLUMN_WORKOUT_NAME = "name";
         public static final String COLUMN_WEIGHT = "weight";
         public static final String COLUMN_REPS = "reps";
+        public static final String COLUMN_SETS = "sets";
         public static final String COLUMN_THOUGHTS = "thoughts";
 
     }

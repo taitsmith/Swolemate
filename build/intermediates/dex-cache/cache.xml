@@ -165,6 +165,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tait/.android/build-cache/d995a292dc3c070dca01400f39d6b843552e2d10/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="1c3b9743fe8bb166a90a7e98b9b9f1f8021d80cd">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f493d5f45c87f9e23eaba195f3ccc3347bec9323/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tait/.android/build-cache/56d4c3a622c8e84f34f975d9e207b996634d5fb1/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -187,7 +196,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="1896b225b8e3f0aa4442344fd6d252677afb7800">
+        sha1="03d1c8804b9d5092288ede1f095fdc42dbdc0af0">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a69ab4e9a347f6ba7eb2095e1d7acadddbd957ef/classes.dex" />
     </item>
     <item
