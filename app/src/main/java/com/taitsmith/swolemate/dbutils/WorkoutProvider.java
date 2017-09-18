@@ -12,6 +12,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.taitsmith.swolemate.R;
 
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.CONTENT_AUTHORITY;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
@@ -101,7 +104,9 @@ public class WorkoutProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri, null);
 
-        Log.d("INSERT LOG :", " INSERTED");
+        Toast.makeText(getContext(), getContext().getString(R.string.successful_save_toast),
+                Toast.LENGTH_SHORT).show();
+
         return  returnUri;
     }
 

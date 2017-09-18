@@ -70,15 +70,16 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/weightsLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/selectWorkoutSpinner"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout">
+        app:theme="@style/EditTextLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/workoutWeightUsed"
@@ -97,16 +98,17 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/setsLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/weightsLayout"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:backgroundTint="@color/colorPrimaryDark"
-        app:theme="@style/EditTextLayout">
+        app:theme="@style/EditTextLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/workoutAddSets"
@@ -126,15 +128,16 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/repsLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/setsLayout"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout">
+        app:theme="@style/EditTextLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/workoutAddReps"
@@ -153,15 +156,16 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/thoughtsLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/repsLayout"
-        android:layout_marginTop="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout">
+        app:theme="@style/EditTextLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/workoutThoughts"
@@ -178,7 +182,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/doneButton"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -187,9 +191,22 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="@string/done_button"
+        android:text="@string/save_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/cancel_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline3" />
 
 </android.support.constraint.ConstraintLayout>

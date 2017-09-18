@@ -9,8 +9,20 @@
     <string name="workout_reps">Reps per set:</string>
     <string name="workout_weight">Weight used:</string>
     <string name="workout_thoughts">Any thoughts?</string>
-    <string name="done_button">Done</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
     <string name="blank_input_error">Must not be blank</string>
     <string name="double_check_toast">Please double check your input</string>
+
+    <!-- dialog strings -->
+    <string name="cancel_add_workout">Discard workout data and return to home screen?</string>
+    <string name="cancel_positive">Discard</string>
+    <string name="cancel_negative">Keep</string>
+    <string name="save_workout">Save workout data? Here\'s a recap:\n</string>
+    <string name="save_positive">Save</string>
+    <string name="save_negative">Keep editing</string>
+
+    <!-- misc -->
+    <string name="successful_save_toast">Workout saved successfully</string>
 
 </resources>

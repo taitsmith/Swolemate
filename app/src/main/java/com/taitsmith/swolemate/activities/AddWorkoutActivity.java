@@ -1,5 +1,6 @@
 package com.taitsmith.swolemate.activities;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.support.design.widget.TextInputEditText;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.ui.AlertDialogs;
 
 import java.time.LocalDate;
 
@@ -22,9 +24,11 @@ import butterknife.OnClick;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
+import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_THOUGHTS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static java.security.AccessController.getContext;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)
@@ -41,11 +45,15 @@ public class AddWorkoutActivity extends AppCompatActivity {
     TextInputEditText workoutThoughts;
     @BindView(R.id.thoughtsLayout)
     TextInputLayout thoughtsLayout;
-    @BindView(R.id.doneButton)
-    Button doneButton;
+    @BindView(R.id.saveButton)
+    Button saveButton;
+    @BindView(R.id.cancelButton)
+    Button cancelButton;
 
-    private String date, thoughts, name;
-    private int weight, sets, reps;
+    private static ContentResolver resolver;
+
+    private static String date, thoughts, name;
+    private static int weight, sets, reps;
 
 
     @Override
@@ -54,27 +62,38 @@ public class AddWorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_workout);
         ButterKnife.bind(this);
 
+        resolver = getContentResolver();
+
         date = LocalDate.now().toString().substring(6);
 
         dateTv.setText(getString(R.string.add_workout_date, date));
     }
 
-    @OnClick(R.id.doneButton)
-    public void saveWorkout() {
+    @OnClick(R.id.saveButton)
+    public void showConfirmation() {
         if (!inputIsValid()) {
             Toast.makeText(this, getString(R.string.double_check_toast), Toast.LENGTH_SHORT).show();
         } else {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(COLUMN_DATE, date);
-            contentValues.put(COLUMN_WORKOUT_NAME, name);
-            contentValues.put(COLUMN_WEIGHT, weight);
-            contentValues.put(COLUMN_REPS, reps);
-            contentValues.put(COLUMN_SETS, sets);
-
-            ContentResolver resolver = getContentResolver();
-
-            resolver.insert(CONTENT_URI, contentValues);
+            getInputData();
+            AlertDialogs.saveWorkoutDialog(this, name, thoughts, reps, sets, weight);
         }
+    }
+
+    public static void saveWorkout() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_DATE, date);
+        contentValues.put(COLUMN_WORKOUT_NAME, name);
+        contentValues.put(COLUMN_WEIGHT, weight);
+        contentValues.put(COLUMN_REPS, reps);
+        contentValues.put(COLUMN_SETS, sets);
+        contentValues.put(COLUMN_THOUGHTS, thoughts);
+
+        resolver.insert(CONTENT_URI, contentValues);
+    }
+
+    @OnClick(R.id.cancelButton)
+    public void showCancelDialog() {
+        AlertDialogs.cancelAddWorkoutDialog(this);
     }
 
     public boolean inputIsValid() {
