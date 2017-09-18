@@ -64,9 +64,9 @@ public class AddWorkoutActivity extends AppCompatActivity {
 
         resolver = getContentResolver();
 
-        date = LocalDate.now().toString().substring(6);
+        date = LocalDate.now().toString();
 
-        dateTv.setText(getString(R.string.add_workout_date, date));
+        dateTv.setText(getString(R.string.add_workout_date, date.substring(6)));
     }
 
     @OnClick(R.id.saveButton)

@@ -123,6 +123,7 @@ public class WorkoutProvider extends ContentProvider {
             default:
                 throw new UnsupportedOperationException(UNKNOWN_URI + uri);
         }
+        Log.d("LOG ", "DELETED");
         return rowsDeleted;
     }
 
@@ -142,8 +143,7 @@ public class WorkoutProvider extends ContentProvider {
                         selectionArgs, //a completed 'session'
                         null,
                         null,
-                        null
-                        );
+                        null);
                 break;
             default:
                 throw new UnsupportedOperationException(UNKNOWN_URI + uri);

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Session {
     private List<Workout> workoutList;
+    private String date;
 
     public List<Workout> getWorkoutList() {
         return workoutList;
@@ -16,5 +17,17 @@ public class Session {
 
     public void setWorkoutList(List<Workout> workoutList) {
         this.workoutList = workoutList;
+    }
+
+    public static Session createSession() {
+        return null;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

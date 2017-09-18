@@ -13,7 +13,7 @@ import com.taitsmith.swolemate.R;
  * Shows details of a selected past workout
  */
 
-public class PastWorkoutsDetailFragment extends Fragment {
+public class WorkoutDetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

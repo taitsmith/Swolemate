@@ -24,5 +24,6 @@
 
     <!-- misc -->
     <string name="successful_save_toast">Workout saved successfully</string>
+    <string name="session_date_label">Workout session from:</string>
 
 </resources>
