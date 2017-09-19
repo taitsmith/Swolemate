@@ -104,9 +104,6 @@ public class WorkoutProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri, null);
 
-        Toast.makeText(getContext(), getContext().getString(R.string.successful_save_toast),
-                Toast.LENGTH_SHORT).show();
-
         return  returnUri;
     }
 

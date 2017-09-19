@@ -13,7 +13,7 @@ import com.taitsmith.swolemate.R;
 import java.util.List;
 
 /**
- * Holds all of the data for past sessionsv to be displayed in the main activity fragment.
+ * Holds all of the data for past workout {@link Session} to be displayed in the main activity fragment.
  *
  */
 
@@ -53,12 +53,15 @@ public class PastSessionsAdapter extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.workoutDate = view.findViewById(R.id.sessionDateView);
+            holder.workoutsCompleted = view.findViewById(R.id.sessionWorkoutsCompleteView);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
         Session session = sessions.get(i);
+
+        List<Workout> workouts = session.getWorkoutList();
 
         holder.workoutDate.setText(session.getDate());
 
@@ -67,6 +70,7 @@ public class PastSessionsAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView workoutDate;
+        TextView workoutsCompleted;
     }
 
     public List<Session> createSessions(Context context) {

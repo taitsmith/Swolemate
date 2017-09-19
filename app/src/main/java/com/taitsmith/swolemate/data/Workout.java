@@ -1,6 +1,5 @@
 package com.taitsmith.swolemate.data;
 
-import java.util.List;
 
 /**
  * All of the relevant info to turn data from the SQLite db into an object. A group makes up each
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class Workout {
     public String date, thoughts, name;
-    public int weight, reps;
+    public int weight, reps, sets;
 
     public String getDate() {
         return date;
@@ -49,5 +48,13 @@ public class Workout {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
     }
 }
