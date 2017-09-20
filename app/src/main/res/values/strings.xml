@@ -29,4 +29,11 @@
     <string name="session_summary_date_label">Workout session from:</string>
     <string name="session_summary_workouts_completed">Workouts completed:</string>
 
+    <!-- strings for detail fragment -->
+    <string name="detail_listview_reps">Reps per set:</string>
+    <string name="detail_listview_weight">Weight used:</string>
+    <string name="detail_listview_sets">Sets:</string>
+    <string name="detail_listview_thought">Your thoughts on this workout:</string>
+    <string name="detail_listview_workout_name">Workout</string>
+
 </resources>

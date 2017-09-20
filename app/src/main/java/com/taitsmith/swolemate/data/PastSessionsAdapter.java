@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.taitsmith.swolemate.R;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * Holds all of the data for past workout {@link Session} to be displayed in the main activity fragment.
@@ -64,6 +65,7 @@ public class PastSessionsAdapter extends BaseAdapter {
         List<Workout> workouts = session.getWorkoutList();
 
         holder.workoutDate.setText(session.getDate());
+        holder.workoutsCompleted.setText(Integer.toString(workouts.size()));
 
         return view;
     }

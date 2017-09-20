@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,6 +66,7 @@ public class AddWorkoutActivity extends AppCompatActivity {
         resolver = getContentResolver();
 
         date = LocalDate.now().toString();
+        Log.d("LOG: ", date);
 
         dateTv.setText(getString(R.string.add_workout_date, date.substring(6)));
     }

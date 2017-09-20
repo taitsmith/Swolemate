@@ -5,23 +5,16 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.Session;
-import com.taitsmith.swolemate.dbutils.SessionCreator;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,10 +26,9 @@ import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COL
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
-import static com.taitsmith.swolemate.ui.PastSessionsListFragment.setSessionList;
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Session>>{
+public class MainActivity extends AppCompatActivity {
     @BindView(R.id.adView)
     AdView adView;
     @BindView(R.id.addWorkoutFab)
@@ -45,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     FloatingActionButton makeFakeData;
     @BindView(R.id.deleteDataFab)
     FloatingActionButton deleteData;
-
 
     private boolean isTwoPane;
     private WorkoutDetailFragment detailFragment;
@@ -62,16 +53,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
 
-        LoaderManager.LoaderCallbacks<List<Session>> callbacks = MainActivity.this;
-        getSupportLoaderManager().initLoader(420, null, callbacks);
+        setUi();
     }
 
-    private void setUi(List<Session> sessionList) {
+    private void setUi() {
         FragmentManager manager = getSupportFragmentManager();
 
-        //we have to use the sessionList from our loader to set the
-        //data for the fragment
-        setSessionList(sessionList);
 
         //since we've got two possible layouts for tablets and regular sized things,
         //it'll cause all sorts of problems if we try to add fragments in a view that
@@ -128,45 +115,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 resolver.insert(CONTENT_URI, values);
             }
         }
-    }
-
-    //db queries can be time consuming so we'll use a loader.
-    @Override
-    public Loader<List<Session>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<List<Session>>(this) {
-            List<Session> sessionList = null;
-
-            @Override
-            protected void onStartLoading() {
-                Toast.makeText(MainActivity.this, "Loading data...", Toast.LENGTH_SHORT).show();
-                if (sessionList != null) {
-                    deliverResult(sessionList);
-                } else {
-                    forceLoad();
-                }
-            }
-
-            @Override
-            public List<Session> loadInBackground() {
-                return SessionCreator.createSessionList(MainActivity.this);
-            }
-
-            @Override
-            public void deliverResult(List<Session> data) {
-                sessionList = data;
-                super.deliverResult(sessionList);
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Session>> loader, final List<Session> data) {
-        Toast.makeText(this, "All set!", Toast.LENGTH_LONG).show();
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Session>> loader) {
-        //i'm just here because i have to be.
     }
 }
