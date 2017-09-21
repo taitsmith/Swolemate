@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.SessionDetailAdapter;
 import com.taitsmith.swolemate.data.Workout;
 
@@ -41,7 +40,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.workout_detail_fragment, container, false);
+        View rootView =  inflater.inflate(R.layout.past_workout_detail_fragment, container, false);
         dateView = rootView.findViewById(R.id.summaryFragmentDateView);
         recyclerView = rootView.findViewById(R.id.workout_detail_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

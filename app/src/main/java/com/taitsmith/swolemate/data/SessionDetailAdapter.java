@@ -1,6 +1,5 @@
 package com.taitsmith.swolemate.data;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,15 +41,15 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
     }
 
     class WorkoutHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.detailListReps)
+        @BindView(R.id.detailListRepsView)
         TextView repsView;
-        @BindView(R.id.detailListSets)
+        @BindView(R.id.detailListSetsView)
         TextView setsView;
-        @BindView(R.id.detailListThoughts)
+        @BindView(R.id.detailListThoughtsView)
         TextView thoughtsView;
-        @BindView(R.id.detailListWorkoutName)
+        @BindView(R.id.detailListWorkoutNameView)
         TextView nameView;
-        @BindView(R.id.detailListWeight)
+        @BindView(R.id.detailListWeightView)
         TextView weightView;
 
         WorkoutHolder(View workoutview){
