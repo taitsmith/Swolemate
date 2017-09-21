@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CON
 
 
 public class MainActivity extends AppCompatActivity {
+    @Nullable
     @BindView(R.id.adView)
     AdView adView;
     @BindView(R.id.addWorkoutFab)

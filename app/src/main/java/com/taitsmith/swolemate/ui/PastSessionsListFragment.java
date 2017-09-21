@@ -85,7 +85,6 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     public void onLoadFinished(Loader<List<Session>> loader, final List<Session> data) {
         final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), data);
         gridView.setAdapter(adapter);
-        WorkoutDetailFragment.set(data.get(0).getWorkoutList(), getContext());
     }
 
     @Override

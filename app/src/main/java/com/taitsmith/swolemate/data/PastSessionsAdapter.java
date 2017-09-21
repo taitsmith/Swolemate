@@ -74,8 +74,4 @@ public class PastSessionsAdapter extends BaseAdapter {
         TextView workoutDate;
         TextView workoutsCompleted;
     }
-
-    public List<Session> createSessions(Context context) {
-        return null;
-    }
 }

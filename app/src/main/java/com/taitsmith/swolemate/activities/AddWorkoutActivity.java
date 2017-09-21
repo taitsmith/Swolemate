@@ -1,6 +1,5 @@
 package com.taitsmith.swolemate.activities;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.support.design.widget.TextInputEditText;
@@ -29,7 +28,6 @@ import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COL
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
-import static java.security.AccessController.getContext;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)

@@ -20,12 +20,11 @@ import butterknife.ButterKnife;
  */
 
 public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdapter.WorkoutHolder>{
-    private Context context;
+
     private List<Workout> workoutList;
 
-    public SessionDetailAdapter(Context context, List<Workout> workoutList){
+    public SessionDetailAdapter(List<Workout> workoutList){
         this.workoutList = workoutList;
-        this.context = context;
     }
 
     @Override
@@ -54,18 +53,18 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
         @BindView(R.id.detailListWeight)
         TextView weightView;
 
-        public WorkoutHolder(View workoutview){
+        WorkoutHolder(View workoutview){
             super(workoutview);
-            ButterKnife.bind(context, workoutview);
+            ButterKnife.bind(this, workoutview);
         }
 
         void bind(int position) {
             Workout workout = workoutList.get(position);
-            repsView.setText(workout.getReps());
-            setsView.setText(workout.getSets());
+            repsView.setText(Integer.toString(workout.getReps()));
+            setsView.setText(Integer.toString(workout.getSets()));
             thoughtsView.setText(workout.getThoughts());
             nameView.setText(workout.getName());
-            weightView.setText(workout.getWeight());
+            weightView.setText(Integer.toString(workout.getWeight()));
         }
 
     }
