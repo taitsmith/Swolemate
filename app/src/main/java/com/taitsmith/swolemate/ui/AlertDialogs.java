@@ -1,16 +1,21 @@
 package com.taitsmith.swolemate.ui;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.IntegerRes;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.MainActivity;
 
 import static com.taitsmith.swolemate.activities.AddWorkoutActivity.saveWorkout;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.PERMISSION_REQUEST_FINE_LOCATION;
 
 
 /**
@@ -87,6 +92,23 @@ public class AlertDialogs {
                 builder.create().cancel();
             }
         });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public static void informPermissions(final Activity activity) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        builder.setMessage(activity.getString(R.string.inform_permissions_message));
+        builder.setPositiveButton(activity.getString(R.string.inform_permission_positive),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                PERMISSION_REQUEST_FINE_LOCATION);
+                    }
+                });
 
         AlertDialog dialog = builder.create();
         dialog.show();

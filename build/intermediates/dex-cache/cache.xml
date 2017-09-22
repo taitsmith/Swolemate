@@ -39,6 +39,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tait/.android/build-cache/f33b1e2038b4ac417038bb2d72da6a074140d1c3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_570e46397be790e80d25a21d93ab12f49e578cba/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tait/.android/build-cache/63baa0a8b1dc1a1872701e5d316da2887f9c0ead/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -129,6 +138,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tait/.android/build-cache/12b26a5f741044e7b1f7939b4236e650b5e2624a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="f3e51e9c5233b8897f61e08a6a27bc36283c2724">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_85aa480da6aafa5ca3927c06dbff81317bce601e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tait/.android/build-cache/13b52f8472ec5ad230f170a8b178fc31ed809037/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -196,7 +214,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="03d1c8804b9d5092288ede1f095fdc42dbdc0af0">
+        sha1="a3caad13aafda7b297e553088ea87745e33c3fce">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a69ab4e9a347f6ba7eb2095e1d7acadddbd957ef/classes.dex" />
     </item>
     <item
@@ -207,6 +225,15 @@
         revision="26.0.1"
         sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.2_620d86639fff0d696f5bd6ae406fbe20a14c0d35/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/.android/build-cache/da2a56f68629c7f71ae80db74a83f139060c9fa4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_64cb3c609b8c08fa3e3ab4e57526fb997720f4f1/classes.dex" />
     </item>
     <item
         is-multidex="true"

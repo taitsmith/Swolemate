@@ -1,5 +1,6 @@
 package com.taitsmith.swolemate.ui;
 
+import android.content.Context;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.taitsmith.swolemate.R;
@@ -32,8 +34,24 @@ import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
  */
 
 public class PastSessionsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Session>>{
-
+    OnWorkoutClickListener listener;
     private GridView gridView;
+
+    public interface OnWorkoutClickListener {
+        void onWorkoutSelected(int position);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (OnWorkoutClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + "Must implement OnWorkoutClickListenter");
+        }
+    }
 
     @Nullable
     @Override
@@ -85,6 +103,12 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     public void onLoadFinished(Loader<List<Session>> loader, final List<Session> data) {
         final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), data);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                listener.onWorkoutSelected(position);
+            }
+        });
     }
 
     @Override

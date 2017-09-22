@@ -21,7 +21,7 @@ import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CON
 public class SessionCreator {
     public static List<Session> sessionList;
     public static List<Workout> workoutList;
-    private static String[] dates = {"1","2","3"};
+    private static String[] dates = {"1","2","3", "4","5","6","7","8","9"};
 
     public static List<Session> createSessionList(Context context) {
         sessionList = new ArrayList<>();
@@ -62,37 +62,29 @@ public class SessionCreator {
         return  sessionList;
     }
 
-    @Nullable
-    public static List<Workout> createWorkoutList(Context context, @Nullable Integer position) {
+    public static List<Workout> createWorkoutList(Context context,  int position) {
         workoutList = new ArrayList<>();
 
-        if (sessionList == null) {
-            ContentResolver resolver = context.getContentResolver();
-            Cursor cursor = resolver.query(CONTENT_URI,
-                    null,
-                    null,
-                    new String[]{dates[0]},
-                    null);
+        ContentResolver resolver = context.getContentResolver();
+        Cursor cursor = resolver.query(CONTENT_URI,
+                null,
+                null,
+                new String[]{dates[position]},
+                null);
 
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
-            do {
-                Workout workout = new Workout();
-                workout.setDate(cursor.getString(1));
-                workout.setName(cursor.getString(2));
-                workout.setWeight(cursor.getInt(3));
-                workout.setReps(cursor.getInt(4));
-                workout.setSets(cursor.getInt(5));
-                workout.setThoughts(cursor.getString(6));
-                workoutList.add(workout);
-
-            } while (cursor.moveToNext());
-            cursor.close();
-
-        } else {
-            workoutList = sessionList.get(0).getWorkoutList();
-        }
-
+        do {
+            Workout workout = new Workout();
+            workout.setDate(cursor.getString(1));
+            workout.setName(cursor.getString(2));
+            workout.setWeight(cursor.getInt(3));
+            workout.setReps(cursor.getInt(4));
+            workout.setSets(cursor.getInt(5));
+            workout.setThoughts(cursor.getString(6));
+            workoutList.add(workout);
+        } while (cursor.moveToNext());
+        cursor.close();
 
         return workoutList;
     }

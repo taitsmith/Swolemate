@@ -21,6 +21,10 @@
     <string name="save_workout">Save workout data? Here\'s a recap:\n</string>
     <string name="save_positive">Save</string>
     <string name="save_negative">Keep editing</string>
+    <string name="inform_permissions_message">Swolemate will ask you for permission to access your device\'s
+        location. This is used only to detect when you\'ve entered the gym in order to provide a more
+        engaging experience.</string>
+    <string name="inform_permission_positive">Got it</string>
 
     <!-- misc -->
     <string name="successful_save_toast">Workout saved successfully</string>

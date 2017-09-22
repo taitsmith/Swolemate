@@ -22,6 +22,9 @@ import com.taitsmith.swolemate.data.Workout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.taitsmith.swolemate.dbutils.SessionCreator.createWorkoutList;
 
 /**
@@ -29,8 +32,12 @@ import static com.taitsmith.swolemate.dbutils.SessionCreator.createWorkoutList;
  */
 
 public class WorkoutDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Workout>> {
+    @BindView(R.id.summaryFragmentDateView)
     TextView dateView;
-    private RecyclerView recyclerView;
+    @BindView(R.id.workout_detail_recycler)
+    RecyclerView recyclerView;
+
+    static int sessionPosition;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -41,8 +48,8 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.past_workout_detail_fragment, container, false);
-        dateView = rootView.findViewById(R.id.summaryFragmentDateView);
-        recyclerView = rootView.findViewById(R.id.workout_detail_recycler);
+        ButterKnife.bind(this, rootView);
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
 
@@ -70,7 +77,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
             public List<Workout> loadInBackground() {
                 List<Workout> workoutList = new ArrayList<>();
                 try {
-                    workoutList = createWorkoutList(getContext(), null);
+                    workoutList = createWorkoutList(getContext(), sessionPosition);
                 } catch (CursorIndexOutOfBoundsException e) {
                     Log.d("LOG ", e.toString());
                 }
@@ -89,10 +96,15 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Workout>> loader, List<Workout> data) {
         final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
         recyclerView.setAdapter(adapter);
+        dateView.setText(Integer.toString(sessionPosition));
     }
 
     @Override
     public void onLoaderReset(Loader<List<Workout>> loader) {
+        //just taking up space
+    }
 
+    public static void setSessionPosition(int position) {
+        sessionPosition = position;
     }
 }
