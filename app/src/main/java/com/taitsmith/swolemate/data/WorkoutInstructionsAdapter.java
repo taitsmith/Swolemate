@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.taitsmith.swolemate.R;
 
-import java.util.List;
-
 /**
  * To display list of workouts, allows users to select one and view its contents.
  */
@@ -29,7 +27,7 @@ public class WorkoutInstructionsAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return workoutList.length();
     }
     @Override
     public long getItemId(int i) {

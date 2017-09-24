@@ -3,12 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/home/tait/Android/Projects/swolemate/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/home/tait/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.1.1/e336eaee0493d7a441c8e7adbaf38d1d78e58596/annotations-4.1.1.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a42b6f1c651452c1b67ea49c90ee5fe76c8e2ebc/classes.dex" />
+        sha1="e336eaee0493d7a441c8e7adbaf38d1d78e58596">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/annotations-4.1.1_a6301f260bc25faba5aec371279fb57a8b916d94/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -18,6 +18,42 @@
         revision="26.0.1"
         sha1="3a65a432837bd235d81423161d7f35a52a4f9b39">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a69ab4e9a347f6ba7eb2095e1d7acadddbd957ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.1.1/d02b9bad9380a7f98248e58ec9df65023226259e/disklrucache-4.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d02b9bad9380a7f98248e58ec9df65023226259e">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/disklrucache-4.1.1_b224a2f75203a7d0336dde5d4f0e11eb31ca15ad/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.1.1/5cf10dddd902443677b1614579f1183f952f3666/glide-4.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5cf10dddd902443677b1614579f1183f952f3666">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-4.1.1_9080f7742266ee7f232f77b504ec45d0d860dc9c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/Android/Projects/swolemate/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a42b6f1c651452c1b67ea49c90ee5fe76c8e2ebc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.1.1/df97c1211882e43d08911e0b82eb6e1b25b3d311/gifdecoder-4.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="df97c1211882e43d08911e0b82eb6e1b25b3d311">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10/gifdecoder-4.1.1_fc3420d31273a63844a0af2ec50377bed8698599/classes.dex" />
     </item>
 
 </items>

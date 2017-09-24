@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO add some more. -->
     <string-array name="workout_list">
-        <item>One</item>
-        <item>Two</item>
-        <item>Three</item>
-        <item>Four</item>
+        <item>Abs</item>
+        <item>Bicep</item>
+        <item>Calf</item>
+        <item>Chest</item>
+        <item>Forearm</item>
+        <item>Hamstring</item>
+        <item>Lats</item>
+        <item>Quadricep</item>
+        <item>Shoulder</item>
+        <item>Trapezius</item>
+        <item>Tricep</item>
     </string-array>
 </resources>
