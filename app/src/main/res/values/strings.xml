@@ -40,4 +40,8 @@
     <string name="detail_listview_thought">Your thoughts on this workout:</string>
     <string name="detail_listview_workout_name">Workout</string>
 
+    <!-- menu strings -->
+    <string name="menu_set_home">Set gym location</string>
+    <string name="menu_settings">Settings</string>
+
 </resources>

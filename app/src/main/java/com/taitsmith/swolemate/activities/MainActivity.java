@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -124,14 +123,8 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
     //Just for debugging.
     @OnClick(R.id.deleteDataFab)
     public void deleteStuff() {
-        ContentResolver resolver = getContentResolver();
-        try {
-            resolver.delete(CONTENT_URI,
-                    null,
-                    null);
-        } catch (Exception e) {
-            Toast.makeText(this, "Nothing to delete", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(this, InstructionSummaryActivity.class);
+        startActivity(intent);
     }
 
     //instead of manually going in and entering a ton of fake workouts for testing, we'll

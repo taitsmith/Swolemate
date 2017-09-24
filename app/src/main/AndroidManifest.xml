@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.taitsmith.swolemate">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".activities.SwolemateApplication"
@@ -12,6 +13,10 @@
         android:roundIcon="@drawable/add_workout"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCmXNIpLSUQwqujVgPFYqqg16YQ0XBehZQ" />
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +33,13 @@
         <activity
             android:name=".activities.AddWorkoutActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activities.SessionDetailActivity"
+            android:launchMode="singleTop" />
 
-        <activity android:name=".activities.SessionDetailActivity"
-            android:launchMode="singleTop"/>
+        <receiver android:name=".data.GeofenceReceiver" />
+
+        <activity android:name=".activities.InstructionSummaryActivity"></activity>
     </application>
 
 </manifest>
