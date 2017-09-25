@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -25,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.taitsmith.swolemate.R.id.adView;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
@@ -39,12 +43,6 @@ import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPositio
 public class MainActivity extends AppCompatActivity implements PastSessionsListFragment.OnWorkoutClickListener {
     @BindView(R.id.adView)
     AdView adView;
-    @BindView(R.id.addWorkoutFab)
-    FloatingActionButton addWorkoutFab;
-    @BindView(R.id.makeFakeDataFab)
-    FloatingActionButton makeFakeData;
-    @BindView(R.id.deleteDataFab)
-    FloatingActionButton deleteData;
 
     public static boolean hasBeenUpdated;
 
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         adView.loadAd(adRequest);
     }
 
-    @OnClick(R.id.addWorkoutFab)
     public void onClickAddWorkout() {
         Intent intent = new Intent(this, AddWorkoutActivity.class);
         startActivity(intent);
@@ -120,16 +117,8 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         }
     }
 
-    //Just for debugging.
-    @OnClick(R.id.deleteDataFab)
-    public void deleteStuff() {
-        Intent intent = new Intent(this, InstructionSummaryActivity.class);
-        startActivity(intent);
-    }
-
     //instead of manually going in and entering a ton of fake workouts for testing, we'll
     //create X sessions containing Y workouts each.
-    @OnClick(R.id.makeFakeDataFab)
     public void makeUpWorkouts() {
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
@@ -145,6 +134,25 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
 
                 resolver.insert(CONTENT_URI, values);
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemSelected = item.getItemId();
+        switch (itemSelected) {
+            case R.id.menu_fake_data:
+                makeUpWorkouts();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

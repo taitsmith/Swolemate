@@ -19,10 +19,6 @@ public class SessionDetailActivity extends AppCompatActivity {
         WorkoutDetailFragment fragment = new WorkoutDetailFragment();
         FragmentManager manager = getSupportFragmentManager();
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setElevation(4);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         if (getIntent().hasExtra("SESSION_ID")) {
             setSessionPosition(getIntent().getIntExtra("SESSION_ID", 0));
             manager.beginTransaction()

@@ -8,4 +8,17 @@
         android:title="@string/menu_settings"
         android:id="@+id/menu_settings"
         android:orderInCategory="2"/>
+    <item
+        android:title="@string/menu_fake_data"
+        android:id="@+id/menu_fake_data"
+        android:orderInCategory="3"/>
+    <item
+        android:title="@string/menu_workout_instructions"
+        android:id="@+id/menu_workout_instructions"
+        android:orderInCategory="4"/>
+    <item
+        android:title="@string/menu_about_app"
+        android:id="@+id/menu_about"
+        android:orderInCategory="5"/>
+
 </menu>

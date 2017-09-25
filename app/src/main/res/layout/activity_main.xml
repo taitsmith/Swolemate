@@ -40,12 +40,21 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-
-    <FrameLayout
-        android:id="@+id/past_workouts_list_fragment"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_gravity="top|fill"
+        android:layout_marginBottom="160dp"
+        ads:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:id="@+id/past_workouts_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill"
+            android:nestedScrollingEnabled="true"/>
+
+    </android.support.v4.widget.NestedScrollView>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -55,63 +64,11 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center|bottom"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
-
-    <!-- The Fab in the library I'm using doesn't inherit colors from the apps theme
-        by default so they need to be included here. Its layout also prevents it from being
-         set on the frame border with layout_anchorGravity, so its set at the bottom end of
-         the parent view for now. -->
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/floatingActionMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:menu_colorPressed="@color/colorPrimaryDark"
-        fab:menu_colorNormal="@color/colorPrimaryDark"
-        fab:menu_openDirection="up">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/addWorkoutFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:src="@drawable/add_workout"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_colorPressed="@color/colorPrimaryDark"
-            fab:fab_colorRipple="@color/colorPrimaryDark"
-            fab:fab_label="Add a new workout" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/makeFakeDataFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:src="@drawable/add_workout"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_colorPressed="@color/colorPrimaryDark"
-            fab:fab_colorRipple="@color/colorPrimaryDark"
-            fab:fab_label="Make some fake data" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/deleteDataFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/colorPrimaryDark"
-            android:src="@drawable/add_workout"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_colorPressed="@color/colorPrimaryDark"
-            fab:fab_colorRipple="@color/colorPrimaryDark"
-            fab:fab_label="Delete your fake data" />
-
-    </com.github.clans.fab.FloatingActionMenu>
-
+        ads:adUnitId="@string/banner_ad_unit_id"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        ads:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        ads:layout_constraintLeft_toLeftOf="parent" />
 </android.support.design.widget.CoordinatorLayout>
