@@ -39,7 +39,8 @@
 
         <receiver android:name=".data.GeofenceReceiver" />
 
-        <activity android:name=".activities.InstructionSummaryActivity"></activity>
+        <activity android:name=".activities.InstructionSummaryActivity" />
+        <activity android:name=".activities.InstructionDetailActivity"></activity>
     </application>
 
 </manifest>

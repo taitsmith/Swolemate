@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.taitsmith.swolemate.activities.InstructionSummaryActivity">
+    tools:context="com.taitsmith.swolemate.activities.InstructionDetailActivity">
 
     <FrameLayout
-        android:id="@+id/instruction_list_fragment"
+        android:id="@+id/instruction_detail_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
-
+        android:layout_marginBottom="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"/>
 
 </android.support.constraint.ConstraintLayout>
