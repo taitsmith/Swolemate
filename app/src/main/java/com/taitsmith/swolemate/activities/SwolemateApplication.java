@@ -1,6 +1,7 @@
 package com.taitsmith.swolemate.activities;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -8,21 +9,31 @@ import android.support.v4.content.ContextCompat;
 import com.taitsmith.swolemate.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static android.os.Build.VERSION.SDK;
 import static android.os.Build.VERSION.SDK_INT;
 
 
 /**
- * Set everything up, check permissions, etc.
+ * Sets up our important lists, shared preferences.
  */
 
 public class SwolemateApplication extends Application {
     public static List<Integer> gifList;
+    public static Set<String> sessionDates;
+    public static SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sharedPreferences = getSharedPreferences("SHARED_PREFS", 0);
+
+        sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
 
         gifList = new ArrayList<>();
 

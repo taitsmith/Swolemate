@@ -7,15 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.taitsmith.swolemate.R;
@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.taitsmith.swolemate.R.id.adView;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
@@ -43,6 +43,8 @@ import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPositio
 public class MainActivity extends AppCompatActivity implements PastSessionsListFragment.OnWorkoutClickListener {
     @BindView(R.id.adView)
     AdView adView;
+    @BindView(R.id.addWorkoutFab)
+    FloatingActionButton addWorkoutFab;
 
     public static boolean hasBeenUpdated;
 
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         preferences = getSharedPreferences("SHARED_PREFS", 0);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         listFragment = new PastSessionsListFragment();
         detailFragment = new WorkoutDetailFragment();
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         adView.loadAd(adRequest);
     }
 
+    @OnClick(R.id.addWorkoutFab)
     public void onClickAddWorkout() {
         Intent intent = new Intent(this, AddWorkoutActivity.class);
         startActivity(intent);
@@ -120,17 +126,21 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
     //instead of manually going in and entering a ton of fake workouts for testing, we'll
     //create X sessions containing Y workouts each.
     public void makeUpWorkouts() {
+        String[] fakeDates = {"2017-9-13", "2017-9-14", "2017-9-15", "2017-9-16", "2017-9-17",
+                "2017-9-18", "2017-9-19", "2017-9-20", "2017-9-21"};
+
         Random r = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             ContentValues values = new ContentValues();
             ContentResolver resolver = getContentResolver();
             for (int j = 0; j < 4; j++) {
-                values.put(COLUMN_DATE, Integer.toString(i + 1));
+                values.put(COLUMN_DATE, fakeDates[i]);
                 values.put(COLUMN_WEIGHT, 420);
                 values.put(COLUMN_REPS, r.nextInt(50));
                 values.put(COLUMN_SETS, r.nextInt(5));
                 values.put(COLUMN_THOUGHTS, "i am so strong");
                 values.put(COLUMN_WORKOUT_NAME, "LIFTING A CAR");
+                sessionDates.add(fakeDates[i]);
 
                 resolver.insert(CONTENT_URI, values);
             }
@@ -151,8 +161,17 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
             case R.id.menu_fake_data:
                 makeUpWorkouts();
                 return true;
+            case R.id.menu_about:
+                deleteFakeData();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void deleteFakeData() {
+        ContentResolver resolver = getContentResolver();
+
+        resolver.delete(CONTENT_URI, null, null);
     }
 }

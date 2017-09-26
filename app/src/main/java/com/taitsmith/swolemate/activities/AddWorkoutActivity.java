@@ -2,6 +2,7 @@ package com.taitsmith.swolemate.activities;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
@@ -89,6 +92,12 @@ public class AddWorkoutActivity extends AppCompatActivity {
         contentValues.put(COLUMN_THOUGHTS, thoughts);
 
         resolver.insert(CONTENT_URI, contentValues);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        sessionDates.add(date);
+        editor.putStringSet("DATES", sessionDates);
+        editor.apply();
+
     }
 
     @OnClick(R.id.cancelButton)

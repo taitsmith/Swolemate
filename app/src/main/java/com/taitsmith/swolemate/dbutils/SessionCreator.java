@@ -11,6 +11,7 @@ import com.taitsmith.swolemate.data.Workout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
 
 /**
@@ -21,7 +22,7 @@ import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CON
 public class SessionCreator {
     public static List<Session> sessionList;
     public static List<Workout> workoutList;
-    private static String[] dates = {"1","2","3", "4","5","6","7","8","9"};
+    private static String[] dateArray;
 
     public static List<Session> createSessionList(Context context) {
         sessionList = new ArrayList<>();
@@ -30,7 +31,7 @@ public class SessionCreator {
         ContentResolver resolver = context.getContentResolver();
 
 
-        for (String s : dates) {
+        for (String s : sessionDates) {
 
             Cursor cursor = resolver.query(CONTENT_URI,
                     null,
@@ -64,12 +65,13 @@ public class SessionCreator {
 
     public static List<Workout> createWorkoutList(Context context,  int position) {
         workoutList = new ArrayList<>();
+        dateArray = sessionDates.toArray(new String[sessionDates.size()]);
 
         ContentResolver resolver = context.getContentResolver();
         Cursor cursor = resolver.query(CONTENT_URI,
                 null,
                 null,
-                new String[]{dates[position]},
+                new String[]{dateArray[position]},
                 null);
 
         cursor.moveToFirst();

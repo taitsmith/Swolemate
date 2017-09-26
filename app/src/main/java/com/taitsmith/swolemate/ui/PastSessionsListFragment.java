@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ListView;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
@@ -35,7 +35,7 @@ import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
 
 public class PastSessionsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Session>>{
     OnWorkoutClickListener listener;
-    private GridView gridView;
+    private ListView listView;
 
     public interface OnWorkoutClickListener {
         void onWorkoutSelected(int position);
@@ -57,7 +57,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.past_workouts_fragment, container, false);
-        gridView = rootView.findViewById(R.id.past_workouts_grid_view);
+        listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
         LoaderManager.LoaderCallbacks<List<Session>> callbacks = this;
         getActivity().getSupportLoaderManager().initLoader(420, null, callbacks);
@@ -102,8 +102,8 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     @Override
     public void onLoadFinished(Loader<List<Session>> loader, final List<Session> data) {
         final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), data);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 listener.onWorkoutSelected(position);
