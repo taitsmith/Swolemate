@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.PastSessionsAdapter;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
 
@@ -29,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
+import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
     AdView adView;
     @BindView(R.id.addWorkoutFab)
     FloatingActionButton addWorkoutFab;
+    @Nullable
+    @BindView(R.id.past_workouts_list_view)
+    ListView workoutsListView;
 
     public static boolean hasBeenUpdated;
 
@@ -90,10 +97,9 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
                     .add(R.id.past_workouts_list_fragment, listFragment)
                     .commit();
         } else {
-            manager.beginTransaction()
-                    .add(R.id.past_workouts_list_fragment, listFragment)
-                    .commit();
-        }
+            PastSessionsAdapter adapter = new PastSessionsAdapter(this, createSessionList(this));
+            workoutsListView.setAdapter(adapter);
+            }
         
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("366D79E3B74228190ACAB86D24457619")
