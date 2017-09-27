@@ -40,7 +40,17 @@
         <receiver android:name=".data.GeofenceReceiver" />
 
         <activity android:name=".activities.InstructionSummaryActivity" />
-        <activity android:name=".activities.InstructionDetailActivity"></activity>
+        <activity android:name=".activities.InstructionDetailActivity" />
+
+        <receiver android:name=".ui.WeeklyWorkoutSummaryWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/last_workout_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

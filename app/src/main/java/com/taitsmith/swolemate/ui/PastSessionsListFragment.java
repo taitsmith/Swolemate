@@ -57,10 +57,11 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.past_workouts_fragment, container, false);
-        listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
         LoaderManager.LoaderCallbacks<List<Session>> callbacks = this;
-        getActivity().getSupportLoaderManager().initLoader(420, null, callbacks);
+        getActivity().getSupportLoaderManager().initLoader(11, null, callbacks);
+
+        listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
         return rootView;
     }

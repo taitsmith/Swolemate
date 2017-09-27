@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
             case R.id.menu_about:
                 deleteFakeData();
                 return true;
+            case R.id.menu_workout_instructions:
+                Intent intent = new Intent(this, InstructionSummaryActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }

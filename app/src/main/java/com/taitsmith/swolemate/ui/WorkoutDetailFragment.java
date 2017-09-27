@@ -78,7 +78,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
                 List<Workout> workoutList = new ArrayList<>();
                 try {
                     workoutList = createWorkoutList(getContext(), sessionPosition);
-                } catch (CursorIndexOutOfBoundsException e) {
+                } catch (CursorIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                     Log.d("LOG ", e.toString());
                 }
                 return workoutList;

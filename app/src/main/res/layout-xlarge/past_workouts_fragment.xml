@@ -4,5 +4,4 @@
     android:id="@+id/past_workouts_grid_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:nestedScrollingEnabled="true"/>
+    android:background="@color/colorPrimary"/>

@@ -17,9 +17,6 @@ public class InstructionDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_instruction_detail);
         int instruction;
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.drawable.add_workout);
-
         if (getIntent().hasExtra("INSTRUCTION_ID")) {
             instruction = getIntent().getIntExtra("INSTRUCTION_ID", 0);
             InstructionDetailFragment detailFragment = new InstructionDetailFragment();

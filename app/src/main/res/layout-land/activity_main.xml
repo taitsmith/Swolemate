@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.taitsmith.swolemate.activities.MainActivity">
 
-<android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:fitsSystemWindows="true"
-    android:elevation="4dp">
-
-<android.support.design.widget.CollapsingToolbarLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_gravity="bottom|center"
-        app:layout_collapseMode="pin"/>
-
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="76dp"/>
+        android:layout_height="160dp"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true">
 
-    </android.support.design.widget.CollapsingToolbarLayout>
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
@@ -46,10 +43,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center|bottom"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addWorkoutFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        ads:elevation="8dp"
+        ads:fabSize="mini"
+        ads:layout_anchor="@id/appbar_layout"
+        ads:layout_anchorGravity="bottom|end"
+        ads:srcCompat="@drawable/add_workout"
+        android:layout_margin="8dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
