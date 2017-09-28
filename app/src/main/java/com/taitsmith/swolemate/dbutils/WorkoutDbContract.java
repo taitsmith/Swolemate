@@ -14,6 +14,7 @@ import android.provider.BaseColumns;
 
 public class WorkoutDbContract {
     private static String PATH_WORKOUTS = "workouts";
+    private static String PATH_LOCATIONS = "locations";
 
     public static final String CONTENT_AUTHORITY = "com.taitsmith.swolemate";
 
@@ -34,6 +35,21 @@ public class WorkoutDbContract {
         public static final String COLUMN_REPS = "reps";
         public static final String COLUMN_SETS = "sets";
         public static final String COLUMN_THOUGHTS = "thoughts";
+
+    }
+
+    public static final class GymLocationEntry implements BaseColumns {
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI
+                .buildUpon()
+                .appendPath(PATH_LOCATIONS)
+                .build();
+
+        public static final String TABLE_NAME = "locations";
+
+        public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_LOCATION_NAME = "name";
+        public static final String COLUMN_LOCATION_LAT = "lat";
+        public static final String COLUMN_LOCATION_LONG = "long";
 
     }
 }

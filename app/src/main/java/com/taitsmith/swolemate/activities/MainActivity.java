@@ -19,9 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
@@ -36,13 +41,7 @@ import butterknife.OnClick;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
 import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_THOUGHTS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.*;
 import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissions;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
 
@@ -56,19 +55,17 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
     @BindView(R.id.past_workouts_list_view)
     ListView workoutsListView;
 
-    public static boolean hasBeenUpdated;
-
-    private SharedPreferences preferences;
     private boolean isTwoPane;
     private WorkoutDetailFragment detailFragment;
     private PastSessionsListFragment listFragment;
+
+    private static final int PLACE_PICKER_REQUEST = 34;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        preferences = getSharedPreferences("SHARED_PREFS", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
             //So here's the situation. ListView inside a fragment in a CollapsingToolbarLayout has
             //issues with nested scrolling for some reason. I spent quite a bit of time on it and there's
             //presumably some simple workaround, but for now we'll swap out the fragment for a plain
-            //old list view.
+            //old list view. This obviously cancels out the whole point of reusability in fragments.
             PastSessionsAdapter adapter = new PastSessionsAdapter(this, createSessionList(this));
             workoutsListView.setAdapter(adapter);
             workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -159,17 +156,16 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
             ContentValues values = new ContentValues();
             ContentResolver resolver = getContentResolver();
             for (int j = 0; j < 4; j++) {
-                values.put(COLUMN_DATE, fakeDates[i]);
-                values.put(COLUMN_WEIGHT, 420);
-                values.put(COLUMN_REPS, r.nextInt(50));
-                values.put(COLUMN_SETS, r.nextInt(5));
-                values.put(COLUMN_THOUGHTS, "i am so strong");
-                values.put(COLUMN_WORKOUT_NAME, "LIFTING A CAR");
+                values.put(WorkoutEntry.COLUMN_DATE, fakeDates[i]);
+                values.put(WorkoutEntry.COLUMN_WEIGHT, 420);
+                values.put(WorkoutEntry.COLUMN_REPS, r.nextInt(50));
+                values.put(WorkoutEntry.COLUMN_SETS, r.nextInt(5));
+                values.put(WorkoutEntry.COLUMN_THOUGHTS, "i am so strong");
+                values.put(WorkoutEntry.COLUMN_WORKOUT_NAME, "LIFTING A CAR");
 
                 sessionDates.add(fakeDates[i]);
 
-
-                resolver.insert(CONTENT_URI, values);
+                resolver.insert(WorkoutEntry.CONTENT_URI, values);
             }
         }
 
@@ -193,19 +189,40 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
                 makeUpWorkouts();
                 return true;
             case R.id.menu_about:
-                deleteFakeData();
                 return true;
             case R.id.menu_workout_instructions:
                 Intent intent = new Intent(this, InstructionSummaryActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.menu_set_home:
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                    Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void deleteFakeData() {
-        ContentResolver resolver = getContentResolver();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                ContentResolver resolver = getContentResolver();
+                ContentValues values = new ContentValues();
+                Place place = PlacePicker.getPlace(data, this);
+                String name = (String) place.getName();
+                double placeLong = place.getLatLng().longitude;
+                double placeLat = place.getLatLng().latitude;
 
-        resolver.delete(CONTENT_URI, null, null);
+                values.put(GymLocationEntry.COLUMN_LOCATION_NAME, name);
+                values.put(GymLocationEntry.COLUMN_LOCATION_LAT, placeLat);
+                values.put(GymLocationEntry.COLUMN_LOCATION_LONG, placeLong);
+
+                resolver.insert(GymLocationEntry.CONTENT_URI, values);
+            }
+        }
     }
 }

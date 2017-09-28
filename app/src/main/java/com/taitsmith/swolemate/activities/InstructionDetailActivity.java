@@ -20,7 +20,7 @@ public class InstructionDetailActivity extends AppCompatActivity {
         if (getIntent().hasExtra("INSTRUCTION_ID")) {
             instruction = getIntent().getIntExtra("INSTRUCTION_ID", 0);
             InstructionDetailFragment detailFragment = new InstructionDetailFragment();
-            detailFragment.setInstruction(instruction);
+            InstructionDetailFragment.setInstruction(instruction);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
                     .add(R.id.instruction_detail_fragment, detailFragment)

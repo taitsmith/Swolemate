@@ -44,7 +44,7 @@ public class InstructionSummaryActivity extends AppCompatActivity implements
     public void onWorkoutSelected(int position) {
         if (isTwoPane) {
             detailFragment = new InstructionDetailFragment();
-            detailFragment.setInstruction(position);
+            InstructionDetailFragment.setInstruction(position);
             manager.beginTransaction()
                     .add(R.id.instruction_detail_fragment, detailFragment)
                     .commit();
