@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
     //instead of manually going in and entering a ton of fake workouts for testing, we'll
     //create X sessions containing Y workouts each.
     public void makeUpWorkouts() {
-        String[] fakeDates = {"2017-9-13", "2017-9-14", "2017-9-15", "2017-9-16", "2017-9-17",
-                "2017-9-18", "2017-9-19", "2017-9-20", "2017-9-21"};
+        String[] fakeDates = {"2017-09-13", "2017-09-14", "2017-09-15", "2017-09-16", "2017-09-17",
+                "2017-09-18", "2017-09-19", "2017-09-20", "2017-09-21"};
 
         Random r = new Random();
         for (int i = 0; i < 9; i++) {

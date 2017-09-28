@@ -60,7 +60,10 @@ public class SessionCreator {
 
             session.setWorkoutList(workoutList);
             sessionList.add(session);
+
             session = new Session();
+            workoutList = new ArrayList<>();
+
             cursor.close();
         }
 
@@ -90,6 +93,7 @@ public class SessionCreator {
             workout.setThoughts(cursor.getString(6));
             workoutList.add(workout);
         } while (cursor.moveToNext());
+
         cursor.close();
 
         return workoutList;

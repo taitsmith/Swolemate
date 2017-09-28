@@ -82,8 +82,8 @@ public class AddWorkoutActivity extends AppCompatActivity {
     }
 
     public static void saveWorkout() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         sessionDates.add(date);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("DATES", sessionDates);
         editor.apply();
 
