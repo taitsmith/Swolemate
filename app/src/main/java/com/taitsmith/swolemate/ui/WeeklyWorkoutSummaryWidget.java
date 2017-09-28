@@ -3,12 +3,9 @@ package com.taitsmith.swolemate.ui;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.widget.ListView;
 import android.widget.RemoteViews;
 
 import com.taitsmith.swolemate.R;
-
-import java.util.List;
 
 /**
  * A widgie that will show users a summary of their completed workouts from the last seven days.
@@ -20,7 +17,7 @@ public class WeeklyWorkoutSummaryWidget extends AppWidgetProvider {
 
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.last_workout_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weeky_summary_widget);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

@@ -10,6 +10,7 @@ import java.util.List;
 public class Session {
     private List<Workout> workoutList;
     private String date;
+    private int workoutCount;
 
     public List<Workout> getWorkoutList() {
         return workoutList;
@@ -17,10 +18,7 @@ public class Session {
 
     public void setWorkoutList(List<Workout> workoutList) {
         this.workoutList = workoutList;
-    }
-
-    public static Session createSession() {
-        return null;
+        setWorkoutCount(workoutList.size());
     }
 
     public String getDate() {
@@ -29,5 +27,13 @@ public class Session {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getWorkoutCount() {
+        return workoutCount;
+    }
+
+    public void setWorkoutCount(int workoutCount) {
+        this.workoutCount = workoutCount;
     }
 }

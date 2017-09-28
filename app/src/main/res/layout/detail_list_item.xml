@@ -55,18 +55,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline5"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.34" />
+        app:layout_constraintGuide_percent="0.54" />
 
     <TextView
         android:id="@+id/detailListThoughtsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="15dp"
         android:text="@string/detail_listview_thought"
         app:layout_constraintRight_toLeftOf="@+id/guideline5"
         app:layout_constraintTop_toBottomOf="@+id/detailListRepsLabel"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/detailListWorkoutNameView"

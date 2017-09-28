@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="69912c6c0bb56c30f6b97726210d4964de49c5f4">
+        sha1="8f5969bae1ed4be73f81c3f9e0ca0e529d845b32">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a69ab4e9a347f6ba7eb2095e1d7acadddbd957ef/classes.dex" />
     </item>
 

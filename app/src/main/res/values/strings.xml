@@ -46,7 +46,11 @@
     <string name="menu_fake_data">Create fake data</string>
     <string name="menu_workout_instructions">View workout guides</string>
     <string name="menu_about_app">About Swolemate</string>
-    <string name="appwidget_text">EXAMPLE</string>
+
+    <!-- widget strings -->
     <string name="add_widget">Add widget</string>
+    <string name="widget_title">Weekly Summary:</string>
+    <string name="widget_sessions_label">Sessions:</string>
+    <string name="widget_workouts_label">Workouts:</string>
 
 </resources>

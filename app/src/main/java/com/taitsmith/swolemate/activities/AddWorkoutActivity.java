@@ -67,7 +67,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
         resolver = getContentResolver();
 
         date = LocalDate.now().toString();
-        Log.d("LOG: ", date);
 
         dateTv.setText(getString(R.string.add_workout_date, date.substring(6)));
     }
@@ -83,6 +82,11 @@ public class AddWorkoutActivity extends AppCompatActivity {
     }
 
     public static void saveWorkout() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        sessionDates.add(date);
+        editor.putStringSet("DATES", sessionDates);
+        editor.apply();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_WORKOUT_NAME, name);
@@ -92,12 +96,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
         contentValues.put(COLUMN_THOUGHTS, thoughts);
 
         resolver.insert(CONTENT_URI, contentValues);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        sessionDates.add(date);
-        editor.putStringSet("DATES", sessionDates);
-        editor.apply();
-
     }
 
     @OnClick(R.id.cancelButton)

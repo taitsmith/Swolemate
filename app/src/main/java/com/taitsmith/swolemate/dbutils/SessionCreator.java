@@ -15,8 +15,12 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDat
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
 
 /**
- * Takes the list of unique session dates (hardcoded for now, will be switched to SharedPreferences
- * later).
+ * Two methods here: one takes the list of Dates from shared preferences and finds all {@link Workout}
+ * matching each date and turns them into a List, then adds that list to another list of {@link Session}.
+ * There's a lot of lists being thrown around here, but it makes sense. This is used to populate the
+ * ListView in {@link com.taitsmith.swolemate.activities.MainActivity}.
+ *
+ * The second method
  */
 
 public class SessionCreator {

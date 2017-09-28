@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.taitsmith.swolemate.R;
 
@@ -33,7 +34,15 @@ public class SwolemateApplication extends Application {
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", 0);
 
-        sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
+       if (sharedPreferences.contains("DATES")) {
+           sessionDates = sharedPreferences.getStringSet("DATES", null);
+       } else {
+           sessionDates = new HashSet<>();
+       }
+
+       for (String s : sessionDates) {
+           Log.d("LOG ", s);
+       }
 
         gifList = new ArrayList<>();
 

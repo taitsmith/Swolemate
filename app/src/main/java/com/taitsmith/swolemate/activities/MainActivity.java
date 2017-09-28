@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -32,6 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
 import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         listFragment = new PastSessionsListFragment();
         detailFragment = new WorkoutDetailFragment();
 
+        makeUpWorkouts();
+
         //if they haven't granted the location permission, show them a dialog explaining why
         //we need it, then request the permission.
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -97,8 +102,21 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
                     .add(R.id.past_workouts_list_fragment, listFragment)
                     .commit();
         } else {
+
+            //So here's the situation. ListView inside a fragment in a CollapsingToolbarLayout has
+            //issues with nested scrolling for some reason. I spent quite a bit of time on it and there's
+            //presumably some simple workaround, but for now we'll swap out the fragment for a plain
+            //old list view.
             PastSessionsAdapter adapter = new PastSessionsAdapter(this, createSessionList(this));
             workoutsListView.setAdapter(adapter);
+            workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent = new Intent(MainActivity.this, SessionDetailActivity.class);
+                    intent.putExtra("SESSION_ID", position);
+                    startActivity(intent);
+                }
+            });
             }
         
         AdRequest adRequest = new AdRequest.Builder()
@@ -113,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
         startActivity(intent);
     }
 
+    //the workout list fragment has an interface for click listening.
     @Override
     public void onWorkoutSelected(int position) {
         if (isTwoPane) {
@@ -146,11 +165,17 @@ public class MainActivity extends AppCompatActivity implements PastSessionsListF
                 values.put(COLUMN_SETS, r.nextInt(5));
                 values.put(COLUMN_THOUGHTS, "i am so strong");
                 values.put(COLUMN_WORKOUT_NAME, "LIFTING A CAR");
+
                 sessionDates.add(fakeDates[i]);
+
 
                 resolver.insert(CONTENT_URI, values);
             }
         }
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("DATES", sessionDates);
+        editor.apply();
     }
 
     @Override
