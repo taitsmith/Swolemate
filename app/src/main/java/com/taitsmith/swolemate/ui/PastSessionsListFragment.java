@@ -23,7 +23,7 @@ import com.taitsmith.swolemate.data.Session;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taitsmith.swolemate.dbutils.SessionCreator.createSessionList;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 
 /**
  * Fragment that displays a list of past sessions (one single trip to the gym consisting of

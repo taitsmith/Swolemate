@@ -1,4 +1,4 @@
-package com.taitsmith.swolemate.dbutils;
+package com.taitsmith.swolemate.utils;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -12,13 +12,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.taitsmith.swolemate.R;
-
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.CONTENT_AUTHORITY;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.CONTENT_AUTHORITY;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
 
 
 /**

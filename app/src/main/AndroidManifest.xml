@@ -27,7 +27,7 @@
         </activity>
 
         <provider
-            android:name=".dbutils.WorkoutProvider"
+            android:name=".utils.WorkoutProvider"
             android:authorities="com.taitsmith.swolemate"
             android:exported="false" />
 

@@ -23,13 +23,13 @@ import java.util.List;
  */
 
 public class Geofencer implements ResultCallback {
-    public static final String TAG = Geofencer.class.getSimpleName();
-    public static final float GEOFENCE_RADIUS = 50; //50 meters
-    public static final long TIMEOUT = 24*60*60*1000; //24 hours
+    private static final String TAG = Geofencer.class.getSimpleName();
+    private static final float GEOFENCE_RADIUS = 50; //50 meters
+    private static final long TIMEOUT = 24*60*60*1000; //24 hours
 
-    private List<Geofence> geofenceList; //can you tell I love lists
-    private PendingIntent geofencePendingIntent;
-    private GoogleApiClient googleApiClient;
+    private  List<Geofence> geofenceList; //can you tell I love lists
+    private  PendingIntent geofencePendingIntent;
+    private  GoogleApiClient googleApiClient;
     private Context context;
 
     public Geofencer(Context context, GoogleApiClient client) {
@@ -89,6 +89,7 @@ public class Geofencer implements ResultCallback {
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                         Geofence.GEOFENCE_TRANSITION_EXIT)
                     .build();
+
             geofenceList.add(geofence);
         }
     }

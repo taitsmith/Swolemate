@@ -7,7 +7,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,13 +23,13 @@ import butterknife.OnClick;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_THOUGHTS;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_THOUGHTS;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
+import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)

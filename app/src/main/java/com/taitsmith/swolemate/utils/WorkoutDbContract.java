@@ -1,4 +1,4 @@
-package com.taitsmith.swolemate.dbutils;
+package com.taitsmith.swolemate.utils;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -50,6 +50,7 @@ public class WorkoutDbContract {
         public static final String COLUMN_LOCATION_NAME = "name";
         public static final String COLUMN_LOCATION_LAT = "lat";
         public static final String COLUMN_LOCATION_LONG = "long";
+        public static final String COLUMN_PLACE_ID = "placeId";
 
     }
 }

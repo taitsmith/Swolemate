@@ -36,11 +36,12 @@ public class GeofenceReceiver extends BroadcastReceiver {
         }
 
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
+        Log.d("LOG: ", "TRANSITION RECEIVED");
 
         sendNotification(context, geofenceTransition);
     }
 
-    private void sendNotification(Context context, int transitionType) {
+    public static void sendNotification(Context context, int transitionType) {
         // Create an explicit content Intent that starts the main Activity.
         Intent notificationIntent = new Intent(context, MainActivity.class);
 

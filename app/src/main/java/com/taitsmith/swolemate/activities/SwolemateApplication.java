@@ -1,13 +1,19 @@
 package com.taitsmith.swolemate.activities;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.Geofencer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,10 +33,14 @@ public class SwolemateApplication extends Application {
     public static List<Integer> gifList;
     public static Set<String> sessionDates;
     public static SharedPreferences sharedPreferences;
+    public static boolean permissionGranted;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        == PackageManager.PERMISSION_GRANTED;
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", 0);
 
@@ -38,10 +48,6 @@ public class SwolemateApplication extends Application {
            sessionDates = sharedPreferences.getStringSet("DATES", null);
        } else {
            sessionDates = new HashSet<>();
-       }
-
-       for (String s : sessionDates) {
-           Log.d("LOG ", s);
        }
 
         gifList = new ArrayList<>();

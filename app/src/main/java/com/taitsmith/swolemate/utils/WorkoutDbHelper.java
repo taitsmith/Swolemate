@@ -1,10 +1,8 @@
-package com.taitsmith.swolemate.dbutils;
+package com.taitsmith.swolemate.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import static com.taitsmith.swolemate.dbutils.WorkoutDbContract.WorkoutEntry.*;
 
 /**
  *Handles all the work of creating the database.
@@ -34,7 +32,8 @@ class WorkoutDbHelper extends SQLiteOpenHelper {
                 + WorkoutDbContract.GymLocationEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + WorkoutDbContract.GymLocationEntry.COLUMN_LOCATION_NAME + " TEXT NOT NULL, "
                 + WorkoutDbContract.GymLocationEntry.COLUMN_LOCATION_LAT + " INTEGER NOT NULL, "
-                + WorkoutDbContract.GymLocationEntry.COLUMN_LOCATION_LONG + " INTEGER NOT NULL" + ");";
+                + WorkoutDbContract.GymLocationEntry.COLUMN_LOCATION_LONG + " INTEGER NOT NULL, "
+                + WorkoutDbContract.GymLocationEntry.COLUMN_PLACE_ID + " TEXT NOT NULL" + ");";
 
         sqLiteDatabase.execSQL(CREATE_WORKOUTS);
         sqLiteDatabase.execSQL(CREATE_LOCATIONS);

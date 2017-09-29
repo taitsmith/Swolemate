@@ -28,6 +28,7 @@
 
     <!-- misc -->
     <string name="successful_save_toast">Workout saved successfully</string>
+    <string name="need_permissions_toast">Location permission needed</string>
 
     <!-- strings for text views etc -->
     <string name="session_summary_date_label">Workout session from:</string>
