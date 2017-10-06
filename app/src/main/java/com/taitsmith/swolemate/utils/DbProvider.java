@@ -15,6 +15,7 @@ import android.util.Log;
 
 import static com.taitsmith.swolemate.utils.DbContract.CONTENT_AUTHORITY;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_ID;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
 
 
@@ -161,7 +162,7 @@ public class DbProvider extends ContentProvider {
                         selectionArgs, //a completed 'session'
                         null,
                         null,
-                        null);
+                        COLUMN_ID+" ASC");
                 break;
             case CODE_LOCATION:
                 returnCursor = db.query(DbContract.GymLocationEntry.TABLE_NAME,

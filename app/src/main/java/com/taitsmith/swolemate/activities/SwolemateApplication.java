@@ -15,9 +15,11 @@ import android.util.Log;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
+import com.taitsmith.swolemate.data.Session;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +38,7 @@ public class SwolemateApplication extends Application {
     public static SharedPreferences sharedPreferences;
     public static boolean permissionGranted;
     public static TypedArray workoutArray;
+    public static List<String> sortedDates;
 
     @Override
     public void onCreate() {
@@ -52,6 +55,12 @@ public class SwolemateApplication extends Application {
         //keep our list of past dates in a shared preferences instead of having a
         //whole separate table in the DB just for that.
         sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
+
+        //inconvenient, but you can't call Collections.sort() on  Set
+        sortedDates = new ArrayList<>(sessionDates);
+
+        Collections.sort(sortedDates);
+        Collections.reverse(sortedDates);
 
          /* Originally this was a list of Drawables in the form:
         gifList.add(ContextCompat.getDrawable(this, R.id.XXXXX));

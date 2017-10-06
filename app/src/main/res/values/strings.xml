@@ -50,8 +50,9 @@
 
     <!-- widget strings -->
     <string name="add_widget">Add widget</string>
-    <string name="widget_title">Weekly Summary:</string>
-    <string name="widget_sessions_label">Sessions:</string>
+    <string name="widget_title">Last Workout:</string>
+    <string name="widget_date_label">Date:</string>
     <string name="widget_workouts_label">Workouts:</string>
+    <string name="appwidget_text">EXAMPLE</string>
 
 </resources>

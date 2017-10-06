@@ -30,6 +30,7 @@ import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUG
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.updateSessionDates;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)
@@ -85,6 +86,8 @@ public class AddWorkoutActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("DATES", sessionDates);
         editor.apply();
+
+        updateSessionDates(date);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_DATE, date);

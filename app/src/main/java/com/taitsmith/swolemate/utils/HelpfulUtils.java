@@ -5,17 +5,25 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.google.android.gms.location.places.Place;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sortedDates;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
 import static com.taitsmith.swolemate.utils.DbContract.*;
 
 /**
@@ -51,7 +59,8 @@ public class HelpfulUtils {
         ContentResolver resolver = context.getContentResolver();
 
 
-        for (String s : sessionDates) {
+        for (String s : sortedDates) {
+            Log.d("LOG SESSION DATE", s);
 
             Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
                     null,
@@ -88,7 +97,7 @@ public class HelpfulUtils {
 
     public static List<Workout> createWorkoutList(Context context,  int position) {
         workoutList = new ArrayList<>();
-        dateArray = sessionDates.toArray(new String[sessionDates.size()]);
+        dateArray = sortedDates.toArray(new String[sortedDates.size()]);
 
         ContentResolver resolver = context.getContentResolver();
         Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
@@ -148,7 +157,7 @@ public class HelpfulUtils {
                 values.put(WorkoutEntry.COLUMN_REPS, r.nextInt(50));
                 values.put(WorkoutEntry.COLUMN_SETS, r.nextInt(5));
                 values.put(WorkoutEntry.COLUMN_THOUGHTS, "i am so strong");
-                values.put(WorkoutEntry.COLUMN_WORKOUT_NAME, "LIFTING A CAR");
+                values.put(WorkoutEntry.COLUMN_WORKOUT_NAME, workoutArray.getString(r.nextInt(6)));
 
                 sessionDates.add(fakeDates[i]);
 
@@ -159,5 +168,28 @@ public class HelpfulUtils {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("DATES", sessionDates);
         editor.apply();
+    }
+
+    public static String formatDate(String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+        return formatter.format(date);
+    }
+
+    public static void updateSessionDates(String date) {
+        sortedDates.add(date);
+        Collections.sort(sortedDates);
+        Collections.reverse(sortedDates);
+    }
+
+    public static Session getLastSession(Context context, String date) {
+        ContentResolver resolver = context.getContentResolver();
+
+        Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
+                null,
+                null,
+                new String[]{date},
+                null);
+
+        return null;
     }
 }
