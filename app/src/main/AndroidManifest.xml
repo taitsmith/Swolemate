@@ -3,7 +3,6 @@
     package="com.taitsmith.swolemate">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".activities.SwolemateApplication"
@@ -17,7 +16,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCmXNIpLSUQwqujVgPFYqqg16YQ0XBehZQ" />
 
-        <activity android:name=".activities.MainActivity"
+        <activity
+            android:name=".activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +26,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".utils.WorkoutProvider"
-            android:authorities="com.taitsmith.swolemate"
-            android:exported="false" />
-
         <activity
             android:name=".activities.AddWorkoutActivity"
             android:launchMode="singleTop" />
@@ -38,10 +33,10 @@
             android:name=".activities.SessionDetailActivity"
             android:launchMode="singleTop" />
 
-        <receiver android:name=".data.GeofenceReceiver" />
-
         <activity android:name=".activities.InstructionSummaryActivity" />
         <activity android:name=".activities.InstructionDetailActivity" />
+        <activity android:name=".activities.AboutActivity"/>
+
 
         <receiver android:name=".ui.WeeklyWorkoutSummaryWidget">
             <intent-filter>
@@ -52,6 +47,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/last_workout_widget_info" />
         </receiver>
+
+        <receiver android:name=".data.GeofenceReceiver" />
+
+        <provider
+            android:name=".utils.DbProvider"
+            android:authorities="com.taitsmith.swolemate"
+            android:exported="false" />
+
     </application>
 
 </manifest>

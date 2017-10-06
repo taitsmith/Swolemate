@@ -39,7 +39,7 @@ import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
-import com.taitsmith.swolemate.utils.WorkoutDbContract;
+import com.taitsmith.swolemate.utils.DbContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +48,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.os.Build.VERSION_CODES.M;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.makeUpWorkouts;
 import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissions;
-import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements
         if (isTwoPane) {
             FragmentManager manager = getSupportFragmentManager();
             WorkoutDetailFragment fragment = new WorkoutDetailFragment();
-            setSessionPosition(position);
+            fragment.setSessionPosition(position);
             manager.beginTransaction()
                     .replace(R.id.past_workout_detail_fragment, fragment)
                     .commit();
@@ -180,14 +180,17 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemSelected = item.getItemId();
+        Intent intent;
         switch (itemSelected) {
             case R.id.menu_fake_data:
                 makeUpWorkouts(this);
                 return true;
             case R.id.menu_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.menu_workout_instructions:
-                Intent intent = new Intent(this, InstructionSummaryActivity.class);
+                intent = new Intent(this, InstructionSummaryActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.menu_set_home:
@@ -211,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
+                Place place = PlacePicker.getPlace(this, data);
                 addLocation(this, place);
             }
         }
@@ -237,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public void refreshPlaces() {
         Cursor places = getContentResolver().query(
-                WorkoutDbContract.GymLocationEntry.CONTENT_URI,
+                DbContract.GymLocationEntry.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -245,13 +248,14 @@ public class MainActivity extends AppCompatActivity implements
 
         if (places == null || places.getCount() == 0) {
             Log.d("LOG: ", "no places");
+            return;
         }
 
         List<String> placeIds = new ArrayList<>();
 
         while (places.moveToNext()) {
             placeIds.add(places.getString(places.getColumnIndex(
-                    WorkoutDbContract.GymLocationEntry.COLUMN_PLACE_ID)));
+                    DbContract.GymLocationEntry.COLUMN_PLACE_ID)));
         }
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(
@@ -262,8 +266,10 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onResult(@NonNull PlaceBuffer places) {
                 geofencer.updateGeofenceList(places);
+                Log.d("LOG:", " PLACES UPDATED");
             }
         });
 
+        geofencer.registerAllGeofences();
     }
 }

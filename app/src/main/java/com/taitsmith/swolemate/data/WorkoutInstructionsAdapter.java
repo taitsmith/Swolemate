@@ -44,26 +44,22 @@ public class WorkoutInstructionsAdapter extends BaseAdapter{
         ViewHolder holder = null;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.workout_instruction_list_item, null);
+            view = inflater.inflate(R.layout.instruction_list_item, null);
 
             holder = new ViewHolder();
 
             holder.workoutName = view.findViewById(R.id.instructionListWorkoutName);
-            holder.workoutType = view.findViewById(R.id.instructionListWorkoutType);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-
         holder.workoutName.setText(workoutList.getString(i));
-        holder.workoutType.setText("get huge muscles");
 
         return view;
     }
 
     private class ViewHolder {
         TextView workoutName;
-        TextView workoutType;
     }
 }

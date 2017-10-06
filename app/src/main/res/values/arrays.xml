@@ -3,15 +3,15 @@
     <!-- TODO add some more. -->
     <string-array name="workout_list">
         <item>Abs</item>
-        <item>Bicep</item>
-        <item>Calf</item>
+        <item>Bicep (Arm)</item>
+        <item>Calf (Leg)</item>
         <item>Chest</item>
         <item>Forearm</item>
-        <item>Hamstring</item>
-        <item>Lats</item>
-        <item>Quadricep</item>
+        <item>Hamstring (Leg)</item>
+        <item>Lats (Back)</item>
+        <item>Quadricep (Leg)</item>
         <item>Shoulder</item>
-        <item>Trapezius</item>
-        <item>Tricep</item>
+        <item>Trapezius (Back)</item>
+        <item>Tricep (Arm)</item>
     </string-array>
 </resources>

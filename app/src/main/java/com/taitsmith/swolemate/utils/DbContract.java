@@ -12,7 +12,7 @@ import android.provider.BaseColumns;
  * in main activity and detail view).
  */
 
-public class WorkoutDbContract {
+public class DbContract {
     private static String PATH_WORKOUTS = "workouts";
     private static String PATH_LOCATIONS = "locations";
 

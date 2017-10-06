@@ -96,7 +96,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Workout>> loader, List<Workout> data) {
         final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
         recyclerView.setAdapter(adapter);
-        dateView.setText(Integer.toString(sessionPosition));
+        dateView.setText(data.get(0).getDate());
     }
 
     @Override

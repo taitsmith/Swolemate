@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -34,22 +35,30 @@ public class SwolemateApplication extends Application {
     public static Set<String> sessionDates;
     public static SharedPreferences sharedPreferences;
     public static boolean permissionGranted;
+    public static TypedArray workoutArray;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //list of workout names
+        workoutArray = getResources().obtainTypedArray(R.array.workout_list);
 
         permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         == PackageManager.PERMISSION_GRANTED;
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", 0);
 
-       if (sharedPreferences.contains("DATES")) {
-           sessionDates = sharedPreferences.getStringSet("DATES", null);
-       } else {
-           sessionDates = new HashSet<>();
-       }
+        //keep our list of past dates in a shared preferences instead of having a
+        //whole separate table in the DB just for that.
+        sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
 
+         /* Originally this was a list of Drawables in the form:
+        gifList.add(ContextCompat.getDrawable(this, R.id.XXXXX));
+        It turns out Glide is kind of finnicky when it comes to getting
+        a Drawable from that list and passing it into the .load() method.
+        Using an int works just fine though.
+         */
         gifList = new ArrayList<>();
 
         gifList.add(R.drawable.legraise);
@@ -63,12 +72,5 @@ public class SwolemateApplication extends Application {
         gifList.add(R.drawable.shoulderpress);
         gifList.add(R.drawable.deadlift);
         gifList.add(R.drawable.tricep);
-
-        /* Originally this was a list of Drawables in the form:
-        gifList.add(ContextCompat.getDrawable(this, R.id.XXXXX));
-        It turns out Glide is kind of finnicky when it comes to getting
-        a Drawable from that list and passing it into the .load() method.
-        Using an int works just fine though.
-         */
     }
 }

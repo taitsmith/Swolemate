@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.gifList;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
 
 /**
  * Fragment to display the specific instructions of a workout selected from the instruction list. Either
@@ -51,6 +52,8 @@ public class InstructionDetailFragment extends Fragment {
         }
 
         Glide.with(this).load(drawableInt).into(imageView);
+
+        nameView.setText(workoutArray.getString(instructionPosition));
 
         return rootView;
     }

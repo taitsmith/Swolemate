@@ -35,7 +35,7 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
     public WorkoutHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = inflater.inflate(R.layout.detail_list_item, parent, false);
+        View view = inflater.inflate(R.layout.workout_detail_list_item, parent, false);
 
         return new WorkoutHolder(view);
     }

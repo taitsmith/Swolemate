@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:padding="@dimen/widget_margin"
     tools:layout_editor_absoluteY="25dp"
@@ -36,10 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:text="@string/widget_workouts_label"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/widgetSessionsLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/widgetSessionsLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/widgetSessionsTextView"

@@ -23,13 +23,13 @@ import butterknife.OnClick;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_REPS;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_SETS;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_THOUGHTS;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_WEIGHT;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_REPS;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_SETS;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUGHTS;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)

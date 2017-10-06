@@ -13,18 +13,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.CONTENT_AUTHORITY;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.DbContract.CONTENT_AUTHORITY;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
 
 
 /**
- * Content provider for ezpz {@link WorkoutDbContract} access
+ * Content provider for ezpz {@link DbContract} access
  */
 
 @SuppressWarnings("ConstantConditions") //getContentResolver() likes to give a NPE warning.
-public class WorkoutProvider extends ContentProvider {
-    WorkoutDbHelper dbHelper;
+public class DbProvider extends ContentProvider {
+    DbHelper dbHelper;
 
     public static final String UNKNOWN_URI = "Unknown Uri: ";
 
@@ -36,15 +36,15 @@ public class WorkoutProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        matcher.addURI(CONTENT_AUTHORITY, WorkoutDbContract.WorkoutEntry.TABLE_NAME, CODE_WORKOUT);
-        matcher.addURI(CONTENT_AUTHORITY, WorkoutDbContract.GymLocationEntry.TABLE_NAME, CODE_LOCATION);
+        matcher.addURI(CONTENT_AUTHORITY, DbContract.WorkoutEntry.TABLE_NAME, CODE_WORKOUT);
+        matcher.addURI(CONTENT_AUTHORITY, DbContract.GymLocationEntry.TABLE_NAME, CODE_LOCATION);
 
         return matcher;
     }
 
     @Override
     public boolean onCreate() {
-        dbHelper = new WorkoutDbHelper(getContext());
+        dbHelper = new DbHelper(getContext());
         return false;
     }
 
@@ -64,13 +64,13 @@ public class WorkoutProvider extends ContentProvider {
 
         switch (match) {
             case CODE_WORKOUT:
-                rowUpdated = db.update(WorkoutDbContract.WorkoutEntry.TABLE_NAME,
+                rowUpdated = db.update(DbContract.WorkoutEntry.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs);
                 break;
             case CODE_LOCATION:
-                rowUpdated = db.update(WorkoutDbContract.GymLocationEntry.TABLE_NAME,
+                rowUpdated = db.update(DbContract.GymLocationEntry.TABLE_NAME,
                         values,
                         selection,
                         selectionArgs);
@@ -98,11 +98,11 @@ public class WorkoutProvider extends ContentProvider {
 
         switch (match) {
             case CODE_WORKOUT:
-                id = db.insert(WorkoutDbContract.WorkoutEntry.TABLE_NAME,
+                id = db.insert(DbContract.WorkoutEntry.TABLE_NAME,
                         null, contentValues);
                 break;
             case CODE_LOCATION:
-                id = db.insert(WorkoutDbContract.GymLocationEntry.TABLE_NAME,
+                id = db.insert(DbContract.GymLocationEntry.TABLE_NAME,
                         null,
                         contentValues);
                 break;
@@ -129,12 +129,12 @@ public class WorkoutProvider extends ContentProvider {
 
         switch (match) {
             case CODE_WORKOUT:
-                rowsDeleted = db.delete(WorkoutDbContract.WorkoutEntry.TABLE_NAME,
+                rowsDeleted = db.delete(DbContract.WorkoutEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
                 break;
             case CODE_LOCATION:
-                rowsDeleted = db.delete(WorkoutDbContract.GymLocationEntry.TABLE_NAME,
+                rowsDeleted = db.delete(DbContract.GymLocationEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
                 break;
@@ -155,7 +155,7 @@ public class WorkoutProvider extends ContentProvider {
 
         switch (match) {
             case CODE_WORKOUT:
-                returnCursor = db.query(WorkoutDbContract.WorkoutEntry.TABLE_NAME,
+                returnCursor = db.query(DbContract.WorkoutEntry.TABLE_NAME,
                         projection,
                         COLUMN_DATE + "=?", //we want workouts grouped by same date to display as
                         selectionArgs, //a completed 'session'
@@ -164,7 +164,7 @@ public class WorkoutProvider extends ContentProvider {
                         null);
                 break;
             case CODE_LOCATION:
-                returnCursor = db.query(WorkoutDbContract.GymLocationEntry.TABLE_NAME,
+                returnCursor = db.query(DbContract.GymLocationEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,

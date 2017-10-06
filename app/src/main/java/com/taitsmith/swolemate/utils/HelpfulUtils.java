@@ -16,7 +16,7 @@ import java.util.Random;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
-import static com.taitsmith.swolemate.utils.WorkoutDbContract.*;
+import static com.taitsmith.swolemate.utils.DbContract.*;
 
 /**
  * A home for all friendly and helpful utilities that involve interacting with the database through
@@ -124,7 +124,7 @@ public class HelpfulUtils {
         double placeLat = place.getLatLng().latitude;
 
 
-        values.put(WorkoutDbContract.GymLocationEntry.COLUMN_LOCATION_NAME, name);
+        values.put(DbContract.GymLocationEntry.COLUMN_LOCATION_NAME, name);
         values.put(GymLocationEntry.COLUMN_LOCATION_LAT, placeLat);
         values.put(GymLocationEntry.COLUMN_LOCATION_LONG, placeLong);
         values.put(GymLocationEntry.COLUMN_PLACE_ID, id);
