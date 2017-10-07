@@ -1,5 +1,7 @@
 package com.taitsmith.swolemate.activities;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.ui.AlertDialogs;
+import com.taitsmith.swolemate.ui.LastWorkoutWidget;
 
 import java.time.LocalDate;
 
@@ -82,11 +85,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
     }
 
     public static void saveWorkout() {
-        sessionDates.add(date);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("DATES", sessionDates);
-        editor.apply();
-
         updateSessionDates(date);
 
         ContentValues contentValues = new ContentValues();

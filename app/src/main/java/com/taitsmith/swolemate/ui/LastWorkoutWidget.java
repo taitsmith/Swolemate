@@ -24,11 +24,10 @@ import static com.taitsmith.swolemate.utils.HelpfulUtils.createWorkoutList;
  */
 public class LastWorkoutWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         Intent intent = new Intent(context, SessionDetailActivity.class);
         PendingIntent widgetPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.last_workout_widget);
@@ -62,7 +61,7 @@ public class LastWorkoutWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    private void getDates() {
+    public static void updateWidgetText(Context context, AppWidgetManager manager, int[] appWidgetIds) {
 
     }
 }

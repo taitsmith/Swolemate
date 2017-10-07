@@ -176,6 +176,11 @@ public class HelpfulUtils {
     }
 
     public static void updateSessionDates(String date) {
+        sessionDates.add(date);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("DATES", sessionDates);
+        editor.apply();
+
         sortedDates.add(date);
         Collections.sort(sortedDates);
         Collections.reverse(sortedDates);

@@ -111,4 +111,21 @@ public class AlertDialogs {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    public static void aboutDialog(Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setMessage(context.getString(R.string.about_message));
+        builder.setPositiveButton(context.getString(R.string.about_positive), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.create().cancel();
+            }
+        });
+
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Tablet" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
+
     <style name="EditTextLayout" parent="Widget.Design.TextInputLayout">
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textColorHint">@color/colorPrimaryDark</item>

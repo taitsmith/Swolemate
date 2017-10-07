@@ -50,6 +50,7 @@ import butterknife.OnClick;
 
 import static android.os.Build.VERSION_CODES.M;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
+import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.makeUpWorkouts;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.past_workouts_list_view)
     ListView workoutsListView;
 
+    private FragmentManager manager;
     private boolean isTwoPane;
     private WorkoutDetailFragment detailFragment;
     private PastSessionsListFragment listFragment;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        manager = getSupportFragmentManager();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements
 
         geofencer = new Geofencer(this, googleApiClient);
 
-        makeUpWorkouts(this);
-
         //if they haven't granted the location permission, show them a dialog explaining why
         //we need it, then request the permission.
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -113,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setUi() {
-        FragmentManager manager = getSupportFragmentManager();
-
         //since we've got two possible layouts for tablets and regular sized things,
         //it'll cause all sorts of problems if we try to add fragments in a view that
         //doesn't exist.
@@ -157,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onWorkoutSelected(int position) {
         if (isTwoPane) {
-            FragmentManager manager = getSupportFragmentManager();
             WorkoutDetailFragment fragment = new WorkoutDetailFragment();
             fragment.setSessionPosition(position);
             manager.beginTransaction()
@@ -186,8 +184,7 @@ public class MainActivity extends AppCompatActivity implements
                 makeUpWorkouts(this);
                 return true;
             case R.id.menu_about:
-                intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
+                aboutDialog(this);
                 return true;
             case R.id.menu_workout_instructions:
                 intent = new Intent(this, InstructionSummaryActivity.class);

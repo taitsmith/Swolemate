@@ -57,9 +57,12 @@ public class SwolemateApplication extends Application {
         sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
 
         //inconvenient, but you can't call Collections.sort() on  Set
+        //and you cant keep an ArrayList in shared preferences
         sortedDates = new ArrayList<>(sessionDates);
 
         Collections.sort(sortedDates);
+
+        //and then you want it ascending.
         Collections.reverse(sortedDates);
 
          /* Originally this was a list of Drawables in the form:

@@ -25,6 +25,9 @@
         location. This is used only to detect when you\'ve entered the gym in order to provide a more
         engaging experience.</string>
     <string name="inform_permission_positive">Got it</string>
+    <string name="about_message">Always be careful when working out!\n\n Images are courtesy of Muscle Wiki.
+        </string>
+    <string name="about_positive">Got it</string>
 
     <!-- misc -->
     <string name="successful_save_toast">Workout saved successfully</string>
