@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
@@ -25,6 +27,8 @@ public class InstructionSummaryActivity extends AppCompatActivity implements
         detailFragment = new InstructionDetailFragment();
         manager = getSupportFragmentManager();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         isTwoPane = findViewById(R.id.instruction_detail_fragment) != null;
 
@@ -55,4 +59,8 @@ public class InstructionSummaryActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 }

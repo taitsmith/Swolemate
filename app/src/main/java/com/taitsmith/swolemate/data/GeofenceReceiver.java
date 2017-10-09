@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.activities.AddWorkoutActivity;
 import com.taitsmith.swolemate.activities.MainActivity;
 
 
@@ -36,27 +37,28 @@ public class GeofenceReceiver extends BroadcastReceiver {
         }
 
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
-        Log.d("LOG: ", "TRANSITION RECEIVED");
 
         sendNotification(context, geofenceTransition);
     }
 
+    //When the user gets to the gym, ask them if they want to record some workouts
+    //When they leave, show a message saying something like 'great job'
     public static void sendNotification(Context context, int transitionType) {
         // Create an explicit content Intent that starts the main Activity.
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, AddWorkoutActivity.class);
 
         // Construct a task stack.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 
         // Add the main Activity to the task stack as the parent.
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(AddWorkoutActivity.class);
 
         // Push the content Intent onto the stack.
         stackBuilder.addNextIntent(notificationIntent);
 
         // Get a PendingIntent containing the entire back stack.
         PendingIntent notificationPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
 
         // Get a notification builder
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
@@ -66,7 +68,8 @@ public class GeofenceReceiver extends BroadcastReceiver {
             builder.setSmallIcon(R.drawable.add_workout)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.common_google_signin_btn_icon_dark))
-                    .setContentTitle(context.getString(R.string.app_name));
+                    .setContentTitle(context.getString(R.string.app_name))
+                    .addAction(R.drawable.add_workout, "Add Workout", notificationPendingIntent);
         } else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
             builder.setSmallIcon(R.drawable.add_workout)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
@@ -79,7 +82,7 @@ public class GeofenceReceiver extends BroadcastReceiver {
         builder.setContentIntent(notificationPendingIntent);
 
         // Dismiss notification once the user touches it.
-        builder.setAutoCancel(true);
+        builder.setAutoCancel(false);
 
         // Get an instance of the Notification manager
         NotificationManager mNotificationManager =
@@ -87,5 +90,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
         // Issue the notification
         mNotificationManager.notify(0, builder.build());
+        Log.d("LOG: ", "TRANSITION RECEIVED");
     }
 }

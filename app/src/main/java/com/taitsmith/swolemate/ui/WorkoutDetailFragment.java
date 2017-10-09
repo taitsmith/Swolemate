@@ -50,6 +50,10 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
         View rootView =  inflater.inflate(R.layout.past_workout_detail_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
+        if (savedInstanceState != null) {
+            sessionPosition = savedInstanceState.getInt("POSITION");
+        }
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
 
@@ -106,5 +110,11 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
 
     public static void setSessionPosition(int position) {
         sessionPosition = position;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("POSITION", sessionPosition);
     }
 }

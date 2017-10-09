@@ -1,212 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.taitsmith.swolemate.activities.AddWorkoutActivity"
-    android:background="@color/colorAccent">
+    android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/workoutSelectLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/workout_to_add"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/selectWorkoutSpinner"
-        app:layout_constraintBottom_toTopOf="@+id/selectWorkoutSpinner" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vertGuidelineAddWorkout"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="192dp" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline4"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"
-        tools:layout_editor_absoluteY="51dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <Spinner
-        android:id="@+id/selectWorkoutSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:entries="@array/workout_list"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/vertGuidelineAddWorkout"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/addWorkoutDateTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_workout_date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/weightsLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/selectWorkoutSpinner"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
-
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/workoutWeightUsed"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/workout_weight"
-        android:inputType="number"
-        android:maxLines="1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:theme="@style/EditTextView"/>
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:background="@color/colorAccent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/setsLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/weightsLayout"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:backgroundTint="@color/colorPrimaryDark"
-        app:theme="@style/EditTextLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        <TextView
+            android:id="@+id/workoutSelectLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/workout_to_add"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/selectWorkoutSpinner"
+            app:layout_constraintBottom_toTopOf="@+id/selectWorkoutSpinner" />
 
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/workoutAddSets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/workout_sets"
-        android:inputType="number"
-        android:maxLines="1"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:theme="@style/EditTextView"/>
-    </android.support.design.widget.TextInputLayout>
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vertGuidelineAddWorkout"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="192dp" />
 
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline4"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"
+            tools:layout_editor_absoluteY="51dp"
+            tools:layout_editor_absoluteX="0dp" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/repsLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/setsLayout"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        <Spinner
+            android:id="@+id/selectWorkoutSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/workout_list"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/vertGuidelineAddWorkout"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            android:layout_marginTop="8dp" />
 
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/workoutAddReps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/workout_reps"
-        android:inputType="number"
-        android:maxLines="1"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:theme="@style/EditTextView"/>
-    </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/addWorkoutDateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_workout_date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/thoughtsLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/repsLayout"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:theme="@style/EditTextLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/weightsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/selectWorkoutSpinner"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:theme="@style/EditTextLayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/workoutThoughts"
+            android:id="@+id/workoutWeightUsed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:hint="@string/workout_weight"
+            android:inputType="number"
+            android:maxLines="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:theme="@style/EditTextView"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/setsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/weightsLayout"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:theme="@style/EditTextLayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/workoutAddSets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/workout_sets"
+            android:inputType="number"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:theme="@style/EditTextView"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/repsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/setsLayout"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:theme="@style/EditTextLayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/workoutAddReps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/workout_reps"
+            android:inputType="number"
+            android:maxLines="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:theme="@style/EditTextView"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/thoughtsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/repsLayout"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:theme="@style/EditTextLayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/workoutThoughts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:hint="@string/workout_thoughts"
+                android:inputType="text"
+                android:maxLines="1"
+                app:theme="@style/EditTextView"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:hint="@string/workout_thoughts"
-            android:inputType="text"
-            android:maxLines="1"
-            app:theme="@style/EditTextView"/>
-    </android.support.design.widget.TextInputLayout>
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/save_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/vertGuidelineAddWorkout"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/save_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/vertGuidelineAddWorkout"
-        app:layout_constraintRight_toRightOf="parent" />
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/cancel_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/vertGuidelineAddWorkout" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/cancel_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/vertGuidelineAddWorkout" />
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

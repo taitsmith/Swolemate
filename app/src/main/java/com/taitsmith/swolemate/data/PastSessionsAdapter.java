@@ -60,13 +60,10 @@ public class PastSessionsAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        int j = 0;
-
         Session session = sessions.get(i);
-        j = session.getWorkoutCount();
 
         holder.workoutDate.setText(session.getDate());
-        holder.workoutsCompleted.setText(Integer.toString(j));
+        holder.workoutsCompleted.setText(Integer.toString(session.getWorkoutCount()));
 
         return view;
     }

@@ -65,7 +65,6 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
             nameView.setText(workout.getName());
             weightView.setText(Integer.toString(workout.getWeight()));
         }
-
     }
 
     @Override

@@ -37,6 +37,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
+import com.taitsmith.swolemate.data.Workout;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
 import com.taitsmith.swolemate.utils.DbContract;
@@ -48,9 +49,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.R.attr.fragment;
 import static android.os.Build.VERSION_CODES.M;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
+import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.makeUpWorkouts;
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         listFragment = new PastSessionsListFragment();
-        detailFragment = new WorkoutDetailFragment();
+        detailFragment = (WorkoutDetailFragment) manager.findFragmentByTag("DETAIL_FRAGMENT");
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -118,8 +121,12 @@ public class MainActivity extends AppCompatActivity implements
         //it'll cause all sorts of problems if we try to add fragments in a view that
         //doesn't exist.
         if (isTwoPane) {
+
+            if (detailFragment == null) {
+                detailFragment = new WorkoutDetailFragment();
+            }
             manager.beginTransaction()
-                    .add(R.id.past_workout_detail_fragment, detailFragment)
+                    .add(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
                     .add(R.id.past_workouts_list_fragment, listFragment)
                     .commit();
         } else {
@@ -155,11 +162,18 @@ public class MainActivity extends AppCompatActivity implements
     //the workout list fragment has an interface for click listening.
     @Override
     public void onWorkoutSelected(int position) {
+
+        if (detailFragment == null) {
+            detailFragment = new WorkoutDetailFragment();
+            setSessionPosition(position);
+        }
+
         if (isTwoPane) {
-            WorkoutDetailFragment fragment = new WorkoutDetailFragment();
-            fragment.setSessionPosition(position);
+            setSessionPosition(position);
             manager.beginTransaction()
-                    .replace(R.id.past_workout_detail_fragment, fragment)
+                    .remove(detailFragment)
+                    .replace(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
+                    .addToBackStack("DETAIL_FRAGMENT")
                     .commit();
         } else {
             Intent intent = new Intent(this, SessionDetailActivity.class);
@@ -222,12 +236,11 @@ public class MainActivity extends AppCompatActivity implements
         if (permissionGranted) {
             refreshPlaces();
         }
-        Log.d("LOG", "api connection successful");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -263,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onResult(@NonNull PlaceBuffer places) {
                 geofencer.updateGeofenceList(places);
-                Log.d("LOG:", " PLACES UPDATED");
             }
         });
 

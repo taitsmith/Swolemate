@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
@@ -58,10 +59,10 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.past_workouts_fragment, container, false);
 
+        listView = rootView.findViewById(R.id.past_workouts_grid_view);
+
         LoaderManager.LoaderCallbacks<List<Session>> callbacks = this;
         getActivity().getSupportLoaderManager().initLoader(11, null, callbacks);
-
-        listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
         return rootView;
     }
@@ -87,7 +88,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
                 try {
                     sessionList = createSessionList(getContext());
                 } catch (CursorIndexOutOfBoundsException e) {
-                    Log.d("LOG ", e.toString());
+                    Toast.makeText(getContext(), "Woops", Toast.LENGTH_SHORT).show();
                 }
                 return sessionList;
             }

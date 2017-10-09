@@ -27,9 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline2"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"
-        tools:layout_editor_absoluteY="85dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/workout_detail_recycler"

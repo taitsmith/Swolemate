@@ -30,7 +30,7 @@ import static com.taitsmith.swolemate.utils.DbContract.*;
  * A home for all friendly and helpful utilities that involve interacting with the database through
  * the content provider.
  *
- * Three methods here: createSessionList takes the list of Dates from shared preferences and finds all {@link Workout}
+ * createSessionList takes the list of Dates from shared preferences and finds all {@link Workout}
  * matching each date and turns them into a List, then adds that list to another list of {@link Session}.
  * There's a lot of lists being thrown around here, but it makes sense. This is used to populate the
  * ListView in {@link com.taitsmith.swolemate.activities.MainActivity}.
@@ -57,7 +57,6 @@ public class HelpfulUtils {
         List<Workout> workoutList = new ArrayList<>();
         Session session = new Session();
         ContentResolver resolver = context.getContentResolver();
-
 
         for (String s : sortedDates) {
             Log.d("LOG SESSION DATE", s);
@@ -132,7 +131,6 @@ public class HelpfulUtils {
         double placeLong = place.getLatLng().longitude;
         double placeLat = place.getLatLng().latitude;
 
-
         values.put(DbContract.GymLocationEntry.COLUMN_LOCATION_NAME, name);
         values.put(GymLocationEntry.COLUMN_LOCATION_LAT, placeLat);
         values.put(GymLocationEntry.COLUMN_LOCATION_LONG, placeLong);
@@ -170,11 +168,6 @@ public class HelpfulUtils {
         editor.apply();
     }
 
-    public static String formatDate(String date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-        return formatter.format(date);
-    }
-
     public static void updateSessionDates(String date) {
         sessionDates.add(date);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -184,17 +177,5 @@ public class HelpfulUtils {
         sortedDates.add(date);
         Collections.sort(sortedDates);
         Collections.reverse(sortedDates);
-    }
-
-    public static Session getLastSession(Context context, String date) {
-        ContentResolver resolver = context.getContentResolver();
-
-        Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
-                null,
-                null,
-                new String[]{date},
-                null);
-
-        return null;
     }
 }
