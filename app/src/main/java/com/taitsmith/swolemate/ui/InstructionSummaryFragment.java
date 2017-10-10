@@ -44,7 +44,7 @@ public class InstructionSummaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.instruction_list_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_instruction_list, container, false);
 
         workoutArray = getContext().getResources().obtainTypedArray(R.array.workout_list);
 

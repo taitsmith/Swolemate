@@ -1,6 +1,5 @@
 package com.taitsmith.swolemate.ui;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +17,7 @@ import butterknife.ButterKnife;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.gifList;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutInstructions;
 
 /**
  * Fragment to display the specific instructions of a workout selected from the instruction list. Either
@@ -33,6 +33,7 @@ public class InstructionDetailFragment extends Fragment {
     TextView nameView;
 
     private static int instructionPosition;
+
     private int drawableInt;
 
     @Nullable
@@ -54,7 +55,7 @@ public class InstructionDetailFragment extends Fragment {
         Glide.with(this).load(drawableInt).into(imageView);
 
         nameView.setText(workoutArray.getString(instructionPosition));
-
+        descriptionView.setText(workoutInstructions.getString(instructionPosition));
         return rootView;
     }
 

@@ -58,5 +58,6 @@
     <string name="widget_title">Last Workout:</string>
     <string name="widget_date_label">Date:</string>
     <string name="widget_workouts_label">Workouts:</string>
+    <string name="widget_default">Add a workout to get started!</string>
 
 </resources>

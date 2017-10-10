@@ -14,4 +14,16 @@
         <item>Trapezius (Back)</item>
         <item>Tricep (Arm)</item>
     </string-array>
+
+    <string-array name="workout_instructions">
+        <item>This is how to do an ab workout</item>
+        <item>This is how to do a bicep (arm) workout</item>
+        <item>This is how to do a calf (leg) workout</item>
+        <item>What you\'ll need: A bench and a barbell (or dumbbells).\n\nWhat to do: Lay on your back
+            on the bench, with your arms slightly more than shoulder width apart and the barbell
+            above your chest. Lift, extending your arms all the way (CAREFUL not to lock your elbows!).
+            Lower the weight to chest level and repeat.\n\nHow you can switch it up: Use an incline or
+            decline bench. This will emphasise the upper and lower pectoral (chest) respectively. Use
+            a narrower grip to more emphasise the triceps (back of the arm)</item>
+    </string-array>
 </resources>

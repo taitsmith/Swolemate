@@ -163,16 +163,11 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onWorkoutSelected(int position) {
 
-        if (detailFragment == null) {
-            detailFragment = new WorkoutDetailFragment();
-            setSessionPosition(position);
-        }
-
         if (isTwoPane) {
             setSessionPosition(position);
             manager.beginTransaction()
                     .remove(detailFragment)
-                    .replace(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
+                    .add(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
                     .addToBackStack("DETAIL_FRAGMENT")
                     .commit();
         } else {

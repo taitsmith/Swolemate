@@ -146,18 +146,18 @@ public class HelpfulUtils {
                 "2017-09-18", "2017-09-19", "2017-09-20", "2017-09-21"};
 
         Random r = new Random();
-        for (int i = 0; i < 9; i++) {
+        for (String s : fakeDates) {
             ContentValues values = new ContentValues();
             ContentResolver resolver = context.getContentResolver();
             for (int j = 0; j < 4; j++) {
-                values.put(WorkoutEntry.COLUMN_DATE, fakeDates[i]);
-                values.put(WorkoutEntry.COLUMN_WEIGHT, 420);
+                values.put(WorkoutEntry.COLUMN_DATE, s);
+                values.put(WorkoutEntry.COLUMN_WEIGHT, r.nextInt(100)+50);
                 values.put(WorkoutEntry.COLUMN_REPS, r.nextInt(50));
                 values.put(WorkoutEntry.COLUMN_SETS, r.nextInt(5));
                 values.put(WorkoutEntry.COLUMN_THOUGHTS, "i am so strong");
                 values.put(WorkoutEntry.COLUMN_WORKOUT_NAME, workoutArray.getString(r.nextInt(6)));
 
-                sessionDates.add(fakeDates[i]);
+                sessionDates.add(s);
 
                 resolver.insert(WorkoutEntry.CONTENT_URI, values);
             }
@@ -172,7 +172,7 @@ public class HelpfulUtils {
         sessionDates.add(date);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("DATES", sessionDates);
-        editor.apply();
+        editor.commit();
 
         sortedDates.add(date);
         Collections.sort(sortedDates);

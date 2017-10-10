@@ -27,7 +27,7 @@ public class Geofencer implements ResultCallback {
     private static final float GEOFENCE_RADIUS = 50; //50 meters
     private static final long TIMEOUT = 24*60*60*1000; //24 hours
 
-    private  List<Geofence> geofenceList; //can you tell I love lists
+    private  List<Geofence> geofenceList;
     private  PendingIntent geofencePendingIntent;
     private  GoogleApiClient googleApiClient;
     private Context context;

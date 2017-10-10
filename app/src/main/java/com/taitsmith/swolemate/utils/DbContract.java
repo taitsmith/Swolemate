@@ -10,6 +10,9 @@ import android.provider.BaseColumns;
  * write down some optional notes on how they felt or anything else they feel like keeping track of.
  * The date column will store a timestamp which allows for sorting by session (important for card view
  * in main activity and detail view).
+ *
+ * Also a separate table to hold the {@link com.google.android.gms.location.places.Place} info for
+ * user-selected gym locations.
  */
 
 public class DbContract {

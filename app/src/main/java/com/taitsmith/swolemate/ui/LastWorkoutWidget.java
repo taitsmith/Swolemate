@@ -3,6 +3,7 @@ package com.taitsmith.swolemate.ui;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -11,9 +12,6 @@ import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.SessionDetailActivity;
 import com.taitsmith.swolemate.data.Workout;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sortedDates;
@@ -45,15 +43,15 @@ public class LastWorkoutWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+        //done in updateWidgetText
     }
 
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(context, LastWorkoutWidget.class));
+        updateWidgetText(context, manager, appWidgetIds);
     }
 
     @Override
@@ -62,7 +60,9 @@ public class LastWorkoutWidget extends AppWidgetProvider {
     }
 
     public static void updateWidgetText(Context context, AppWidgetManager manager, int[] appWidgetIds) {
-
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, manager, appWidgetId);
+        }
     }
 }
 

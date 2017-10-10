@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
+import static com.taitsmith.swolemate.ui.LastWorkoutWidget.updateWidgetText;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_REPS;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_SETS;
@@ -56,10 +55,8 @@ public class AddWorkoutActivity extends AppCompatActivity {
     Button cancelButton;
 
     private static ContentResolver resolver;
-
     private static String date, thoughts, name;
     private static int weight, sets, reps;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +81,7 @@ public class AddWorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public static void saveWorkout() {
+    public static void saveWorkout(Context context) {
         updateSessionDates(date);
 
         ContentValues contentValues = new ContentValues();
@@ -96,6 +93,11 @@ public class AddWorkoutActivity extends AppCompatActivity {
         contentValues.put(COLUMN_THOUGHTS, thoughts);
 
         resolver.insert(CONTENT_URI, contentValues);
+
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        int[] widgetIds = manager.getAppWidgetIds(new ComponentName(context, LastWorkoutWidget.class));
+
+        updateWidgetText(context, manager, widgetIds);
     }
 
     @OnClick(R.id.cancelButton)

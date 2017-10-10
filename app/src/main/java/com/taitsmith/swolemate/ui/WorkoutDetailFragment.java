@@ -1,5 +1,6 @@
 package com.taitsmith.swolemate.ui;
 
+import android.content.Context;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,10 +45,15 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.past_workout_detail_fragment, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_past_workout_detail, container, false);
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {
@@ -57,10 +63,14 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
 
-        LoaderManager.LoaderCallbacks<List<Workout>> callbacks = this;
-        getActivity().getSupportLoaderManager().initLoader(59, null, callbacks);
-
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LoaderManager.LoaderCallbacks<List<Workout>> callbacks = this;
+        getActivity().getSupportLoaderManager().restartLoader(31, null, callbacks);
     }
 
     @Override

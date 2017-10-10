@@ -38,6 +38,7 @@ public class SwolemateApplication extends Application {
     public static SharedPreferences sharedPreferences;
     public static boolean permissionGranted;
     public static TypedArray workoutArray;
+    public static TypedArray workoutInstructions;
     public static List<String> sortedDates;
 
     @Override
@@ -46,6 +47,7 @@ public class SwolemateApplication extends Application {
 
         //list of workout names
         workoutArray = getResources().obtainTypedArray(R.array.workout_list);
+        workoutInstructions = getResources().obtainTypedArray(R.array.workout_instructions);
 
         permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         == PackageManager.PERMISSION_GRANTED;

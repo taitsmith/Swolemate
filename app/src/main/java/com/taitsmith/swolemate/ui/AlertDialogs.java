@@ -77,7 +77,7 @@ public class AlertDialogs {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                saveWorkout();
+                saveWorkout(context);
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
             }
