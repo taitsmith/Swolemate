@@ -18,8 +18,6 @@ import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.ui.AlertDialogs;
 import com.taitsmith.swolemate.ui.LastWorkoutWidget;
 
-import java.time.LocalDate;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +30,7 @@ import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUG
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.getFormattedDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.updateSessionDates;
 
 public class AddWorkoutActivity extends AppCompatActivity {
@@ -66,9 +65,9 @@ public class AddWorkoutActivity extends AppCompatActivity {
 
         resolver = getContentResolver();
 
-        date = LocalDate.now().toString();
+        date = getFormattedDate("long");
 
-        dateTv.setText(getString(R.string.add_workout_date, date.substring(6)));
+        dateTv.setText(getString(R.string.add_workout_date, getFormattedDate("short")));
     }
 
     @OnClick(R.id.saveButton)

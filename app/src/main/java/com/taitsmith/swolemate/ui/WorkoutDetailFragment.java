@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.taitsmith.swolemate.R;
@@ -37,6 +38,8 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     TextView dateView;
     @BindView(R.id.workout_detail_recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.detailFragmentProgress)
+    ProgressBar progressBar;
 
     static int sessionPosition;
 
@@ -80,6 +83,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
 
             @Override
             protected void onStartLoading() {
+                progressBar.setVisibility(View.VISIBLE);
                 if (workoutList != null) {
                     deliverResult(workoutList);
                 } else {
@@ -93,7 +97,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
                 try {
                     workoutList = createWorkoutList(getContext(), sessionPosition);
                 } catch (CursorIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    Log.d("LOG ", e.toString());
+                    Log.e("Loader error: ", e.toString());
                 }
                 return workoutList;
             }
@@ -108,9 +112,14 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Workout>> loader, List<Workout> data) {
-        final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
-        recyclerView.setAdapter(adapter);
-        dateView.setText(data.get(0).getDate());
+        if (data != null && data.size() != 0) {
+            final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
+            recyclerView.setAdapter(adapter);
+            dateView.setText(data.get(0).getDate());
+            progressBar.setVisibility(View.INVISIBLE);
+        } else {
+            dateView.setText(getString(R.string.workout_summary_error));
+        }
     }
 
     @Override

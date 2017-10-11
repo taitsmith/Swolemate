@@ -41,7 +41,7 @@ public class AlertDialogs {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Workout data will be kept", Toast.LENGTH_SHORT).show();
+                return;
             }
         });
 
@@ -87,7 +87,7 @@ public class AlertDialogs {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                builder.create().cancel();
+
             }
         });
 

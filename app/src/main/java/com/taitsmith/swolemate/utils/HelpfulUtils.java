@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.location.places.Place;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
@@ -142,8 +144,8 @@ public class HelpfulUtils {
     //instead of manually going in and entering a ton of fake workouts for testing, we'll
     //create X sessions containing Y workouts each.
     public static void makeUpWorkouts(Context context) {
-        String[] fakeDates = {"2017-09-13", "2017-09-14", "2017-09-15", "2017-09-16", "2017-09-17",
-                "2017-09-18", "2017-09-19", "2017-09-20", "2017-09-21"};
+        String[] fakeDates = {"09-13-2017", "09-14-2017", "09-15-2017", "09-16-2017", "09-17-2017",
+                "09-18-2017", "09-19-2017", "09-20-2017", "09-21-2017"};
 
         Random r = new Random();
         for (String s : fakeDates) {
@@ -177,5 +179,18 @@ public class HelpfulUtils {
         sortedDates.add(date);
         Collections.sort(sortedDates);
         Collections.reverse(sortedDates);
+    }
+
+    //so we can display a short version of the date on the add workout page
+    public static String getFormattedDate(String length){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat;
+        if (length.equals("long")) {
+            dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        } else {
+            dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+        }
+
+        return dateFormat.format(calendar.getTime());
     }
 }

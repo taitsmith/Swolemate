@@ -128,6 +128,15 @@
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/pre-dexed/debug/classes_8bc177ce2aea2e92ae4571e62c32c03a9a6dc8f8.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="/home/tait/Android/Projects/swolemate/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a42b6f1c651452c1b67ea49c90ee5fe76c8e2ebc/classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="/home/tait/.android/build-cache/13b52f8472ec5ad230f170a8b178fc31ed809037/output/jars/classes.jar"
         jumboMode="false"
@@ -189,6 +198,15 @@
         revision="26.0.1"
         sha1="88246166d5afb106f532f6e6deae683c66b42c89">
         <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/pre-dexed/debug/classes_066eb2cd0840c4dc2480c46222f15af02d05858f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tait/Android/Projects/swolemate/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c789102a477755893761190f2d6bab430d67be8b">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a69ab4e9a347f6ba7eb2095e1d7acadddbd957ef/classes.dex" />
     </item>
     <item
         is-multidex="false"

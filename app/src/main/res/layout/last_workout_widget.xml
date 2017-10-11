@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:padding="@dimen/widget_margin"
-    tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/widgetTitle"
@@ -18,7 +16,7 @@
         android:layout_marginLeft="8dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/widgetSessionsLabel"

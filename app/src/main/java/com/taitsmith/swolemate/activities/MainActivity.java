@@ -37,7 +37,6 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
-import com.taitsmith.swolemate.data.Workout;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
 import com.taitsmith.swolemate.utils.DbContract;
@@ -49,8 +48,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.R.attr.fragment;
-import static android.os.Build.VERSION_CODES.M;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements
                 detailFragment = new WorkoutDetailFragment();
             }
             manager.beginTransaction()
-                    .add(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
+                    .replace(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
                     .add(R.id.past_workouts_list_fragment, listFragment)
                     .commit();
         } else {
@@ -162,7 +159,9 @@ public class MainActivity extends AppCompatActivity implements
     //the workout list fragment has an interface for click listening.
     @Override
     public void onWorkoutSelected(int position) {
-
+        if (detailFragment == null) {
+            detailFragment = new WorkoutDetailFragment();
+        }
         if (isTwoPane) {
             setSessionPosition(position);
             manager.beginTransaction()

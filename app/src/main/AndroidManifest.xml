@@ -34,7 +34,7 @@
         <activity android:name=".activities.InstructionSummaryActivity" />
         <activity android:name=".activities.InstructionDetailActivity" />
 
-        <receiver android:name=".data.GeofenceReceiver" />
+        <receiver android:name=".data.GeofenceReceiver"/>
 
         <provider
             android:name=".utils.DbProvider"

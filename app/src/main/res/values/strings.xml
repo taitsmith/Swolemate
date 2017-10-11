@@ -38,6 +38,8 @@
     <!-- strings for text views etc -->
     <string name="session_summary_date_label">Workout session from:</string>
     <string name="session_summary_workouts_completed">Workouts completed:</string>
+    <string name="workout_summary_error">Add some workouts to get started! Or use the \'add workout\'
+        option in the menu if you\'re testing this app.</string>
 
     <!-- strings for detail fragment -->
     <string name="detail_listview_reps">Reps per set:</string>
@@ -59,5 +61,12 @@
     <string name="widget_date_label">Date:</string>
     <string name="widget_workouts_label">Workouts:</string>
     <string name="widget_default">Add a workout to get started!</string>
+
+    <!-- strings for geofence broadcast receiver -->
+    <string name="geofence_notification_enter">Looks like you\'re at the gym. Do you want to add a workout?</string>
+    <string name="geofence_notification_exit">Great job today!</string>
+
+    <!-- strings for accessibility -->
+    <string name="image_view_description">An image depicting the workout</string>
 
 </resources>

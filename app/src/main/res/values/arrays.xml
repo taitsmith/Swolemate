@@ -16,14 +16,63 @@
     </string-array>
 
     <string-array name="workout_instructions">
-        <item>This is how to do an ab workout</item>
-        <item>This is how to do a bicep (arm) workout</item>
-        <item>This is how to do a calf (leg) workout</item>
-        <item>What you\'ll need: A bench and a barbell (or dumbbells).\n\nWhat to do: Lay on your back
+        <item name="leg_raise">What you\'ll need: Somewhere to lay down (bench or pull-up bar optional).\n\nWhat to do:
+            Keep your lower back in contact with the floor and your legs together. Slowly raise them
+            to a 45 degree angle, and return to the starting position.\n\nHow to switch it up: If you\'ve
+            got a pull up bar or something similar, you can perform the same exercises while hanging.
+            This is generally considered more difficult than when performed seated or lying down.</item>
+        <item name="bicep_curl">What you\'ll need: A barbell or dumbbells.\n\nWhat to do: Start with your arms fully
+            extended, slowly bringing them up towards your body. Slowly return to the position in
+            which you started. That\'s it!</item>
+        <item name="calf_raise">What you\'ll need: Your legs (machine or dumbbells optional).\n\nWhat to do: If you
+            don\'t have a machine available, find a small ledge elevated a few inches above the floor.
+            Stand with your toes on the edge, and slowly raise up to stand on your tip-toes. Return
+            to the position in which you started. The technique is the same if using a machine.</item>
+        <item name="benchpress">What you\'ll need: A bench and a barbell (or dumbbells).\n\nWhat to do: Lay on your back
             on the bench, with your arms slightly more than shoulder width apart and the barbell
             above your chest. Lift, extending your arms all the way (CAREFUL not to lock your elbows!).
             Lower the weight to chest level and repeat.\n\nHow you can switch it up: Use an incline or
             decline bench. This will emphasise the upper and lower pectoral (chest) respectively. Use
             a narrower grip to more emphasise the triceps (back of the arm)</item>
+        <item name="forearm_curl">What you\'ll need: A bench or similar surgace, and a barbell
+            (or dumbbells).\n\nWhat to do: rest your arm on the bench with your hand extended over the
+            edge, palm facing up. Start with your wrist fully extended (fingers pointing towards
+            the floor), and raise your hand as far as possible. Slowly return to starting position.</item>
+        <item name="stiff_deadlift">What you\'ll need: A barbell.\n\nWhat to do: Stand behind the barbell, and
+            grip it with your hands slightly more than shoulder width apart, bending at the waist.
+            Avoid bending the knees (this is called a \'stiff leg\' deadlift) and be sure to keep
+            your knees behind your toes. Stand up to an erect position, keeping
+            your back tight and your weight on the back of your feet. Slowly return to the starting
+            position.\n\nHow to switch it up: Start with your legs farther apart and a narrower grip
+            on the bar. This puts more emphasis on hips and quads.</item>
+        <item name="lat_pulldown">What you\'ll need: a weight machine.\n\nWhat to do: Grip the bar with your hands farther
+            than shoulder width apart (you\'ll most likely have to stand up to do this, and then sit
+            down). Pull down by pinching your shoulder blades together, with your back at a slight
+            angle. Pull down to chest level, then slowly return to starting position.\n\nHow to switch
+            it up: Use a narrower grip, but DO NOT touch the bar to the back of your neck instead
+            of your chest. There is no advantage to this and it can be dangerous.</item>
+        <item name="squat">What you\'ll need: A barbell (optional).\n\nWhat to do: If using a barbell,
+            stand with your back straight and the bar positioned over the back of your neck. Slowly
+            move your hips back while bending your knees to lower your upper body. It is important to
+            keep your knees behind your feet. Continue until the \'crease\' of your hips is below your
+            knees. Return to the standing position.\n\nHow you can switch it up: \'Deep\' squats
+            involve lowering the torso even farther towards the floor, but can put more stress on the
+            knees, so be careful when doing this.</item>
+        <item name="shoulder_press">What you\'ll need: A barbell or dumbbells.\n\nWhat to do: Start with
+            your arms at your sides, elbows bent. If using dumbbells, rest them on your shoulders, and
+            if using a barbell rest it across the top of your back. Extend your arm fully (reach toward
+            the ceiling). Slowly return to the starting position.</item>
+        <item name="deadlift">What you\'ll need: A barbell.\n\nWhat to do: Stand behind the barbell, and
+            grip it with your hands slightly more than shoulder width apart, bending at the waist.
+            Move your knees forward when initially lifting the bar, and back when standing up (unlike
+            the \'stiff-leg\' version of the deadlift). Be sure to keep your knees behind your toes.
+            Stand up to an erect position, keeping your back tight and your weight on the back of your
+            feet. Slowly return to the starting position.\n\nHow to switch it up: Start with your
+            legs farther apart and a narrower grip on the bar.</item>
+        <item name="tricep_scooop">What you\'ll need: A dumbbell.\n\nWhat to do: Hold a single dumbbell
+            above your head in both hands. Position the weight behind your head and slowly lower it
+            by bending at the elbows. Lower to the point where it would touch your back, then return
+            to the starting position.\n\nHow you can switch it up: A bench press done with a narrow
+            grip (hands close together) works the same muscles.</item>
     </string-array>
 </resources>

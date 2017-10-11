@@ -5,63 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.taitsmith.swolemate.activities.InstructionSummaryActivity"
-    android:background="@color/colorPrimaryLight">
+    android:background="@color/colorPrimary">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
+        android:layout_height="?actionBarSize"
         android:background="@color/colorPrimaryDark"
         app:layout_collapseMode="pin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="0dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline6"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="280dp" />
+        app:layout_constraintGuide_percent="0.35"/>
 
     <FrameLayout
         android:id="@+id/instruction_detail_fragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        style="@style/FragmentLayout">
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/instruction_list_fragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline6"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        style="@style/FragmentLayout"/>
 
 </android.support.constraint.ConstraintLayout>

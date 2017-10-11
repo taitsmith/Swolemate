@@ -39,7 +39,7 @@ public class InstructionDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.instruction_detail_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_instruction_detail, container, false);
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState == null) {
