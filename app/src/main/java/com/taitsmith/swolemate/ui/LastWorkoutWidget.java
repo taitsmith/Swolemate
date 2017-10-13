@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.activities.SessionDetailActivity;
+import com.taitsmith.swolemate.activities.MainActivity;
 import com.taitsmith.swolemate.data.Workout;
 
 import java.util.List;
@@ -24,14 +24,15 @@ public class LastWorkoutWidget extends AppWidgetProvider {
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        Intent intent = new Intent(context, SessionDetailActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("FROM_WIDGET", true);
         PendingIntent widgetPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.last_workout_widget);
         views.setTextViewText(R.id.widgetSessionsTextView, sortedDates.get(0));
 
-        views.setOnClickPendingIntent(R.id.widgetWorkoutsTextView, widgetPendingIntent);
+        views.setOnClickPendingIntent(R.id.lastWorkoutWidget, widgetPendingIntent);
 
         List<Workout> workoutList = createWorkoutList(context, 0);
 

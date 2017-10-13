@@ -21,6 +21,7 @@ import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.AddWorkoutActivity;
 import com.taitsmith.swolemate.activities.MainActivity;
 
+import static android.R.attr.id;
 import static android.os.Build.VERSION.SDK;
 import static android.os.Build.VERSION.SDK_INT;
 
@@ -56,36 +57,28 @@ public class GeofenceReceiver extends BroadcastReceiver {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        //so we can show notifications on Oreo+
         if (Build.VERSION.SDK_INT >= 26) {
-// The id of the channel.
-            String id = "my_channel_01";
-// The user-visible name of the channel.
-            CharSequence name = ("beep");
-// The user-visible description of the channel.
-            String description = "beeeep";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            String id = "geofence_notification_channel";
+
+            CharSequence name = ("Swolemate Notification");
+
+            String description = "A notification from Swolemate";
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
             channel = new NotificationChannel(id, name, importance);
-// Configure the notification channel.
+
             channel.setDescription(description);
-            channel.enableLights(true);
-// Sets the notification light color for notifications posted to this
-// channel, if the device supports this feature.
-            channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             notificationManager.createNotificationChannel(channel);
         }
 
-
         Intent notificationIntent = new Intent(context, AddWorkoutActivity.class);
 
-        // Construct a task stack.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 
-        // Add the main Activity to the task stack as the parent.
         stackBuilder.addParentStack(MainActivity.class);
 
-        // Push the content Intent onto the stack.
         stackBuilder.addNextIntent(notificationIntent);
 
         // Get a PendingIntent containing the entire back stack.
@@ -101,7 +94,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(context.getString(R.string.geofence_notification_enter))
                     .addAction(R.drawable.add_workout, "Add Workout", notificationPendingIntent)
-                    .setChannel("my_channel_01")
                     .setContentIntent(notificationPendingIntent);
         } else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
             builder.setSmallIcon(R.drawable.add_workout)
@@ -114,6 +106,7 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
         // Dismiss notification once the user touches it.
         builder.setAutoCancel(true);
+        builder.setChannel("geofence_notification_channel");
 
         // Issue the notification
         notificationManager.notify(293487, builder.build());

@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements
         listFragment = new PastSessionsListFragment();
         detailFragment = (WorkoutDetailFragment) manager.findFragmentByTag("DETAIL_FRAGMENT");
 
+        isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
+
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
@@ -108,7 +110,13 @@ public class MainActivity extends AppCompatActivity implements
             informPermissions(MainActivity.this);
         }
 
-        isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
+        //if the activity is launched by the widget and we're on a phone
+        //go straight to the most recent workout detail
+        if (getIntent().hasExtra("FROM_WIDGET") && !isTwoPane) {
+            Intent intent = new Intent(this, SessionDetailActivity.class);
+            intent.putExtra("SESSION_ID", 0);
+            startActivity(intent);
+        }
 
         setUi();
     }
@@ -199,7 +207,8 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
                 return true;
             case R.id.menu_set_home:
-                if (!permissionGranted) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, getString(R.string.need_permissions_toast), Toast.LENGTH_SHORT).show();
                 } else {
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -274,5 +283,6 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         geofencer.registerAllGeofences();
+        places.close();
     }
 }
