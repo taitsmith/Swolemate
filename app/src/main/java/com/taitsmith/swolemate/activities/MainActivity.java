@@ -37,6 +37,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
+import com.taitsmith.swolemate.data.WeeklySummary;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
 import com.taitsmith.swolemate.utils.DbContract;
@@ -215,9 +216,13 @@ public class MainActivity extends AppCompatActivity implements
                     try {
                         startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
                     } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-                        Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
                     }
                 }
+                return true;
+            case R.id.menu_weekly_summary:
+                WeeklySummary summary = new WeeklySummary(this);
+                summary.execute(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -243,12 +248,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
     }
 
     public void refreshPlaces() {

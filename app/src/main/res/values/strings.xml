@@ -29,7 +29,12 @@
         partner. Injuring yourself won\'t help you get stronger!\n\nImages are courtesy of Muscle Wiki.
         \n\nIcons courtesy of material.io
         </string>
-    <string name="about_positive">Got it</string>
+    <string name="dialog_got_it">Got it</string>
+    <string name="summary_message">You\'ve completed %1$d sessions in the last week, with a total of
+        %2$d workouts.</string>
+    <string name="summary_no_workouts">You haven\'t added any workouts this week. Want to add one now?</string>
+    <string name="summary_add_workout">Add workout</string>
+    <string name="summary_dont_add_workout">Cancel</string>
 
     <!-- misc -->
     <string name="successful_save_toast">Workout saved successfully</string>
@@ -54,6 +59,7 @@
     <string name="menu_fake_data">Create fake data</string>
     <string name="menu_workout_instructions">View workout guides</string>
     <string name="menu_about_app">About Swolemate</string>
+    <string name="menu_weekly_summary">Weekly summary</string>
 
     <!-- widget strings -->
     <string name="add_widget">Add widget</string>
@@ -62,11 +68,19 @@
     <string name="widget_workouts_label">Workouts:</string>
     <string name="widget_default">Add a workout to get started!</string>
 
-    <!-- strings for geofence broadcast receiver -->
+    <!-- strings for geofence broadcast receiver, notifications -->
     <string name="geofence_notification_enter">Looks like you\'re at the gym. Do you want to add a workout?</string>
     <string name="geofence_notification_exit">Great job today!</string>
+    <string name="geofence_channel_name">Swolemate Notification</string>
+    <string name="geofence_channel_description">Notification from Swolemate</string>
+    <string name="geofence_notificatin_add_workout">Add workout</string>
 
     <!-- strings for accessibility -->
     <string name="image_view_description">An image depicting the workout</string>
+    <string name="fab_description">Add a workout</string>
+
+    <!-- Toast strings -->
+    <string name="toast_network_error">Something went wrong&#8230;</string>
+    <string name="toast_loader_error">There was an error loading your data, please try again.</string>
 
 </resources>

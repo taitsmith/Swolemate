@@ -1,7 +1,6 @@
 package com.taitsmith.swolemate.data;
 
 import android.content.Context;
-import android.provider.BaseColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.taitsmith.swolemate.R;
 
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * Holds all of the data for past workout {@link Session} to be displayed in the main activity fragment.

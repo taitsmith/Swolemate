@@ -24,9 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.31"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="248dp" />
+        app:layout_constraintGuide_percent="0.3"/>
 
     <FrameLayout
         android:id="@+id/past_workouts_list_fragment"
@@ -36,9 +34,6 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline"
         app:layout_constraintBottom_toBottomOf="parent"
         android:elevation="4dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <FrameLayout
@@ -71,11 +66,10 @@
         ads:fabSize="normal"
         ads:srcCompat="@drawable/add_workout"
         android:layout_margin="8dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/past_workout_detail_fragment"
         app:layout_constraintBottom_toBottomOf="@+id/past_workout_detail_fragment"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp" />
+
+        android:contentDescription="@string/fab_description"/>
 
 
 </android.support.constraint.ConstraintLayout>

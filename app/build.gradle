@@ -5,12 +5,12 @@ android {
         Release {
             keyAlias 'key0'
             keyPassword 'password'
-            storeFile file('/home/tait/Android/Projects/swolemate/keystore.jks')
+            storeFile file("$rootDir/keystore.jks")
             storePassword 'password'
         }
     }
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.taitsmith.swolemate"
         minSdkVersion 19

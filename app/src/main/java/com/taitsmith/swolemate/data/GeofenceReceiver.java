@@ -1,17 +1,13 @@
 package com.taitsmith.swolemate.data;
 
 import android.app.NotificationChannel;
-import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
@@ -21,9 +17,6 @@ import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.AddWorkoutActivity;
 import com.taitsmith.swolemate.activities.MainActivity;
 
-import static android.R.attr.id;
-import static android.os.Build.VERSION.SDK;
-import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * Listening for some things, doing some other things when it hears those first things. We will be
@@ -62,9 +55,9 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
             String id = "geofence_notification_channel";
 
-            CharSequence name = ("Swolemate Notification");
-
-            String description = "A notification from Swolemate";
+            //both are user-visible
+            CharSequence name = (context.getString(R.string.geofence_channel_name));
+            String description = context.getString(R.string.geofence_channel_description);
 
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             channel = new NotificationChannel(id, name, importance);
@@ -85,15 +78,15 @@ public class GeofenceReceiver extends BroadcastReceiver {
         PendingIntent notificationPendingIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Get a notification builder
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        // Check the transition type to display the relevant icon image
+        // make sure we show the correct message based on enter/exit
         if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER) {
             builder.setSmallIcon(R.drawable.add_workout)
                     .setContentTitle(context.getString(R.string.app_name))
                     .setContentText(context.getString(R.string.geofence_notification_enter))
-                    .addAction(R.drawable.add_workout, "Add Workout", notificationPendingIntent)
+                    .addAction(R.drawable.add_workout, context.getString(R.string.geofence_notificatin_add_workout),
+                            notificationPendingIntent)
                     .setContentIntent(notificationPendingIntent);
         } else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
             builder.setSmallIcon(R.drawable.add_workout)
@@ -109,6 +102,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
         builder.setChannel("geofence_notification_channel");
 
         // Issue the notification
-        notificationManager.notify(293487, builder.build());
+        notificationManager.notify(45, builder.build());
     }
 }

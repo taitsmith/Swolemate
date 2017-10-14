@@ -5,18 +5,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.location.places.Place;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +23,7 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPref
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sortedDates;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
 import static com.taitsmith.swolemate.utils.DbContract.*;
+import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
 
 /**
  * A home for all friendly and helpful utilities that involve interacting with the database through
@@ -61,11 +58,10 @@ public class HelpfulUtils {
         ContentResolver resolver = context.getContentResolver();
 
         for (String s : sortedDates) {
-            Log.d("LOG SESSION DATE", s);
 
             Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
                     null,
-                    null,
+                    WorkoutEntry.COLUMN_DATE + "=?",
                     new String[]{s},
                     null);
 
@@ -103,7 +99,7 @@ public class HelpfulUtils {
         ContentResolver resolver = context.getContentResolver();
         Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
                 null,
-                null,
+                WorkoutEntry.COLUMN_DATE + "=?",
                 new String[]{dateArray[position]},
                 null);
 
@@ -152,7 +148,7 @@ public class HelpfulUtils {
             ContentValues values = new ContentValues();
             ContentResolver resolver = context.getContentResolver();
             for (int j = 0; j < 4; j++) {
-                values.put(WorkoutEntry.COLUMN_DATE, s);
+                values.put(COLUMN_DATE, s);
                 values.put(WorkoutEntry.COLUMN_WEIGHT, r.nextInt(100)+50);
                 values.put(WorkoutEntry.COLUMN_REPS, r.nextInt(50));
                 values.put(WorkoutEntry.COLUMN_SETS, r.nextInt(5));
@@ -174,7 +170,7 @@ public class HelpfulUtils {
         sessionDates.add(date);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("DATES", sessionDates);
-        editor.commit();
+        editor.apply();
 
         sortedDates.add(date);
         Collections.sort(sortedDates);

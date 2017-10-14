@@ -66,6 +66,7 @@
         ads:layout_anchor="@id/appbar_layout"
         ads:layout_anchorGravity="bottom|end"
         ads:srcCompat="@drawable/add_workout"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:contentDescription="@string/fab_description"/>
 
 </android.support.design.widget.CoordinatorLayout>

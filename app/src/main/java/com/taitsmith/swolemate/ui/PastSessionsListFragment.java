@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
                 try {
                     sessionList = createSessionList(getContext());
                 } catch (CursorIndexOutOfBoundsException e) {
-                    Toast.makeText(getContext(), "Woops", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.toast_loader_error), Toast.LENGTH_SHORT).show();
                 }
                 return sessionList;
             }

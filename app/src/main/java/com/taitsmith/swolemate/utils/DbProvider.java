@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import static com.taitsmith.swolemate.utils.DbContract.CONTENT_AUTHORITY;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_ID;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
 
@@ -158,7 +157,7 @@ public class DbProvider extends ContentProvider {
             case CODE_WORKOUT:
                 returnCursor = db.query(DbContract.WorkoutEntry.TABLE_NAME,
                         projection,
-                        COLUMN_DATE + "=?", //we want workouts grouped by same date to display as
+                        selection, //we want workouts grouped by same date to display as
                         selectionArgs, //a completed 'session'
                         null,
                         null,
