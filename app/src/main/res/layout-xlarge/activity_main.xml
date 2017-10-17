@@ -45,18 +45,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addWorkoutFab"
         android:layout_width="wrap_content"
@@ -68,8 +56,6 @@
         android:layout_margin="8dp"
         app:layout_constraintRight_toRightOf="@+id/past_workout_detail_fragment"
         app:layout_constraintBottom_toBottomOf="@+id/past_workout_detail_fragment"
-
         android:contentDescription="@string/fab_description"/>
-
 
 </android.support.constraint.ConstraintLayout>

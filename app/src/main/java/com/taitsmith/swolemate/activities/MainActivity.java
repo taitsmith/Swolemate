@@ -21,8 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -63,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    @BindView(R.id.adView)
-    AdView adView;
     @BindView(R.id.addWorkoutFab)
     FloatingActionButton addWorkoutFab;
     @Nullable
@@ -152,11 +148,6 @@ public class MainActivity extends AppCompatActivity implements
                 }
             });
             }
-        
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("366D79E3B74228190ACAB86D24457619")
-                .build();
-        adView.loadAd(adRequest);
     }
 
     @OnClick(R.id.addWorkoutFab)
