@@ -4,4 +4,6 @@
     android:id="@+id/past_workouts_grid_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"/>
+    android:background="@color/colorAccent"
+    android:listSelector="@drawable/list_item_background"
+    android:choiceMode="singleChoice"/>

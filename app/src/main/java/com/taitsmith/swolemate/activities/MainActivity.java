@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements
     @Nullable
     @BindView(R.id.past_workouts_list_view)
     ListView workoutsListView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private FragmentManager manager;
     private boolean isTwoPane;
@@ -83,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
         manager = getSupportFragmentManager();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         listFragment = new PastSessionsListFragment();

@@ -10,6 +10,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,12 +35,13 @@ import static com.taitsmith.swolemate.utils.HelpfulUtils.createWorkoutList;
  */
 
 public class WorkoutDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Workout>> {
-    @BindView(R.id.summaryFragmentDateView)
-    TextView dateView;
     @BindView(R.id.workout_detail_recycler)
     RecyclerView recyclerView;
     @BindView(R.id.detailFragmentProgress)
     ProgressBar progressBar;
+    @Nullable
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     static int sessionPosition;
 
@@ -115,10 +117,12 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
         if (data != null && data.size() != 0) {
             final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
             recyclerView.setAdapter(adapter);
-            dateView.setText(data.get(0).getDate());
+            if (toolbar != null) {
+                toolbar.setTitle(data.get(0).getDate());
+            }
             progressBar.setVisibility(View.INVISIBLE);
         } else {
-            dateView.setText(getString(R.string.workout_summary_error));
+            toolbar.setTitle(getString(R.string.workout_summary_error));
         }
     }
 
