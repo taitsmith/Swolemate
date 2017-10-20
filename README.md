@@ -10,6 +10,9 @@ Version 2 in progress: moving to Realm from content providers, adding a feature 
 ![Screenshot](/../add_realm/screens/phone_instruction_list.png?raw=true "Select a workout for instructions")
 ![Screenshot](/../add_realm/screens/phone_instruction_detail.png?raw=true "Detailed instructions")
 ![Screenshot](/../add_realm/screens/tablet_main_screen.png?raw=true "Main screen on tablet")
+![Screenshot](/../add_realm/screens/phone_workout_detail.png?raw=true "Workout detail on phone")
+
+
 
 
 
