@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 
-import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
+import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 
 public class SessionDetailActivity extends AppCompatActivity {
     private WorkoutDetailFragment detailFragment;
@@ -17,12 +17,12 @@ public class SessionDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_detail);
-        detailFragment = new WorkoutDetailFragment();
+         detailFragment = new WorkoutDetailFragment();
         FragmentManager manager = getSupportFragmentManager();
 
 
-        if (getIntent().hasExtra("SESSION_ID")) {
-            setSessionPosition(getIntent().getIntExtra("SESSION_ID", 0));
+        if (getIntent().hasExtra("SESSION_DATE")) {
+            setSessionDate(getIntent().getStringExtra("SESSION_DATE"));
             manager.beginTransaction()
                     .add(R.id.detail_fragment, detailFragment)
                     .commit();

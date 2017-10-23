@@ -1,12 +1,14 @@
 package com.taitsmith.swolemate.data;
 
 
+import io.realm.RealmObject;
+
 /**
  * All of the relevant info to turn data from the SQLite db into an object. A group makes up each
  * {@link Session} object.
  */
 
-public class Workout {
+public class Workout extends RealmObject{
     public String date, thoughts, name;
     public int weight, reps, sets;
 

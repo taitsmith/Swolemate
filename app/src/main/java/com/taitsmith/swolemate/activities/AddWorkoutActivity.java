@@ -15,13 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.Workout;
 import com.taitsmith.swolemate.ui.AlertDialogs;
 import com.taitsmith.swolemate.ui.LastWorkoutWidget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.LastWorkoutWidget.updateWidgetText;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_REPS;
@@ -30,8 +33,8 @@ import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUG
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.getFormattedDate;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.updateSessionDates;
 
 public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.addWorkoutDateTv)
@@ -53,7 +56,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
     @BindView(R.id.cancelButton)
     Button cancelButton;
 
-    private static ContentResolver resolver;
     private static String date, thoughts, name;
     private static int weight, sets, reps;
 
@@ -62,8 +64,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
         ButterKnife.bind(this);
-
-        resolver = getContentResolver();
 
         date = getFormattedDate("long");
 
@@ -81,17 +81,18 @@ public class AddWorkoutActivity extends AppCompatActivity {
     }
 
     public static void saveWorkout(Context context) {
-        updateSessionDates(date);
+        Realm realm = Realm.getInstance(realmConfiguration);
+        realm.beginTransaction();
+        Workout workout = realm.createObject(Workout.class);
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_DATE, date);
-        contentValues.put(COLUMN_WORKOUT_NAME, name);
-        contentValues.put(COLUMN_WEIGHT, weight);
-        contentValues.put(COLUMN_REPS, reps);
-        contentValues.put(COLUMN_SETS, sets);
-        contentValues.put(COLUMN_THOUGHTS, thoughts);
+        workout.setDate(date);
+        workout.setName(name);
+        workout.setWeight(weight);
+        workout.setReps(reps);
+        workout.setSets(sets);
+        workout.setThoughts(thoughts);
 
-        resolver.insert(CONTENT_URI, contentValues);
+        realm.commitTransaction();
 
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         int[] widgetIds = manager.getAppWidgetIds(new ComponentName(context, LastWorkoutWidget.class));

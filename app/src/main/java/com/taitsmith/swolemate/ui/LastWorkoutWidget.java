@@ -34,9 +34,6 @@ public class LastWorkoutWidget extends AppWidgetProvider {
 
         views.setOnClickPendingIntent(R.id.lastWorkoutWidget, widgetPendingIntent);
 
-        List<Workout> workoutList = createWorkoutList(context, 0);
-
-        views.setTextViewText(R.id.widgetWorkoutsTextView, Integer.toString(workoutList.size()));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

@@ -27,14 +27,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
+import static android.R.attr.data;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createWorkoutList;
 
 /**
  * Shows details of a selected past workout
  */
 
-public class WorkoutDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Workout>> {
+public class WorkoutDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<RealmResults<Workout>> {
     @BindView(R.id.workout_detail_recycler)
     RecyclerView recyclerView;
     @BindView(R.id.detailFragmentProgress)
@@ -43,7 +48,8 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    static int sessionPosition;
+    static String sessionDate;
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -62,7 +68,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
         ButterKnife.bind(this, rootView);
 
         if (savedInstanceState != null) {
-            sessionPosition = savedInstanceState.getInt("POSITION");
+            sessionDate = savedInstanceState.getString("DATE");
         }
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -74,14 +80,14 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onStart() {
         super.onStart();
-        LoaderManager.LoaderCallbacks<List<Workout>> callbacks = this;
+        LoaderManager.LoaderCallbacks<RealmResults<Workout>> callbacks = this;
         getActivity().getSupportLoaderManager().restartLoader(31, null, callbacks);
     }
 
     @Override
-    public Loader<List<Workout>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<List<Workout>>(getContext()) {
-            List<Workout> workoutList = null;
+    public Loader<RealmResults<Workout>> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<RealmResults<Workout>>(getContext()) {
+            RealmResults<Workout> workoutList = null;
 
             @Override
             protected void onStartLoading() {
@@ -94,18 +100,22 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
             }
 
             @Override
-            public List<Workout> loadInBackground() {
-                List<Workout> workoutList = new ArrayList<>();
+            public RealmResults<Workout> loadInBackground() {
+                Realm realm = Realm.getInstance(realmConfiguration);
+
                 try {
-                    workoutList = createWorkoutList(getContext(), sessionPosition);
-                } catch (CursorIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                    Log.e("Loader error: ", e.toString());
+                    return realm.where(Workout.class)
+                            .equalTo("date", sessionDate)
+                            .findAllAsync();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    e.printStackTrace();
                 }
-                return workoutList;
+
+                return null;
             }
 
             @Override
-            public void deliverResult(List<Workout> data) {
+            public void deliverResult(RealmResults<Workout> data) {
                 workoutList = data;
                 super.deliverResult(workoutList);
             }
@@ -113,7 +123,7 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Workout>> loader, List<Workout> data) {
+    public void onLoadFinished(Loader<RealmResults<Workout>> loader, RealmResults<Workout> data) {
         if (data != null && data.size() != 0) {
             final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
             recyclerView.setAdapter(adapter);
@@ -127,17 +137,17 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Workout>> loader) {
+    public void onLoaderReset(Loader<RealmResults<Workout>> loader) {
         //just taking up space
     }
 
-    public static void setSessionPosition(int position) {
-        sessionPosition = position;
+    public static void setSessionDate(String date) {
+        sessionDate = date;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("POSITION", sessionPosition);
+        outState.putString("DATE", sessionDate);
     }
 }

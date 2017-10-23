@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.Session;
+import com.taitsmith.swolemate.data.Workout;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +24,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 import static android.os.Build.VERSION.SDK;
 import static android.os.Build.VERSION.SDK_INT;
@@ -34,16 +39,22 @@ import static android.os.Build.VERSION.SDK_INT;
 
 public class SwolemateApplication extends Application {
     public static List<Integer> gifList;
-    public static Set<String> sessionDates;
-    public static SharedPreferences sharedPreferences;
     public static boolean permissionGranted;
     public static TypedArray workoutArray;
     public static TypedArray workoutInstructions;
     public static List<String> sortedDates;
+    public static RealmConfiguration realmConfiguration;
+    public static RealmResults<Session> sessionList;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
+
+        realmConfiguration = new RealmConfiguration.Builder()
+                .name("swolemate.realm")
+                .schemaVersion(1)
+                .build();
 
         //list of workout names
         workoutArray = getResources().obtainTypedArray(R.array.workout_list);
@@ -51,21 +62,6 @@ public class SwolemateApplication extends Application {
 
         permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         == PackageManager.PERMISSION_GRANTED;
-
-        sharedPreferences = getSharedPreferences("SHARED_PREFS", 0);
-
-        //keep our list of past dates in a shared preferences instead of having a
-        //whole separate table in the DB just for that.
-        sessionDates = sharedPreferences.getStringSet("DATES", new HashSet<String>());
-
-        //inconvenient, but you can't call Collections.sort() on  Set
-        //and you cant keep an ArrayList in shared preferences
-        sortedDates = new ArrayList<>(sessionDates);
-
-        Collections.sort(sortedDates);
-
-        //and then you want it ascending.
-        Collections.reverse(sortedDates);
 
          /* Originally this was a list of Drawables in the form:
         gifList.add(ContextCompat.getDrawable(this, R.id.XXXXX));
@@ -82,7 +78,7 @@ public class SwolemateApplication extends Application {
         gifList.add(R.drawable.forearmcurl);
         gifList.add(R.drawable.stiffdeadlift);
         gifList.add(R.drawable.latpulldown);
-        gifList.add((R.drawable.squat));
+        gifList.add(R.drawable.squat);
         gifList.add(R.drawable.shoulderpress);
         gifList.add(R.drawable.deadlift);
         gifList.add(R.drawable.tricep);

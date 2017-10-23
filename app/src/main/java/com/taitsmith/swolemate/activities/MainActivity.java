@@ -35,6 +35,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
+import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.WeeklySummary;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
@@ -46,10 +47,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
-import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionPosition;
+import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.makeUpWorkouts;
@@ -133,12 +136,11 @@ public class MainActivity extends AppCompatActivity implements
                     .add(R.id.past_workouts_list_fragment, listFragment)
                     .commit();
         } else {
-
             //So here's the situation. ListView inside a fragment in a CollapsingToolbarLayout has
             //issues with nested scrolling for some reason. I spent quite a bit of time on it and there's
             //presumably some simple workaround, but for now we'll swap out the fragment for a plain
             //old list view. This obviously cancels out the whole point of reusability in fragments.
-            PastSessionsAdapter adapter = new PastSessionsAdapter(this, createSessionList(this));
+            PastSessionsAdapter adapter = new PastSessionsAdapter(this, createSessionList());
             workoutsListView.setAdapter(adapter);
             workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -164,15 +166,16 @@ public class MainActivity extends AppCompatActivity implements
             detailFragment = new WorkoutDetailFragment();
         }
         if (isTwoPane) {
-            setSessionPosition(position);
+            setSessionDate(createSessionList().get(position).getDate());
             manager.beginTransaction()
                     .remove(detailFragment)
                     .add(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
                     .addToBackStack("DETAIL_FRAGMENT")
                     .commit();
         } else {
+            String date = createSessionList().get(position).getDate();
             Intent intent = new Intent(this, SessionDetailActivity.class);
-            intent.putExtra("SESSION_ID", position);
+            intent.putExtra("SESSION_DATE", date);
             startActivity(intent);
         }
     }
@@ -190,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements
         Intent intent;
         switch (itemSelected) {
             case R.id.menu_fake_data:
-                makeUpWorkouts(this);
+                makeUpWorkouts();
                 return true;
             case R.id.menu_about:
                 aboutDialog(this);

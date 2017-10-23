@@ -23,6 +23,11 @@ import com.taitsmith.swolemate.data.Session;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+import static android.R.attr.data;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 
 /**
@@ -33,7 +38,7 @@ import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
  * TODO make an error TV for no workouts in DB, show a progress bar.
  */
 
-public class PastSessionsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Session>>{
+public class PastSessionsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<RealmResults<Session>>{
     OnWorkoutClickListener listener;
     private ListView listView;
 
@@ -60,7 +65,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
 
         listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
-        LoaderManager.LoaderCallbacks<List<Session>> callbacks = this;
+        LoaderManager.LoaderCallbacks<RealmResults<Session>> callbacks = this;
         getActivity().getSupportLoaderManager().initLoader(11, null, callbacks);
 
         return rootView;
@@ -68,9 +73,9 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
 
     //db queries can be time consuming so we'll use a loader.
     @Override
-    public Loader<List<Session>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<List<Session>>(getContext()) {
-            List<Session> sessionList = null;
+    public Loader<RealmResults<Session>> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<RealmResults<Session>>(getContext()) {
+            RealmResults<Session> sessionList = null;
 
             @Override
             protected void onStartLoading() {
@@ -82,18 +87,15 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
             }
 
             @Override
-            public List<Session> loadInBackground() {
-                List<Session> sessionList = new ArrayList<>();
-                try {
-                    sessionList = createSessionList(getContext());
-                } catch (CursorIndexOutOfBoundsException e) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.toast_loader_error), Toast.LENGTH_SHORT).show();
-                }
-                return sessionList;
+            public RealmResults<Session> loadInBackground() {
+                Realm realm = Realm.getInstance(realmConfiguration);
+
+                return realm.where(Session.class)
+                        .findAll();
             }
 
             @Override
-            public void deliverResult(List<Session> data) {
+            public void deliverResult(RealmResults<Session> data) {
                 sessionList = data;
                 super.deliverResult(sessionList);
             }
@@ -101,7 +103,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Session>> loader, final List<Session> data) {
+    public void onLoadFinished(Loader<RealmResults<Session>> loader, final RealmResults<Session> data) {
         final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +115,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Session>> loader) {
+    public void onLoaderReset(Loader<RealmResults<Session>> loader) {
         //i'm just here because i have to be.
     }
 }

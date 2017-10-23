@@ -11,18 +11,18 @@ import com.taitsmith.swolemate.R;
 
 import java.util.List;
 
+import io.realm.RealmResults;
+
 /**
  * Holds all of the data for past workout {@link Session} to be displayed in the main activity fragment.
  *
  */
 
 public class PastSessionsAdapter extends BaseAdapter {
-    private Context context;
-    private List<Session> sessions;
+    private RealmResults<Session> sessions;
     private LayoutInflater inflater;
 
-    public PastSessionsAdapter(Context context, List<Session> sessions){
-        this.context = context;
+    public PastSessionsAdapter(Context context, RealmResults<Session> sessions){
         this.sessions = sessions;
         inflater = LayoutInflater.from(context);
     }
@@ -61,7 +61,7 @@ public class PastSessionsAdapter extends BaseAdapter {
         Session session = sessions.get(i);
 
         holder.workoutDate.setText(session.getDate());
-        holder.workoutsCompleted.setText(Integer.toString(session.getWorkoutCount()));
+        holder.workoutsCompleted.setText(Integer.toString(session.getWorkoutCount(session.getDate())));
 
         return view;
     }

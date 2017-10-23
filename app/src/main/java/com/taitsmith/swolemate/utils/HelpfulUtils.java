@@ -3,27 +3,24 @@ package com.taitsmith.swolemate.utils;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionDates;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.sharedPreferences;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.sortedDates;
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
 import static com.taitsmith.swolemate.utils.DbContract.*;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
 
 /**
  * A home for all friendly and helpful utilities that involve interacting with the database through
@@ -47,78 +44,21 @@ import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
  */
 
 public class HelpfulUtils {
-    private static List<Session> sessionList;
-    private static List<Workout> workoutList;
-    private static String[] dateArray;
 
-    public static List<Session> createSessionList(Context context) {
-        sessionList = new ArrayList<>();
-        List<Workout> workoutList = new ArrayList<>();
-        Session session = new Session();
-        ContentResolver resolver = context.getContentResolver();
+    public static RealmResults<Session> createSessionList() {
+        Realm realm = Realm.getInstance(realmConfiguration);
 
-        for (String s : sortedDates) {
+        return realm.where(Session.class)
+                .findAll();
 
-            Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
-                    null,
-                    WorkoutEntry.COLUMN_DATE + "=?",
-                    new String[]{s},
-                    null);
-
-            cursor.moveToFirst();
-            session.setDate(cursor.getString(1));
-
-            do {
-                Workout workout = new Workout();
-                workout.setDate(cursor.getString(1));
-                workout.setName(cursor.getString(2));
-                workout.setWeight(cursor.getInt(3));
-                workout.setReps(cursor.getInt(4));
-                workout.setSets(cursor.getInt(5));
-                workout.setThoughts(cursor.getString(6));
-                workoutList.add(workout);
-
-            } while (cursor.moveToNext());
-
-            session.setWorkoutList(workoutList);
-            sessionList.add(session);
-
-            session = new Session();
-            workoutList = new ArrayList<>();
-
-            cursor.close();
-        }
-
-        return  sessionList;
     }
 
-    public static List<Workout> createWorkoutList(Context context,  int position) {
-        workoutList = new ArrayList<>();
-        dateArray = sortedDates.toArray(new String[sortedDates.size()]);
+    public static RealmResults<Workout> createWorkoutList(String date) {
+        Realm realm = Realm.getInstance(realmConfiguration);
 
-        ContentResolver resolver = context.getContentResolver();
-        Cursor cursor = resolver.query(WorkoutEntry.CONTENT_URI,
-                null,
-                WorkoutEntry.COLUMN_DATE + "=?",
-                new String[]{dateArray[position]},
-                null);
-
-        cursor.moveToFirst();
-
-        do {
-            Workout workout = new Workout();
-            workout.setDate(cursor.getString(1));
-            workout.setName(cursor.getString(2));
-            workout.setWeight(cursor.getInt(3));
-            workout.setReps(cursor.getInt(4));
-            workout.setSets(cursor.getInt(5));
-            workout.setThoughts(cursor.getString(6));
-            workoutList.add(workout);
-        } while (cursor.moveToNext());
-
-        cursor.close();
-
-        return workoutList;
+        return realm.where(Workout.class)
+                .equalTo("date", date)
+                .findAllAsync();
     }
 
     public static void addLocation(Context context, Place place) {
@@ -139,42 +79,33 @@ public class HelpfulUtils {
 
     //instead of manually going in and entering a ton of fake workouts for testing, we'll
     //create X sessions containing Y workouts each.
-    public static void makeUpWorkouts(Context context) {
-        String[] fakeDates = {"09-13-2017", "09-14-2017", "09-15-2017", "09-16-2017", "09-17-2017",
-                "09-18-2017", "09-19-2017", "09-20-2017", "09-21-2017"};
+    public static void makeUpWorkouts() {
+        Realm realm = Realm.getInstance(realmConfiguration);
+        if (realm.where(Session.class)
+                .equalTo("date", "09-13-2017")
+                .findFirst() != null) {
+            Log.d("LOG:", "nah");
+        } else {
+            realm.beginTransaction();
+            String[] fakeDates = {"09-13-2017", "09-14-2017", "09-15-2017", "09-16-2017", "09-17-2017",
+                    "09-18-2017", "09-19-2017", "09-20-2017", "09-21-2017"};
 
-        Random r = new Random();
-        for (String s : fakeDates) {
-            ContentValues values = new ContentValues();
-            ContentResolver resolver = context.getContentResolver();
-            for (int j = 0; j < 4; j++) {
-                values.put(COLUMN_DATE, s);
-                values.put(WorkoutEntry.COLUMN_WEIGHT, r.nextInt(100)+50);
-                values.put(WorkoutEntry.COLUMN_REPS, r.nextInt(50));
-                values.put(WorkoutEntry.COLUMN_SETS, r.nextInt(5));
-                values.put(WorkoutEntry.COLUMN_THOUGHTS, "i am so strong");
-                values.put(WorkoutEntry.COLUMN_WORKOUT_NAME, workoutArray.getString(r.nextInt(6)));
-
-                sessionDates.add(s);
-
-                resolver.insert(WorkoutEntry.CONTENT_URI, values);
+            Random r = new Random();
+            for (String s : fakeDates) {
+                Session session = realm.createObject(Session.class);
+                session.setDate(s);
+                for (int j = 0; j < 4; j++) {
+                    Workout workout = realm.createObject(Workout.class);
+                    workout.setDate(s);
+                    workout.setWeight(r.nextInt(100) + 50);
+                    workout.setReps(r.nextInt(50));
+                    workout.setSets(r.nextInt(5));
+                    workout.setThoughts("i am so strong");
+                    workout.setName(workoutArray.getString(r.nextInt(6)));
+                }
             }
+            realm.commitTransaction();
         }
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("DATES", sessionDates);
-        editor.apply();
-    }
-
-    public static void updateSessionDates(String date) {
-        sessionDates.add(date);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("DATES", sessionDates);
-        editor.apply();
-
-        sortedDates.add(date);
-        Collections.sort(sortedDates);
-        Collections.reverse(sortedDates);
     }
 
     //so we can display a short version of the date on the add workout page
