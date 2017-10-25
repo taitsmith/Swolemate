@@ -10,6 +10,10 @@ import com.google.android.gms.location.places.Place;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -17,6 +21,7 @@ import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
@@ -49,8 +54,7 @@ public class HelpfulUtils {
         Realm realm = Realm.getInstance(realmConfiguration);
 
         return realm.where(Session.class)
-                .findAll();
-
+                .findAllSorted("_id", Sort.DESCENDING);
     }
 
     public static RealmResults<Workout> createWorkoutList(String date) {
@@ -92,8 +96,7 @@ public class HelpfulUtils {
 
             Random r = new Random();
             for (String s : fakeDates) {
-                Session session = realm.createObject(Session.class);
-                session.setDate(s);
+
                 for (int j = 0; j < 4; j++) {
                     Workout workout = realm.createObject(Workout.class);
                     workout.setDate(s);
@@ -102,6 +105,8 @@ public class HelpfulUtils {
                     workout.setSets(r.nextInt(5));
                     workout.setThoughts("i am so strong");
                     workout.setName(workoutArray.getString(r.nextInt(6)));
+                    createOrUpdateSession(s);
+
                 }
             }
             realm.commitTransaction();
@@ -110,14 +115,53 @@ public class HelpfulUtils {
 
     //so we can display a short version of the date on the add workout page
     public static String getFormattedDate(String length){
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat;
+        DateTime dateTime = DateTime.now();
+        DateTimeFormatter formatter;
+
         if (length.equals("long")) {
-            dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+            formatter = DateTimeFormat.forPattern("MM-dd-yyyy");
         } else {
-            dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+            formatter = DateTimeFormat.forPattern("dd MMM");
         }
 
-        return dateFormat.format(calendar.getTime());
+        return dateTime.toString(formatter);
+    }
+
+
+    //thanks to Bachiet Tansime on SO for this autoincrement key replacement
+    public static int getNextRealmKey() {
+        Realm realm = Realm.getInstance(realmConfiguration);
+        try {
+            Number number = realm.where(Session.class).max("_id");
+            if (number != null) {
+                return number.intValue() + 1;
+            } else {
+                return 0;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0;
+        }
+    }
+
+    public static void createOrUpdateSession(String date) {
+        Realm realm = Realm.getInstance(realmConfiguration);
+        if (!realm.isInTransaction()) {
+            realm.beginTransaction();
+        }
+        Session session;
+
+        try {
+             session = realm.where(Session.class)
+                    .equalTo("date", date)
+                    .findFirst();
+
+            session.setWorkoutCount(session.getWorkoutCount() + 1);
+        } catch (NullPointerException e) {
+            session = realm.createObject(Session.class, getNextRealmKey());
+            session.setDate(date);
+            session.setWorkoutCount(1);
+        }
+
+        realm.commitTransaction();
     }
 }

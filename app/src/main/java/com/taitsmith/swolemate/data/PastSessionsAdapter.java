@@ -59,9 +59,10 @@ public class PastSessionsAdapter extends BaseAdapter {
         }
 
         Session session = sessions.get(i);
+        String s = Integer.toString(session.getWorkoutCount());
 
         holder.workoutDate.setText(session.getDate());
-        holder.workoutsCompleted.setText(Integer.toString(session.getWorkoutCount(session.getDate())));
+        holder.workoutsCompleted.setText(s);
 
         return view;
     }

@@ -11,13 +11,12 @@ import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 
 public class SessionDetailActivity extends AppCompatActivity {
-    private WorkoutDetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_detail);
-         detailFragment = new WorkoutDetailFragment();
+        WorkoutDetailFragment detailFragment = new WorkoutDetailFragment();
         FragmentManager manager = getSupportFragmentManager();
 
 

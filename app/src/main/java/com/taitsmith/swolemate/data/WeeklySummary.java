@@ -1,24 +1,26 @@
 package com.taitsmith.swolemate.data;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.taitsmith.swolemate.ui.AlertDialogs;
-import com.taitsmith.swolemate.utils.DbContract;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 
 /**
  * Searches the DB for all workouts done in the last seven days, then displays a summary
  * to the user in the form of an AlertDialog
  */
 
-public class WeeklySummary extends AsyncTask<Context, Void, int[]> {
+public class WeeklySummary extends AsyncTask<Void, Void, int[]> {
     private int workouts, sessions;
     private int[] counts;
     private Context context;
@@ -33,43 +35,32 @@ public class WeeklySummary extends AsyncTask<Context, Void, int[]> {
     @Override
     protected void onPreExecute() {
         dates = new String[7];
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        DateTime dateTime = DateTime.now();
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy");
 
-        Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DATE, -i);
-            dates[i] = dateFormat.format(calendar.getTime());
+            String s = dateTime.minusDays(i).toString(formatter);
+            dates[i] = s;
         }
     }
 
     //take the list of date strings, search the db for each one. if it exists,
     //get a total count of all the workouts done
     @Override
-    protected int[] doInBackground(Context... params) {
+    protected int[] doInBackground(Void... params) {
         workouts = 0;
         sessions = 0;
-        Context context = params[0];
         counts = new int[2];
+        Realm realm = Realm.getInstance(realmConfiguration);
 
-        ContentResolver resolver = context.getContentResolver();
+        RealmResults<Session> realmResults = realm.where(Session.class)
+                .in("date", dates)
+                .findAll();
 
-        for (String s : dates) {
-
-            Cursor cursor = resolver.query(DbContract.WorkoutEntry.CONTENT_URI,
-                    null,
-                    DbContract.WorkoutEntry.COLUMN_DATE + "=?",
-                    new String[]{s},
-                    null);
-
-            if (cursor != null && cursor.getCount() != 0) {
+        if (realmResults.size() != 0) {
+            for (Session session : realmResults) {
+                workouts += session.getWorkoutCount();
                 sessions++;
-                cursor.moveToFirst();
-
-                do {
-                    workouts++;
-                } while (cursor.moveToNext());
-
-                cursor.close();
             }
         }
 

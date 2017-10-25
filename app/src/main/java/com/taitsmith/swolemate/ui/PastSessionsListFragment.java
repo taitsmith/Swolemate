@@ -25,6 +25,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 import static android.R.attr.data;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
@@ -91,7 +92,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
                 Realm realm = Realm.getInstance(realmConfiguration);
 
                 return realm.where(Session.class)
-                        .findAll();
+                        .findAllSorted("_id", Sort.DESCENDING);
             }
 
             @Override

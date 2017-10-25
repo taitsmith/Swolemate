@@ -36,10 +36,11 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.sessionLis
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createWorkoutList;
 
 /**
- * Shows details of a selected past workout
+ * Shows details of a selected past workout. Originally used Loader to call content provider on a
+ * background thread, but Realm is kind enough to have a findAllAsync method we can use.
  */
 
-public class WorkoutDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<RealmResults<Workout>> {
+public class WorkoutDetailFragment extends Fragment {
     @BindView(R.id.workout_detail_recycler)
     RecyclerView recyclerView;
     @BindView(R.id.detailFragmentProgress)
@@ -49,7 +50,6 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
     Toolbar toolbar;
 
     static String sessionDate;
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -71,74 +71,21 @@ public class WorkoutDetailFragment extends Fragment implements LoaderManager.Loa
             sessionDate = savedInstanceState.getString("DATE");
         }
 
+        Realm realm = Realm.getInstance(realmConfiguration);
+        RealmResults<Workout> realmResults =  realm.where(Workout.class)
+                .equalTo("date", sessionDate)
+                .findAll();
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
+        SessionDetailAdapter adapter = new SessionDetailAdapter(realmResults);
+        recyclerView.setAdapter(adapter);
 
-        return rootView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        LoaderManager.LoaderCallbacks<RealmResults<Workout>> callbacks = this;
-        getActivity().getSupportLoaderManager().restartLoader(31, null, callbacks);
-    }
-
-    @Override
-    public Loader<RealmResults<Workout>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<RealmResults<Workout>>(getContext()) {
-            RealmResults<Workout> workoutList = null;
-
-            @Override
-            protected void onStartLoading() {
-                progressBar.setVisibility(View.VISIBLE);
-                if (workoutList != null) {
-                    deliverResult(workoutList);
-                } else {
-                    forceLoad();
-                }
-            }
-
-            @Override
-            public RealmResults<Workout> loadInBackground() {
-                Realm realm = Realm.getInstance(realmConfiguration);
-
-                try {
-                    return realm.where(Workout.class)
-                            .equalTo("date", sessionDate)
-                            .findAllAsync();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
-
-            @Override
-            public void deliverResult(RealmResults<Workout> data) {
-                workoutList = data;
-                super.deliverResult(workoutList);
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<RealmResults<Workout>> loader, RealmResults<Workout> data) {
-        if (data != null && data.size() != 0) {
-            final SessionDetailAdapter adapter = new SessionDetailAdapter(data);
-            recyclerView.setAdapter(adapter);
-            if (toolbar != null) {
-                toolbar.setTitle(data.get(0).getDate());
-            }
-            progressBar.setVisibility(View.INVISIBLE);
-        } else {
-            toolbar.setTitle(getString(R.string.workout_summary_error));
+        if (toolbar != null) {
+            toolbar.setTitle(realmResults.get(0).getDate());
         }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<RealmResults<Workout>> loader) {
-        //just taking up space
+        progressBar.setVisibility(View.INVISIBLE);
+        return rootView;
     }
 
     public static void setSessionDate(String date) {

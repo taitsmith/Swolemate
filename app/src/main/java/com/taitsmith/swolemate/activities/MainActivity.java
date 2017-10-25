@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,7 +34,6 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
-import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.WeeklySummary;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
@@ -47,10 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
@@ -123,9 +119,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setUi() {
-        //since we've got two possible layouts for tablets and regular sized things,
-        //it'll cause all sorts of problems if we try to add fragments in a view that
-        //doesn't exist.
+        //your fairly standard two-pane setup
         if (isTwoPane) {
 
             if (detailFragment == null) {
@@ -145,8 +139,9 @@ public class MainActivity extends AppCompatActivity implements
             workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    String date = createSessionList().get(position).getDate();
                     Intent intent = new Intent(MainActivity.this, SessionDetailActivity.class);
-                    intent.putExtra("SESSION_ID", position);
+                    intent.putExtra("SESSION_DATE", date);
                     startActivity(intent);
                 }
             });
@@ -172,11 +167,6 @@ public class MainActivity extends AppCompatActivity implements
                     .add(R.id.past_workout_detail_fragment, detailFragment, "DETAIL_FRAGMENT")
                     .addToBackStack("DETAIL_FRAGMENT")
                     .commit();
-        } else {
-            String date = createSessionList().get(position).getDate();
-            Intent intent = new Intent(this, SessionDetailActivity.class);
-            intent.putExtra("SESSION_DATE", date);
-            startActivity(intent);
         }
     }
 
@@ -192,9 +182,6 @@ public class MainActivity extends AppCompatActivity implements
         int itemSelected = item.getItemId();
         Intent intent;
         switch (itemSelected) {
-            case R.id.menu_fake_data:
-                makeUpWorkouts();
-                return true;
             case R.id.menu_about:
                 aboutDialog(this);
                 return true;
@@ -217,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.menu_weekly_summary:
                 WeeklySummary summary = new WeeklySummary(this);
-                summary.execute(this);
+                summary.execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -260,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements
                 null);
 
         if (places == null || places.getCount() == 0) {
-            Log.d("LOG: ", "no places");
             return;
         }
 

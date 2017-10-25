@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/tait/.android/build-cache/dffbdc1037644bf45db47f050e398a41fa40523d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6c877b2c372dd26a46a0fe1c0fe07f186fb2ac26">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/pre-dexed/debug/classes_2ca27278d95cfa2114ceae463f5c9e49f2fdb8ed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tait/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/1d2a6ee94f2fcaa2e2b588cbd5a4da1cb1f1b9ff/joda-time-2.9.9-no-tzdb.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1d2a6ee94f2fcaa2e2b588cbd5a4da1cb1f1b9ff">
+        <dex dex="/home/tait/Android/Projects/swolemate/app/build/intermediates/pre-dexed/debug/joda-time-2.9.9-no-tzdb_9885ef324f74fd662ad317dbfe8f7c93845c3378.jar" />
+    </item>
+
+</items>

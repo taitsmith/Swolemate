@@ -5,10 +5,6 @@
         android:id="@+id/menu_set_home"
         android:orderInCategory="1"/>
     <item
-        android:title="@string/menu_fake_data"
-        android:id="@+id/menu_fake_data"
-        android:orderInCategory="2"/>
-    <item
         android:title="@string/menu_weekly_summary"
         android:id="@+id/menu_weekly_summary"
         android:orderInCategory="3"/>

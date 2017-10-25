@@ -33,6 +33,7 @@ import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUG
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
 import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.createOrUpdateSession;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.getFormattedDate;
 
@@ -98,6 +99,7 @@ public class AddWorkoutActivity extends AppCompatActivity {
         int[] widgetIds = manager.getAppWidgetIds(new ComponentName(context, LastWorkoutWidget.class));
 
         updateWidgetText(context, manager, widgetIds);
+        createOrUpdateSession(date);
     }
 
     @OnClick(R.id.cancelButton)

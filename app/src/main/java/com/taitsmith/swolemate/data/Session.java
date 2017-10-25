@@ -1,10 +1,7 @@
 package com.taitsmith.swolemate.data;
 
-import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.RealmResults;
-
-import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * A group of {@link Workout} objects with the same timestamp will make up each session. This is
@@ -15,6 +12,9 @@ public class Session extends RealmObject{
     private String date;
     private int workoutCount;
 
+    @PrimaryKey
+    private int _id;
+
     public String getDate() {
         return date;
     }
@@ -23,15 +23,12 @@ public class Session extends RealmObject{
         this.date = date;
     }
 
-    public int getWorkoutCount(String date) {
-        Realm realm = Realm.getInstance(realmConfiguration);
-        RealmResults<Workout> realmResults = realm.where(Workout.class)
-                .equalTo("name", date)
-                .findAll();
-        return realmResults.size();
+    public int getWorkoutCount() {
+        return workoutCount;
     }
 
     public void setWorkoutCount(int workoutCount) {
         this.workoutCount = workoutCount;
     }
+
 }

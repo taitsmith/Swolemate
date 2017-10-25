@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.taitsmith.swolemate.R;
@@ -18,16 +19,25 @@ import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmMigrationNeededException;
 
 import static android.os.Build.VERSION.SDK;
 import static android.os.Build.VERSION.SDK_INT;
@@ -50,11 +60,14 @@ public class SwolemateApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+        JodaTimeAndroid.init(this);
 
         realmConfiguration = new RealmConfiguration.Builder()
                 .name("swolemate.realm")
-                .schemaVersion(1)
+                .schemaVersion(2)
+                .deleteRealmIfMigrationNeeded() //TODO delete this at some point
                 .build();
+
 
         //list of workout names
         workoutArray = getResources().obtainTypedArray(R.array.workout_list);
