@@ -19,14 +19,6 @@ class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        final String CREATE_WORKOUTS = "CREATE TABLE " + DbContract.WorkoutEntry.TABLE_NAME + "("
-                + DbContract.WorkoutEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + DbContract.WorkoutEntry.COLUMN_DATE + " TEXT NOT NULL, "  //timestamp will be stored as LocalDate.now();
-                + DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME + " TEXT NOT NULL, "
-                + DbContract.WorkoutEntry.COLUMN_WEIGHT + " INTEGER NOT NULL, "
-                + DbContract.WorkoutEntry.COLUMN_REPS + " INTEGER NOT NULL, "
-                + DbContract.WorkoutEntry.COLUMN_SETS + " INTEGER NOT NULL, "
-                + DbContract.WorkoutEntry.COLUMN_THOUGHTS + " TEXT" + ");";
 
         final String CREATE_LOCATIONS = "CREATE TABLE " + DbContract.GymLocationEntry.TABLE_NAME + "("
                 + DbContract.GymLocationEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -35,7 +27,6 @@ class DbHelper extends SQLiteOpenHelper {
                 + DbContract.GymLocationEntry.COLUMN_LOCATION_LONG + " INTEGER NOT NULL, "
                 + DbContract.GymLocationEntry.COLUMN_PLACE_ID + " TEXT NOT NULL" + ");";
 
-        sqLiteDatabase.execSQL(CREATE_WORKOUTS);
         sqLiteDatabase.execSQL(CREATE_LOCATIONS);
     }
 

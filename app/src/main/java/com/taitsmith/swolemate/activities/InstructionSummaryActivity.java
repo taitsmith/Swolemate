@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.ui.InstructionDetailFragment;

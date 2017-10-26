@@ -2,46 +2,21 @@ package com.taitsmith.swolemate.activities;
 
 import android.Manifest;
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.Geofencer;
 import com.taitsmith.swolemate.data.Session;
-import com.taitsmith.swolemate.data.Workout;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import io.realm.exceptions.RealmMigrationNeededException;
-
-import static android.os.Build.VERSION.SDK;
-import static android.os.Build.VERSION.SDK_INT;
-
 
 /**
  * Sets up our important lists, shared preferences.

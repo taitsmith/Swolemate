@@ -51,7 +51,6 @@ import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.makeUpWorkouts;
 import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissions;
 
 

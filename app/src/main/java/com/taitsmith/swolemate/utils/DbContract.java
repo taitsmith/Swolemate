@@ -16,30 +16,11 @@ import android.provider.BaseColumns;
  */
 
 public class DbContract {
-    private static String PATH_WORKOUTS = "workouts";
     private static String PATH_LOCATIONS = "locations";
 
     public static final String CONTENT_AUTHORITY = "com.taitsmith.swolemate";
 
     private static Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-
-    public static final class WorkoutEntry implements BaseColumns {
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI
-                .buildUpon()
-                .appendPath(PATH_WORKOUTS)
-                .build();
-
-        public static final String TABLE_NAME = "workouts";
-
-        public static final String COLUMN_ID = "_id";
-        public static final String COLUMN_DATE = "date";
-        public static final String COLUMN_WORKOUT_NAME = "name";
-        public static final String COLUMN_WEIGHT = "weight";
-        public static final String COLUMN_REPS = "reps";
-        public static final String COLUMN_SETS = "sets";
-        public static final String COLUMN_THOUGHTS = "thoughts";
-
-    }
 
     public static final class GymLocationEntry implements BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI

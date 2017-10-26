@@ -2,7 +2,6 @@ package com.taitsmith.swolemate.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.taitsmith.swolemate.ui.AlertDialogs;
 
@@ -39,8 +38,7 @@ public class WeeklySummary extends AsyncTask<Void, Void, int[]> {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy");
 
         for (int i = 0; i < 7; i++) {
-            String s = dateTime.minusDays(i).toString(formatter);
-            dates[i] = s;
+            dates[i] = dateTime.minusDays(i).toString(formatter);
         }
     }
 

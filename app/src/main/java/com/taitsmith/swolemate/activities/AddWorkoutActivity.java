@@ -2,8 +2,6 @@ package com.taitsmith.swolemate.activities;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -26,15 +24,7 @@ import io.realm.Realm;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.LastWorkoutWidget.updateWidgetText;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_DATE;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_REPS;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_SETS;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_THOUGHTS;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WEIGHT;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.COLUMN_WORKOUT_NAME;
-import static com.taitsmith.swolemate.utils.DbContract.WorkoutEntry.CONTENT_URI;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createOrUpdateSession;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.getFormattedDate;
 
 public class AddWorkoutActivity extends AppCompatActivity {

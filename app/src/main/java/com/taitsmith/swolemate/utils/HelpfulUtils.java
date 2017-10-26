@@ -3,8 +3,6 @@ package com.taitsmith.swolemate.utils;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
 import com.taitsmith.swolemate.data.Session;
@@ -14,17 +12,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.Random;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.workoutArray;
 import static com.taitsmith.swolemate.utils.DbContract.*;
 
 /**
@@ -57,14 +49,6 @@ public class HelpfulUtils {
                 .findAllSorted("_id", Sort.DESCENDING);
     }
 
-    public static RealmResults<Workout> createWorkoutList(String date) {
-        Realm realm = Realm.getInstance(realmConfiguration);
-
-        return realm.where(Workout.class)
-                .equalTo("date", date)
-                .findAllAsync();
-    }
-
     public static void addLocation(Context context, Place place) {
         ContentResolver resolver = context.getContentResolver();
         ContentValues values = new ContentValues();
@@ -79,38 +63,6 @@ public class HelpfulUtils {
         values.put(GymLocationEntry.COLUMN_PLACE_ID, id);
 
         resolver.insert(GymLocationEntry.CONTENT_URI, values);
-    }
-
-    //instead of manually going in and entering a ton of fake workouts for testing, we'll
-    //create X sessions containing Y workouts each.
-    public static void makeUpWorkouts() {
-        Realm realm = Realm.getInstance(realmConfiguration);
-        if (realm.where(Session.class)
-                .equalTo("date", "09-13-2017")
-                .findFirst() != null) {
-            Log.d("LOG:", "nah");
-        } else {
-            realm.beginTransaction();
-            String[] fakeDates = {"09-13-2017", "09-14-2017", "09-15-2017", "09-16-2017", "09-17-2017",
-                    "09-18-2017", "09-19-2017", "09-20-2017", "09-21-2017"};
-
-            Random r = new Random();
-            for (String s : fakeDates) {
-
-                for (int j = 0; j < 4; j++) {
-                    Workout workout = realm.createObject(Workout.class);
-                    workout.setDate(s);
-                    workout.setWeight(r.nextInt(100) + 50);
-                    workout.setReps(r.nextInt(50));
-                    workout.setSets(r.nextInt(5));
-                    workout.setThoughts("i am so strong");
-                    workout.setName(workoutArray.getString(r.nextInt(6)));
-                    createOrUpdateSession(s);
-
-                }
-            }
-            realm.commitTransaction();
-        }
     }
 
     //so we can display a short version of the date on the add workout page

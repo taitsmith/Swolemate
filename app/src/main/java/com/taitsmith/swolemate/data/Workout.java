@@ -9,8 +9,8 @@ import io.realm.RealmObject;
  */
 
 public class Workout extends RealmObject{
-    public String date, thoughts, name;
-    public int weight, reps, sets;
+    private String date, thoughts, name;
+    private int weight, reps, sets;
 
     public String getDate() {
         return date;

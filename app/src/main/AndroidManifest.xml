@@ -36,11 +36,6 @@
 
         <receiver android:name=".data.GeofenceReceiver"/>
 
-        <provider
-            android:name=".utils.DbProvider"
-            android:authorities="com.taitsmith.swolemate"
-            android:exported="false" />
-
         <receiver android:name=".ui.LastWorkoutWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

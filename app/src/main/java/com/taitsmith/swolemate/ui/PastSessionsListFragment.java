@@ -1,7 +1,6 @@
 package com.taitsmith.swolemate.ui;
 
 import android.content.Context;
-import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,22 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.PastSessionsAdapter;
 import com.taitsmith.swolemate.data.Session;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-import static android.R.attr.data;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 
 /**
  * Fragment that displays a list of past sessions (one single trip to the gym consisting of

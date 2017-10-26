@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.taitsmith.swolemate.R;
 
-import java.util.List;
-
 import io.realm.RealmResults;
 
 /**

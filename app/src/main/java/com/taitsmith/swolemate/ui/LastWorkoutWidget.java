@@ -10,12 +10,8 @@ import android.widget.RemoteViews;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.MainActivity;
-import com.taitsmith.swolemate.data.Workout;
-
-import java.util.List;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.sortedDates;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.createWorkoutList;
 
 /**
  * Implementation of App Widget functionality.
