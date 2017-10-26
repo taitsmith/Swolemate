@@ -26,13 +26,10 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfi
 
 /**
  * Fragment that displays a list of past sessions (one single trip to the gym consisting of
- * multiple workouts) in the main activity. The LoaderCallbacks is implemented here since it won't
- * allow you to call FragmentManager.commit() from onLoadFinished, which is what would need to happen
- * if it were in MainActivity.
- * TODO make an error TV for no workouts in DB, show a progress bar.
+ * multiple workouts) in the main activity.
  */
 
-public class PastSessionsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<RealmResults<Session>>{
+public class PastSessionsListFragment extends Fragment{
     OnWorkoutClickListener listener;
     private ListView listView;
 
@@ -59,46 +56,12 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
 
         listView = rootView.findViewById(R.id.past_workouts_grid_view);
 
-        LoaderManager.LoaderCallbacks<RealmResults<Session>> callbacks = this;
-        getActivity().getSupportLoaderManager().initLoader(11, null, callbacks);
+        Realm realm = Realm.getInstance(realmConfiguration);
 
-        return rootView;
-    }
+        RealmResults<Session> realmResults = realm.where(Session.class)
+                .findAllSorted("_id", Sort.DESCENDING);
 
-    //db queries can be time consuming so we'll use a loader.
-    @Override
-    public Loader<RealmResults<Session>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<RealmResults<Session>>(getContext()) {
-            RealmResults<Session> sessionList = null;
-
-            @Override
-            protected void onStartLoading() {
-                if (sessionList != null) {
-                    deliverResult(sessionList);
-                } else {
-                    forceLoad();
-                }
-            }
-
-            @Override
-            public RealmResults<Session> loadInBackground() {
-                Realm realm = Realm.getInstance(realmConfiguration);
-
-                return realm.where(Session.class)
-                        .findAllSorted("_id", Sort.DESCENDING);
-            }
-
-            @Override
-            public void deliverResult(RealmResults<Session> data) {
-                sessionList = data;
-                super.deliverResult(sessionList);
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<RealmResults<Session>> loader, final RealmResults<Session> data) {
-        final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), data);
+        final PastSessionsAdapter adapter = new PastSessionsAdapter(getContext(), realmResults);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,10 +69,7 @@ public class PastSessionsListFragment extends Fragment implements LoaderManager.
                 listener.onWorkoutSelected(position);
             }
         });
-    }
 
-    @Override
-    public void onLoaderReset(Loader<RealmResults<Session>> loader) {
-        //i'm just here because i have to be.
+        return rootView;
     }
 }
