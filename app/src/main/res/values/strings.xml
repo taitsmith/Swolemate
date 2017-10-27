@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Swolemate</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="auth_web_client_id">482773635770–9ke3gfn5o2knd1f4fqoeg486g71kbass.apps.googleusercontent.com</string>
 
     <!-- strings for add workout page -->
     <string name="add_workout_date">Add workout for: %1$s</string>
@@ -45,6 +45,11 @@
     <string name="session_summary_workouts_completed">Workouts completed:</string>
     <string name="workout_summary_error">Add some workouts to get started! Or use the \'add workout\'
         option in the menu if you\'re testing this app.</string>
+    <string name="sign_in_description">If you want to use some of the Swolemate services (like finding
+        a workout buddy, you need to sign in.</string>
+    <string name="sign_in_successful">Great news, %1$s. You\'re all signed in to Swolemate. Go ahead
+        and set your person details in the main menu to start finding friends.\n\nExcept that part
+        doesn\'t actually do anything yet.</string>
 
     <!-- strings for detail fragment -->
     <string name="detail_listview_reps">Reps per set:</string>
@@ -56,10 +61,11 @@
     <!-- menu strings -->
     <string name="menu_set_home">Set gym location</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_fake_data">Create fake data</string>
     <string name="menu_workout_instructions">View workout guides</string>
     <string name="menu_about_app">About Swolemate</string>
     <string name="menu_weekly_summary">Weekly summary</string>
+    <string name="menu_sign_in">Sign in to Swolemate</string>
+    <string name="menu_my_details">My details</string>
 
     <!-- widget strings -->
     <string name="add_widget">Add widget</string>

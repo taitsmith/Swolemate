@@ -3,6 +3,8 @@
     package="com.taitsmith.swolemate">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".activities.SwolemateApplication"
@@ -14,7 +16,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="SUPER_SECRET_API_KEY" />
+            android:value="AIzaSyCmXNIpLSUQwqujVgPFYqqg16YQ0XBehZQ" />
 
         <activity
             android:name=".activities.MainActivity"
@@ -33,9 +35,11 @@
             android:launchMode="singleTop" />
         <activity android:name=".activities.InstructionSummaryActivity" />
         <activity android:name=".activities.InstructionDetailActivity" />
+        <activity android:name=".activities.SignInActivity"
+            android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.PersonalDetailsActivity"/>
 
-        <receiver android:name=".data.GeofenceReceiver"/>
-
+        <receiver android:name=".data.GeofenceReceiver" />
         <receiver android:name=".ui.LastWorkoutWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

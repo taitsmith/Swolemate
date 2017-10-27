@@ -205,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements
                 WeeklySummary summary = new WeeklySummary(this);
                 summary.execute();
                 return true;
+            case R.id.menu_sign_in:
+                intent = new Intent(this, SignInActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
