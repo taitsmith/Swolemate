@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.WorkoutInstructionsAdapter;
+import com.taitsmith.swolemate.utils.WorkoutInstructionsAdapter;
 
 /**
  * Fragment that displays a list of all workouts. Users can select a workout from the list to launch

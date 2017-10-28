@@ -3,8 +3,6 @@
     package="com.taitsmith.swolemate">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".activities.SwolemateApplication"
@@ -29,17 +27,24 @@
         </activity>
         <activity
             android:name=".activities.AddWorkoutActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.SessionDetailActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".activities.InstructionSummaryActivity" />
-        <activity android:name=".activities.InstructionDetailActivity" />
-        <activity android:name=".activities.SignInActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity"/>
-        <activity android:name=".activities.PersonalDetailsActivity"/>
 
-        <receiver android:name=".data.GeofenceReceiver" />
+        <activity android:name=".activities.InstructionSummaryActivity"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity android:name=".activities.InstructionDetailActivity"
+            android:parentActivityName=".activities.InstructionSummaryActivity"/>
+
+        <activity
+            android:name=".activities.SignInActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <receiver android:name=".utils.GeofenceReceiver" />
         <receiver android:name=".ui.LastWorkoutWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -49,6 +54,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/last_workout_widget_info" />
         </receiver>
+
     </application>
 
 </manifest>

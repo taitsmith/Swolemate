@@ -18,10 +18,9 @@
         android:orderInCategory="5"
         android:title="@string/menu_sign_in" />
     <item
-        android:id="@+id/menu_my_details"
-        android:enabled="false"
+        android:id="@+id/menu_settings"
         android:orderInCategory="6"
-        android:title="@string/menu_my_details" />
+        android:title="@string/menu_settings" />
     <item
         android:title="@string/menu_about_app"
         android:id="@+id/menu_about"

@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.PastSessionsAdapter;
+import com.taitsmith.swolemate.utils.PastSessionsAdapter;
 import com.taitsmith.swolemate.data.Session;
 
 import io.realm.Realm;

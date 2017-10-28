@@ -3,7 +3,6 @@ package com.taitsmith.swolemate.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,13 +31,15 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Geofencer;
-import com.taitsmith.swolemate.data.PastSessionsAdapter;
-import com.taitsmith.swolemate.data.WeeklySummary;
+import com.taitsmith.swolemate.data.GymLocation;
+import com.taitsmith.swolemate.utils.PastSessionsAdapter;
+import com.taitsmith.swolemate.utils.WeeklySummary;
 import com.taitsmith.swolemate.ui.WorkoutDetailFragment;
 import com.taitsmith.swolemate.ui.PastSessionsListFragment;
-import com.taitsmith.swolemate.utils.DbContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +47,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements
     private PastSessionsListFragment listFragment;
     private GoogleApiClient googleApiClient;
     private Geofencer geofencer;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
 
     private static final int PLACE_PICKER_REQUEST = 34;
 
@@ -89,6 +96,13 @@ public class MainActivity extends AppCompatActivity implements
         detailFragment = (WorkoutDetailFragment) manager.findFragmentByTag("DETAIL_FRAGMENT");
 
         isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if (user != null) {
+            Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+        }
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -197,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements
                     try {
                         startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
                     } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-                        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.toast_something_wrong), Toast.LENGTH_SHORT).show();
                     }
                 }
                 return true;
@@ -208,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.menu_sign_in:
                 intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
+            case R.id.menu_settings:
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -232,31 +247,26 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_something_wrong), Toast.LENGTH_SHORT).show();
+        Log.e("Log" , connectionResult.toString());
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this, getString(R.string.toast_network_error), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_something_wrong), Toast.LENGTH_SHORT).show();
     }
 
     public void refreshPlaces() {
-        Cursor places = getContentResolver().query(
-                DbContract.GymLocationEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null);
+        Realm realm = Realm.getInstance(realmConfiguration);
 
-        if (places == null || places.getCount() == 0) {
-            return;
-        }
+        RealmResults<GymLocation> gymLocations = realm.where(GymLocation.class)
+                .findAll();
 
         List<String> placeIds = new ArrayList<>();
 
-        while (places.moveToNext()) {
-            placeIds.add(places.getString(places.getColumnIndex(
-                    DbContract.GymLocationEntry.COLUMN_PLACE_ID)));
+
+        for (GymLocation gl : gymLocations) {
+            placeIds.add(gl.getPlaceId());
         }
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(
@@ -271,6 +281,5 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         geofencer.registerAllGeofences();
-        places.close();
     }
 }

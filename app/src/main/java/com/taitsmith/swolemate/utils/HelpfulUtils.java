@@ -1,10 +1,11 @@
 package com.taitsmith.swolemate.utils;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
+import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
@@ -17,7 +18,6 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
-import static com.taitsmith.swolemate.utils.DbContract.*;
 
 /**
  * A home for all friendly and helpful utilities that involve interacting with the database through
@@ -50,19 +50,35 @@ public class HelpfulUtils {
     }
 
     public static void addLocation(Context context, Place place) {
-        ContentResolver resolver = context.getContentResolver();
-        ContentValues values = new ContentValues();
+        Realm realm = Realm.getInstance(realmConfiguration);
+        realm.beginTransaction();
+
         String name = (String) place.getName();
         String id = place.getId();
         double placeLong = place.getLatLng().longitude;
         double placeLat = place.getLatLng().latitude;
 
-        values.put(DbContract.GymLocationEntry.COLUMN_LOCATION_NAME, name);
-        values.put(GymLocationEntry.COLUMN_LOCATION_LAT, placeLat);
-        values.put(GymLocationEntry.COLUMN_LOCATION_LONG, placeLong);
-        values.put(GymLocationEntry.COLUMN_PLACE_ID, id);
+        try {
+            if (realm.where(GymLocation.class)
+                    .equalTo("placeId", id)
+                    .findFirst() != null) {
+                Toast.makeText(context, context.getString(R.string.toast_place_exists), Toast.LENGTH_SHORT).show();
+            } else {
+                //use the Place's ID as its primary key
+                GymLocation location = realm.createObject(GymLocation.class, id);
 
-        resolver.insert(GymLocationEntry.CONTENT_URI, values);
+                location.setPlaceName(name);
+                location.setPlaceLat(placeLat);
+                location.setPlaceLong(placeLong);
+
+                Toast.makeText(context, context.getString(R.string.toast_place_saved, name), Toast.LENGTH_SHORT).show();
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(context, context.getString(R.string.toast_something_wrong), Toast.LENGTH_SHORT).show();
+        }
+
+        realm.commitTransaction();
     }
 
     //so we can display a short version of the date on the add workout page
@@ -81,8 +97,9 @@ public class HelpfulUtils {
 
 
     //thanks to Bachiet Tansime on SO for this autoincrement key replacement
-    public static int getNextRealmKey() {
+    private static int getNextRealmKey() {
         Realm realm = Realm.getInstance(realmConfiguration);
+
         try {
             Number number = realm.where(Session.class).max("_id");
             if (number != null) {

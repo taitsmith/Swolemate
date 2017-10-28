@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Swolemate</string>
-    <string name="auth_web_client_id">482773635770–9ke3gfn5o2knd1f4fqoeg486g71kbass.apps.googleusercontent.com</string>
+    <string name="auth_web_client_id">357181286024-j0cgb4djufuu5l86cc09bnntl5v3d3es.apps.googleusercontent.com</string>
 
     <!-- strings for add workout page -->
     <string name="add_workout_date">Add workout for: %1$s</string>
@@ -23,7 +23,8 @@
     <string name="save_negative">Keep editing</string>
     <string name="inform_permissions_message">Swolemate will ask you for permission to access your device\'s
         location. This is used only to detect when you\'ve entered the gym in order to provide a more
-        engaging experience.</string>
+        engaging experience. If you decline this permission, the app will continue to function normally.
+        You can always change your mind later.</string>
     <string name="inform_permission_positive">Got it</string>
     <string name="about_message">Always be careful when working out, and consider workout out with a
         partner. Injuring yourself won\'t help you get stronger!\n\nImages are courtesy of Muscle Wiki.
@@ -46,9 +47,11 @@
     <string name="workout_summary_error">Add some workouts to get started! Or use the \'add workout\'
         option in the menu if you\'re testing this app.</string>
     <string name="sign_in_description">If you want to use some of the Swolemate services (like finding
-        a workout buddy, you need to sign in.</string>
+        a workout buddy), you need to sign in. Swolemate doesn\'t collect any information from you,
+        and the code is fully available on Github if you\'d like to verify that. The app will still
+        function normally if you decline this option, but you won\'t be able to access certain features.</string>
     <string name="sign_in_successful">Great news, %1$s. You\'re all signed in to Swolemate. Go ahead
-        and set your person details in the main menu to start finding friends.\n\nExcept that part
+        and set your personal details in the main menu to start finding friends.\n\nExcept that part
         doesn\'t actually do anything yet.</string>
 
     <!-- strings for detail fragment -->
@@ -65,7 +68,6 @@
     <string name="menu_about_app">About Swolemate</string>
     <string name="menu_weekly_summary">Weekly summary</string>
     <string name="menu_sign_in">Sign in to Swolemate</string>
-    <string name="menu_my_details">My details</string>
 
     <!-- widget strings -->
     <string name="add_widget">Add widget</string>
@@ -86,7 +88,15 @@
     <string name="fab_description">Add a workout</string>
 
     <!-- Toast strings -->
-    <string name="toast_network_error">Something went wrong&#8230;</string>
+    <string name="toast_something_wrong">Something went wrong&#8230;</string>
     <string name="toast_loader_error">There was an error loading your data, please try again.</string>
+    <string name="toast_place_exists">You\'ve previously saved this place</string>
+    <string name="toast_place_saved">%1$s saved</string>
+
+    <!-- settings page strings -->
+    <string name="settings_toolbar">Details for %1$s</string>
+    <string name="settings_location_check">Allowed</string>
+    <string name="settings_location_label">Location permission:</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

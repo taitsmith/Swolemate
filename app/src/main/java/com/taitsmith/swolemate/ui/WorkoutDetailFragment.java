@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.SessionDetailAdapter;
+import com.taitsmith.swolemate.utils.SessionDetailAdapter;
 import com.taitsmith.swolemate.data.Workout;
 
 import butterknife.BindView;
