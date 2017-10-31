@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.activities.AddWorkoutActivity;
 import com.taitsmith.swolemate.activities.MainActivity;
+import com.taitsmith.swolemate.utils.HelpfulUtils;
 
 import static com.taitsmith.swolemate.activities.AddWorkoutActivity.saveWorkout;
 
@@ -37,13 +38,7 @@ public class AlertDialogs {
             }
         });
 
-        builder.setNegativeButton(context.getString(R.string.cancel_negative),
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                return;
-            }
-        });
+        builder.setNegativeButton(context.getString(R.string.cancel_negative), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -83,13 +78,7 @@ public class AlertDialogs {
             }
         });
 
-        builder.setNegativeButton(context.getString(R.string.save_negative),
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
+        builder.setNegativeButton(context.getString(R.string.save_negative), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -116,12 +105,7 @@ public class AlertDialogs {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setMessage(context.getString(R.string.about_message));
-        builder.setPositiveButton(context.getString(R.string.dialog_got_it), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
+        builder.setPositiveButton(context.getString(R.string.dialog_got_it), null);
 
         builder.setCancelable(false);
 
@@ -132,12 +116,7 @@ public class AlertDialogs {
     public static void weeklySummaryDialog(Context context, int[] counts) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(context.getString(R.string.summary_message, counts[0], counts[1]));
-        builder.setPositiveButton(context.getString(R.string.dialog_got_it), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
+        builder.setPositiveButton(context.getString(R.string.dialog_got_it), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -155,6 +134,24 @@ public class AlertDialogs {
             }
         });
         builder.setNegativeButton(context.getString(R.string.summary_dont_add_workout), null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public static void sessionListDeleteItem(final Context context, final int position) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setMessage(context.getString(R.string.dialog_delete_message));
+        builder.setPositiveButton(context.getString(R.string.dialog_delete_positive), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HelpfulUtils.deleteSessionAndWorkouts(position, context);
+            }
+        });
+        builder.setNegativeButton(context.getString(R.string.dialog_delete_negative), null);
+
+        builder.setCancelable(false);
 
         AlertDialog dialog = builder.create();
         dialog.show();

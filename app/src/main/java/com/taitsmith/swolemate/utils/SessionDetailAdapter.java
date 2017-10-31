@@ -1,10 +1,13 @@
 package com.taitsmith.swolemate.utils;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Workout;
@@ -13,6 +16,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+
+import static android.R.string.no;
+import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 
 
 /**

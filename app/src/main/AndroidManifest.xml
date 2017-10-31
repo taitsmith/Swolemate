@@ -28,18 +28,17 @@
         <activity
             android:name=".activities.AddWorkoutActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.SessionDetailActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity"/>
-
-        <activity android:name=".activities.InstructionSummaryActivity"
-            android:parentActivityName=".activities.MainActivity"/>
-
-        <activity android:name=".activities.InstructionDetailActivity"
-            android:parentActivityName=".activities.InstructionSummaryActivity"/>
-
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.InstructionSummaryActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.InstructionDetailActivity"
+            android:parentActivityName=".activities.InstructionSummaryActivity" />
         <activity
             android:name=".activities.SignInActivity"
             android:parentActivityName=".activities.MainActivity" />
@@ -55,6 +54,7 @@
                 android:resource="@xml/last_workout_widget_info" />
         </receiver>
 
+        <activity android:name=".activities.SettingsActivity" />
     </application>
 
 </manifest>

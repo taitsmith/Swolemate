@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.utils.SessionDetailAdapter;
@@ -43,11 +45,6 @@ public class WorkoutDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,15 +55,35 @@ public class WorkoutDetailFragment extends Fragment {
             sessionDate = savedInstanceState.getString("DATE");
         }
 
-        Realm realm = Realm.getInstance(realmConfiguration);
-        RealmResults<Workout> realmResults =  realm.where(Workout.class)
+        final Realm realm = Realm.getInstance(realmConfiguration);
+        final RealmResults<Workout> realmResults =  realm.where(Workout.class)
                 .equalTo("date", sessionDate)
                 .findAll();
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        SessionDetailAdapter adapter = new SessionDetailAdapter(realmResults);
+        final SessionDetailAdapter adapter = new SessionDetailAdapter(realmResults);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback helper = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Workout workout = realmResults.get(viewHolder.getAdapterPosition());
+                realm.beginTransaction();
+                workout.deleteFromRealm();
+                realm.commitTransaction();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+        };
+
+        ItemTouchHelper ith = new ItemTouchHelper(helper);
+        ith.attachToRecyclerView(recyclerView);
 
         if (toolbar != null) {
             toolbar.setTitle(realmResults.get(0).getDate());

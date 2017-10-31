@@ -53,6 +53,11 @@ public class SignInActivity extends AppCompatActivity implements
 
         auth = FirebaseAuth.getInstance();
 
+        if (auth.getCurrentUser() != null) {
+            signInTextView.setText(getString(R.string.sign_in_successful, auth.getCurrentUser().getDisplayName()));
+            signInButton.setEnabled(false);
+        }
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.auth_web_client_id))
                 .requestEmail()

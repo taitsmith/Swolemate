@@ -50,9 +50,9 @@ public class PastSessionsAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
+            view.setTag(holder);
             holder.workoutDate = view.findViewById(R.id.sessionDateView);
             holder.workoutsCompleted = view.findViewById(R.id.sessionWorkoutsCompleteView);
-            view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }

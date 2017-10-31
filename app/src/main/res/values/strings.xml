@@ -36,10 +36,9 @@
     <string name="summary_no_workouts">You haven\'t added any workouts this week. Want to add one now?</string>
     <string name="summary_add_workout">Add workout</string>
     <string name="summary_dont_add_workout">Cancel</string>
-
-    <!-- misc -->
-    <string name="successful_save_toast">Workout saved successfully</string>
-    <string name="need_permissions_toast">Location permission needed</string>
+    <string name="dialog_delete_message">Do you want to delete this session? This can\'t be undone.</string>
+    <string name="dialog_delete_positive">Delete</string>
+    <string name="dialog_delete_negative">Keep</string>
 
     <!-- strings for text views etc -->
     <string name="session_summary_date_label">Workout session from:</string>
@@ -92,11 +91,9 @@
     <string name="toast_loader_error">There was an error loading your data, please try again.</string>
     <string name="toast_place_exists">You\'ve previously saved this place</string>
     <string name="toast_place_saved">%1$s saved</string>
-
-    <!-- settings page strings -->
-    <string name="settings_toolbar">Details for %1$s</string>
-    <string name="settings_location_check">Allowed</string>
-    <string name="settings_location_label">Location permission:</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="toast_sign_out">Signed out successfully</string>
+    <string name="toast_deletion_successful">Session deleted successfully</string>
+    <string name="toast_save_succesful">Workout saved successfully</string>
+    <string name="toast_need_permission">Location permission needed</string>
 
 </resources>

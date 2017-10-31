@@ -17,6 +17,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import static com.taitsmith.swolemate.activities.MainActivity.pastSessionsAdapter;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 
 /**
@@ -38,10 +39,13 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfi
  *
  * makeUpWorkouts just makes some fake data to populate the list in main activity for display and
  * testing purposes
+ *
+ * NOTE none of that is relevant.
  */
 
 public class HelpfulUtils {
 
+    //pretty self explanatory.
     public static RealmResults<Session> createSessionList() {
         Realm realm = Realm.getInstance(realmConfiguration);
 
@@ -49,6 +53,9 @@ public class HelpfulUtils {
                 .findAllSorted("_id", Sort.DESCENDING);
     }
 
+    //create a realm object for a gym location when selected from the
+    //place picker, otherwise tell the user they've previously selected
+    //that location. Stores lat/long for Geofence purposes
     public static void addLocation(Context context, Place place) {
         Realm realm = Realm.getInstance(realmConfiguration);
         realm.beginTransaction();
@@ -95,7 +102,6 @@ public class HelpfulUtils {
         return dateTime.toString(formatter);
     }
 
-
     //thanks to Bachiet Tansime on SO for this autoincrement key replacement
     private static int getNextRealmKey() {
         Realm realm = Realm.getInstance(realmConfiguration);
@@ -112,6 +118,8 @@ public class HelpfulUtils {
         }
     }
 
+    //create a new Session object for Realm if we can't find one with
+    //the current datestamp, otherwise increment its workout count
     public static void createOrUpdateSession(String date) {
         Realm realm = Realm.getInstance(realmConfiguration);
         if (!realm.isInTransaction()) {
@@ -132,5 +140,30 @@ public class HelpfulUtils {
         }
 
         realm.commitTransaction();
+        pastSessionsAdapter.notifyDataSetChanged();
+    }
+
+    //long press on a session in the main activity allows users to delete it
+    //and its corresponding workouts.
+    public static void deleteSessionAndWorkouts(int id, Context context) {
+        Realm realm = Realm.getInstance(realmConfiguration);
+
+        RealmResults<Session> sessionToDelete = realm.where(Session.class)
+                .findAllSorted("_id", Sort.DESCENDING);
+        Session session = sessionToDelete.get(id);
+
+        RealmResults<Workout> workoutsToDelete = realm.where(Workout.class)
+                .equalTo("date", session.getDate())
+                .findAll();
+
+        realm.beginTransaction();
+        session.deleteFromRealm();
+        workoutsToDelete.deleteAllFromRealm();
+        realm.commitTransaction();
+
+        Toast.makeText(context, context.getString(R.string.toast_deletion_successful),
+                Toast.LENGTH_SHORT).show();
+
+        pastSessionsAdapter.notifyDataSetChanged();
     }
 }
