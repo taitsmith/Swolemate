@@ -1,6 +1,7 @@
 package com.taitsmith.swolemate.activities;
 
 import android.Manifest;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements
         user = auth.getCurrentUser();
         realm = Realm.getInstance(realmConfiguration);
 
-
         isTwoPane = findViewById(R.id.past_workout_detail_fragment) != null;
 
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -149,9 +149,11 @@ public class MainActivity extends AppCompatActivity implements
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     String date = createSessionList().get(position).getDate();
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this)
+                            .toBundle();
                     Intent intent = new Intent(MainActivity.this, SessionDetailActivity.class);
                     intent.putExtra("SESSION_DATE", date);
-                    startActivity(intent);
+                    startActivity(intent, bundle);
                 }
             });
 

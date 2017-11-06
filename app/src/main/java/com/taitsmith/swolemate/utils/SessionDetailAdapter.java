@@ -1,11 +1,14 @@
 package com.taitsmith.swolemate.utils;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 
+import static android.R.string.copy;
 import static android.R.string.no;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 
@@ -29,9 +33,12 @@ import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfi
 public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdapter.WorkoutHolder>{
 
     private List<Workout> workoutList;
+    private Context context;
+    private int lastposition = -1;
 
-    public SessionDetailAdapter(List<Workout> workoutList){
+    public SessionDetailAdapter(List<Workout> workoutList, Context context){
         this.workoutList = workoutList;
+        this.context = context;
     }
 
     @Override
@@ -78,5 +85,14 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
     @Override
     public void onBindViewHolder(WorkoutHolder holder, int position) {
         holder.bind(position);
+        setAnimation(holder.itemView, position);
+    }
+
+    private void setAnimation(View view, int position) {
+        if (position > lastposition) {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            view.startAnimation(animation);
+            lastposition = position;
+        }
     }
 }

@@ -8,13 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.utils.HelpfulUtils;
 import com.taitsmith.swolemate.utils.SessionDetailAdapter;
 import com.taitsmith.swolemate.data.Workout;
 
@@ -24,6 +28,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
+import static com.taitsmith.swolemate.utils.HelpfulUtils.workoutListSwipeHandler;
 
 /**
  * Shows details of a selected past workout.
@@ -62,7 +67,7 @@ public class WorkoutDetailFragment extends Fragment {
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        final SessionDetailAdapter adapter = new SessionDetailAdapter(realmResults);
+        final SessionDetailAdapter adapter = new SessionDetailAdapter(realmResults, getContext());
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper.SimpleCallback helper = new ItemTouchHelper.SimpleCallback(0,
@@ -70,10 +75,8 @@ public class WorkoutDetailFragment extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 Workout workout = realmResults.get(viewHolder.getAdapterPosition());
-                realm.beginTransaction();
-                workout.deleteFromRealm();
-                realm.commitTransaction();
-                adapter.notifyDataSetChanged();
+                workoutListSwipeHandler(workout);
+                adapter.notifyItemChanged(viewHolder.getAdapterPosition());
             }
 
             @Override
@@ -83,6 +86,7 @@ public class WorkoutDetailFragment extends Fragment {
         };
 
         ItemTouchHelper ith = new ItemTouchHelper(helper);
+
         ith.attachToRecyclerView(recyclerView);
 
         if (toolbar != null) {

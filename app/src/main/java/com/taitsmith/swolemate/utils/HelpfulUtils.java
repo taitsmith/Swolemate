@@ -140,7 +140,12 @@ public class HelpfulUtils {
         }
 
         realm.commitTransaction();
-        pastSessionsAdapter.notifyDataSetChanged();
+        try {
+            pastSessionsAdapter.notifyDataSetChanged();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            //two pane mode.
+        }
     }
 
     //long press on a session in the main activity allows users to delete it
@@ -165,5 +170,28 @@ public class HelpfulUtils {
                 Toast.LENGTH_SHORT).show();
 
         pastSessionsAdapter.notifyDataSetChanged();
+    }
+
+    public static void workoutListSwipeHandler(Workout workout) {
+        Realm realm = Realm.getInstance(realmConfiguration);
+        String date = workout.getDate();
+
+        realm.beginTransaction();
+
+        workout.deleteFromRealm();
+
+        Session session = realm.where(Session.class)
+                .equalTo("date", date)
+                .findFirst();
+
+        int count = session.getWorkoutCount() - 1;
+
+        if (count == 0) {
+            session.deleteFromRealm();
+        } else {
+            session.setWorkoutCount(count);
+        }
+
+        realm.commitTransaction();
     }
 }
