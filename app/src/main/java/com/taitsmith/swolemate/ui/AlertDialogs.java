@@ -26,10 +26,10 @@ public class AlertDialogs {
     public static void cancelAddWorkoutDialog(final Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        builder.setMessage(context.getString(R.string.cancel_add_workout));
+        builder.setMessage(context.getString(R.string.dialog_cancel_add_workout));
         builder.setCancelable(false);
 
-        builder.setPositiveButton(context.getString(R.string.cancel_positive),
+        builder.setPositiveButton(context.getString(R.string.dialog_cancel_positive),
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -38,7 +38,7 @@ public class AlertDialogs {
             }
         });
 
-        builder.setNegativeButton(context.getString(R.string.cancel_negative), null);
+        builder.setNegativeButton(context.getString(R.string.dialog_cancel_negative), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -50,7 +50,7 @@ public class AlertDialogs {
 
         StringBuilder messageString = new StringBuilder();
 
-        messageString.append(context.getString(R.string.save_workout))
+        messageString.append(context.getString(R.string.dialog_save_workout))
                 .append(name.concat("\n"))
                 .append("Sets: ".concat(Integer.toString(sets)).concat("\n"))
                 .append("Reps: " .concat(Integer.toString(reps)).concat("\n"))
@@ -68,7 +68,7 @@ public class AlertDialogs {
 
         builder.setCancelable(false);
 
-        builder.setPositiveButton(context.getString(R.string.save_positive),
+        builder.setPositiveButton(context.getString(R.string.dialog_save_positive),
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -78,7 +78,7 @@ public class AlertDialogs {
             }
         });
 
-        builder.setNegativeButton(context.getString(R.string.save_negative), null);
+        builder.setNegativeButton(context.getString(R.string.dialog_save_negative), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -125,15 +125,15 @@ public class AlertDialogs {
     public static void weeklySummaryNoWorkouts(final Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        builder.setMessage(context.getString(R.string.summary_no_workouts));
-        builder.setPositiveButton(context.getString(R.string.summary_add_workout), new DialogInterface.OnClickListener() {
+        builder.setMessage(context.getString(R.string.dialog_summary_no_workouts));
+        builder.setPositiveButton(context.getString(R.string.dialog_summary_add_workout), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(context, AddWorkoutActivity.class);
                 context.startActivity(intent);
             }
         });
-        builder.setNegativeButton(context.getString(R.string.summary_dont_add_workout), null);
+        builder.setNegativeButton(context.getString(R.string.dialog_summary_dont_add_workout), null);
 
         AlertDialog dialog = builder.create();
         dialog.show();

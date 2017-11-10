@@ -2,15 +2,12 @@ package com.taitsmith.swolemate.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.Workout;
@@ -19,11 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-
-import static android.R.string.copy;
-import static android.R.string.no;
-import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 
 
 /**
@@ -50,7 +42,7 @@ public class SessionDetailAdapter extends RecyclerView.Adapter<SessionDetailAdap
     public WorkoutHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = inflater.inflate(R.layout.workout_detail_list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_item_workout, parent, false);
 
         return new WorkoutHolder(view);
     }

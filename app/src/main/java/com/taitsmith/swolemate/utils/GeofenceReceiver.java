@@ -41,7 +41,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
         sendNotification(context, geofenceTransition);
-
     }
 
     //When the user gets to the gym, ask them if they want to record some workouts
@@ -100,7 +99,7 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
         // Dismiss notification once the user touches it.
         builder.setAutoCancel(true);
-        builder.setChannel("geofence_notification_channel");
+        builder.setChannelId("geofence_notification_channel");
 
         // Issue the notification
         notificationManager.notify(45, builder.build());

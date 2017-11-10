@@ -57,7 +57,6 @@ import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
 import static com.taitsmith.swolemate.ui.AlertDialogs.sessionListDeleteItem;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
-import static com.taitsmith.swolemate.utils.HelpfulUtils.createOrUpdateSession;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
 import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissions;
 
@@ -243,8 +242,8 @@ public class MainActivity extends AppCompatActivity implements
                 intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
             case R.id.menu_settings:
-                createOrUpdateSession("10-11-2017");
-                createOrUpdateSession("10-12-2017");
+                Intent intent1 = new Intent(this, BuddyActivity.class);
+                startActivity(intent1);
             default:
                 return super.onOptionsItemSelected(item);
         }
