@@ -53,7 +53,6 @@ public class GymAdapter extends BaseAdapter {
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
-
         }
 
         GymLocation location = gymList.get(position);

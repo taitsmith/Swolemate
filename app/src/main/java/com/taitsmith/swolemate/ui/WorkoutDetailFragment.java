@@ -55,6 +55,7 @@ public class WorkoutDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_past_workout_detail, container, false);
         ButterKnife.bind(this, rootView);
+        setHasOptionsMenu(true);
 
         if (savedInstanceState != null) {
             sessionDate = savedInstanceState.getString("DATE");

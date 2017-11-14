@@ -12,6 +12,7 @@ public class Person {
     private String name, shortBio, cityLocation;
     private int age;
     private List<String> activities;
+    private boolean hidden;
 
     public String getName() {
         return name;
@@ -51,5 +52,26 @@ public class Person {
 
     public void setActivities(List<String> activities) {
         this.activities = activities;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public Person(String name, String shortBio, String cityLocation,
+                  List<String> activities, int age, boolean hide) {
+        this.name = name;
+        this.shortBio = shortBio;
+        this.cityLocation = cityLocation;
+        this.activities = activities;
+        this.age = age;
+        this.hidden = hide;
+    }
+
+    public Person() {
     }
 }

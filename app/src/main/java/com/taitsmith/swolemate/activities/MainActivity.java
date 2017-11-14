@@ -54,11 +54,11 @@ import io.realm.RealmResults;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.permissionGranted;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
 import static com.taitsmith.swolemate.ui.AlertDialogs.aboutDialog;
-import static com.taitsmith.swolemate.ui.AlertDialogs.sessionListDeleteItem;
+import static com.taitsmith.swolemate.ui.AlertDialogs.deleteSessionDialog;
 import static com.taitsmith.swolemate.ui.WorkoutDetailFragment.setSessionDate;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.addLocation;
 import static com.taitsmith.swolemate.utils.HelpfulUtils.createSessionList;
-import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissions;
+import static com.taitsmith.swolemate.ui.AlertDialogs.informPermissionsDialog;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -119,10 +119,8 @@ public class MainActivity extends AppCompatActivity implements
         //we need it, then request the permission.
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            informPermissions(MainActivity.this);
+            informPermissionsDialog(MainActivity.this);
         }
-
-
         setUi();
     }
 
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements
             workoutsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    sessionListDeleteItem(MainActivity.this, position);
+                    deleteSessionDialog(MainActivity.this, position);
                     return true;
                 }
             });

@@ -17,17 +17,18 @@ import static com.taitsmith.swolemate.activities.AddWorkoutActivity.saveWorkout;
 
 
 /**
- * Alert dialogs to confirm save/delete workout data
+ * Alert dialogs to talk to the user, inform them of what's happening, etc.
  */
 
 public class AlertDialogs {
     private static final int PERMISSION_REQUEST_FINE_LOCATION = 54;
+    private static AlertDialog.Builder builder;
 
     public static void cancelAddWorkoutDialog(final Context context) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
 
         builder.setMessage(context.getString(R.string.dialog_cancel_add_workout));
-        builder.setCancelable(false);
 
         builder.setPositiveButton(context.getString(R.string.dialog_cancel_positive),
                 new DialogInterface.OnClickListener() {
@@ -46,7 +47,8 @@ public class AlertDialogs {
 
     public static void saveWorkoutDialog(final Context context, String name, String thoughts, int reps,
                                          int sets, int weights) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
 
         StringBuilder messageString = new StringBuilder();
 
@@ -66,8 +68,6 @@ public class AlertDialogs {
 
         builder.setMessage(message);
 
-        builder.setCancelable(false);
-
         builder.setPositiveButton(context.getString(R.string.dialog_save_positive),
                 new DialogInterface.OnClickListener() {
             @Override
@@ -84,8 +84,9 @@ public class AlertDialogs {
         dialog.show();
     }
 
-    public static void informPermissions(final Activity activity) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    public static void informPermissionsDialog(final Activity activity) {
+        builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(false);
 
         builder.setMessage(activity.getString(R.string.inform_permissions_message));
         builder.setPositiveButton(activity.getString(R.string.inform_permission_positive),
@@ -102,19 +103,20 @@ public class AlertDialogs {
     }
 
     public static void aboutDialog(Context context) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
 
         builder.setMessage(context.getString(R.string.about_message));
         builder.setPositiveButton(context.getString(R.string.dialog_got_it), null);
-
-        builder.setCancelable(false);
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     public static void weeklySummaryDialog(Context context, int[] counts) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+
         builder.setMessage(context.getString(R.string.summary_message, counts[0], counts[1]));
         builder.setPositiveButton(context.getString(R.string.dialog_got_it), null);
 
@@ -122,8 +124,8 @@ public class AlertDialogs {
         dialog.show();
     }
 
-    public static void weeklySummaryNoWorkouts(final Context context) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public static void weeklySummaryNoWorkoutsDialog(final Context context) {
+        builder = new AlertDialog.Builder(context);
 
         builder.setMessage(context.getString(R.string.dialog_summary_no_workouts));
         builder.setPositiveButton(context.getString(R.string.dialog_summary_add_workout), new DialogInterface.OnClickListener() {
@@ -139,8 +141,10 @@ public class AlertDialogs {
         dialog.show();
     }
 
-    public static void sessionListDeleteItem(final Context context, final int position) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public static void deleteSessionDialog(final Context context, final int position) {
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+
 
         builder.setMessage(context.getString(R.string.dialog_delete_message));
         builder.setPositiveButton(context.getString(R.string.dialog_delete_positive), new DialogInterface.OnClickListener() {
@@ -151,9 +155,20 @@ public class AlertDialogs {
         });
         builder.setNegativeButton(context.getString(R.string.dialog_delete_negative), null);
 
-        builder.setCancelable(false);
-
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public static void deleteGymLocationDialog(final Context context) {
+        builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+
+        builder.setMessage(context.getString(R.string.dialog_delete_gym_message));
+        builder.setPositiveButton(context.getString(R.string.dialog_delete_gym_positive), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
     }
 }

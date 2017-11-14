@@ -128,26 +128,22 @@
         android:ems="10"
         android:hint="@string/personal_details_bio_hint"
         android:inputType="textMultiLine"
+        android:maxLength="140"
         android:nestedScrollingEnabled="true"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherCheckBox" />
 
-    <ListView
-        android:id="@+id/savedGymsListView"
-        style="@style/Widget.AppCompat.ListView.Menu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSaveDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shortBioEditText" />
+        app:srcCompat="@drawable/ic_sd_storage_black_24px" />
 
 </android.support.constraint.ConstraintLayout>

@@ -72,7 +72,7 @@ public class WeeklySummary extends AsyncTask<Void, Void, int[]> {
     @Override
     protected void onPostExecute(int[] counts) {
         if (counts[0] == 0) {
-            AlertDialogs.weeklySummaryNoWorkouts(context);
+            AlertDialogs.weeklySummaryNoWorkoutsDialog(context);
         } else {
             AlertDialogs.weeklySummaryDialog(context, counts);
         }

@@ -1,6 +1,7 @@
 package com.taitsmith.swolemate.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
@@ -64,6 +65,8 @@ public class HelpfulUtils {
         String id = place.getId();
         double placeLong = place.getLatLng().longitude;
         double placeLat = place.getLatLng().latitude;
+
+        Log.d("LOG", place.getAddress().toString());
 
         try {
             if (realm.where(GymLocation.class)
