@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,8 @@ public class BuddyListFragment extends Fragment {
     RecyclerView buddyListRecycler;
     @BindView(R.id.buddyListProgressBar)
     ProgressBar loadingIndicator;
+    @BindView(R.id.buddyListErrorView)
+    TextView errorView;
 
     private static String myLocation;
 
@@ -67,11 +70,17 @@ public class BuddyListFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        errorView.setVisibility(View.VISIBLE);
+                        errorView.setText(R.string.toast_something_wrong);
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(List<Person> people) {
+                        if (people.size() == 0) {
+                            errorView.setVisibility(View.VISIBLE);
+                            errorView.setText(R.string.buddy_activity_no_people_available);
+                        }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         BuddyAdapter adapter = new BuddyAdapter(people, getContext());
                         buddyListRecycler.setLayoutManager(manager);

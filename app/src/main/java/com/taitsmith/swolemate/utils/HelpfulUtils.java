@@ -143,6 +143,7 @@ public class HelpfulUtils {
         }
 
         realm.commitTransaction();
+
         try {
             pastSessionsAdapter.notifyDataSetChanged();
         } catch (NullPointerException e) {

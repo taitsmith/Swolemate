@@ -103,6 +103,11 @@
     <string name="bottom_nav_me">My Details</string>
     <string name="bottom_nav_find">Find Buddies</string>
     <string name="bottom_name_my_locations">Saved Locations</string>
+    <string name="buddy_activity_title_details">Edit My Details</string>
+    <string name="buddy_activity_title_saved_locations">My Saved Locations</string>
+    <string name="buddy_activity_title_buddy_list">Find a Workout Buddy</string>
+    <string name="buddy_activity_menu_help">Help</string>
+    <string name="buddy_activity_no_people_available">There\'s nobody currently listed near you…</string>
 
     <!-- personal details fragment strings -->
     <string name="personal_details_checkbox_label">Keep me hidden</string>
@@ -118,7 +123,6 @@
     <string name="personal_details_crossfit">Crossfit</string>
     <string name="personal_details_other">Something else</string>
     <string name="personal_details_bio_hint">Something short about yourself</string>
-    <string name="personal_details_menu_save">Save details</string>
 
 
 </resources>

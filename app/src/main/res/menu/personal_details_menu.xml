@@ -2,9 +2,9 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="@string/personal_details_menu_save"
-        android:id="@+id/menu_save"
+        android:title="@string/buddy_activity_menu_help"
+        android:id="@+id/buddy_menu_help"
         app:showAsAction="always"
-        android:icon="@drawable/ic_sd_storage_black_24px"/>
+        android:icon="@drawable/ic_help_outline_black_24px"/>
 
 </menu>

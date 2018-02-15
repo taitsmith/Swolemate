@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Person;
@@ -37,6 +41,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
+import static com.taitsmith.swolemate.utils.FirebaseUtils.getMyDetails;
 
 /**
  * Fragment to be used in the MyDetails view on the {@link com.taitsmith.swolemate.activities.BuddyActivity}
@@ -65,15 +70,13 @@ public class MyDetailsFragment extends Fragment {
     CheckBox keepMeHidden;
     @BindView(R.id.shortBioEditText)
     EditText bioEditText;
-    @BindView(R.id.savedGymsListView)
-    ListView gymListView;
     @BindView(R.id.fabSaveDetails)
     FloatingActionButton saveDetailsFab;
 
     private FirebaseUser user;
     private FirebaseAuth auth;
     private boolean detailsUpdated;
-
+    private Person me;
 
     @Nullable
     @Override
@@ -84,6 +87,8 @@ public class MyDetailsFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         detailsUpdated = false;
+
+        getMyDetails();
 
         if (user != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(personalPortait);
@@ -116,5 +121,25 @@ public class MyDetailsFragment extends Fragment {
         Person person = new Person(user.getDisplayName(), bioEditText.getText().toString(),
                 "Oakland", getActivities(), 26, keepMeHidden.isChecked());
         FirebaseUtils.saveMyDetails(person, user.getUid());
+    }
+
+    private void getMyDetails() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("People");
+
+        reference = reference.child(user.getUid());
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                me = dataSnapshot.getValue(Person.class);
+
+                bioEditText.setText(me.getShortBio());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -29,27 +29,28 @@ public class FirebaseUtils {
     //we want to be able to get the user's details from the DB
     //to display them when they open their details page
     public static Person getMyDetails(FirebaseUser user) {
-        final List<Person> person = new ArrayList<>();
-
+        final List<Person> people = new ArrayList<>(1);
+        people.add(new Person());
+        final Person toReturn = new Person();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("People");
 
         reference = reference.child(user.getUid());
 
-        ValueEventListener listener = new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                person.add(dataSnapshot.getValue(Person.class));
+                Person me = dataSnapshot.getValue(Person.class);
+                toReturn.setShortBio(me.getShortBio());
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
+        });
 
-        reference.addListenerForSingleValueEvent(listener);
-
-        return person.get(0);
+        return toReturn;
     }
 
     //Calls the Firebase db to get a list of people who share the same
@@ -64,7 +65,6 @@ public class FirebaseUtils {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("LOG", Long.toString(dataSnapshot.getChildrenCount()));
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Person person =  snapshot.getValue(Person.class);
 

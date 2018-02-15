@@ -52,21 +52,24 @@ public class BuddyActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_my_details:
+                    toolbar.setTitle(getString(R.string.buddy_activity_title_details));
                     manager.beginTransaction()
-                            .add(R.id.buddyFragmentContainer, detailsFragment)
+                            .replace(R.id.buddyFragmentContainer, detailsFragment)
                             .commit();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_buddy_list:
                     setMyLocation("Oakland");
+                    toolbar.setTitle(getString(R.string.buddy_activity_title_buddy_list));
                     manager.beginTransaction()
-                            .remove(detailsFragment)
-                            .add(R.id.buddyFragmentContainer, buddyListFragment)
+                            .replace(R.id.buddyFragmentContainer, buddyListFragment)
                             .commit();
                     return true;
                 case R.id.navigation_my_locations:
+                    toolbar.setTitle(getString(R.string.buddy_activity_title_saved_locations));
+
                     manager.beginTransaction()
-                            .add(R.id.buddyFragmentContainer, locationsFragment)
+                            .replace(R.id.buddyFragmentContainer, locationsFragment)
                             .commit();
                     return true;
             }
