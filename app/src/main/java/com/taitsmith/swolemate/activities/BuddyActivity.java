@@ -28,6 +28,7 @@ public class BuddyActivity extends AppCompatActivity {
     private MyDetailsFragment detailsFragment;
     private BuddyListFragment buddyListFragment;
     private SavedLocationsFragment locationsFragment;
+    public static String usp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,6 @@ public class BuddyActivity extends AppCompatActivity {
         detailsFragment = new MyDetailsFragment();
         buddyListFragment = new BuddyListFragment();
         locationsFragment = new SavedLocationsFragment();
-
-        setSupportActionBar(toolbar);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

@@ -2,7 +2,6 @@ package com.taitsmith.swolemate.utils;
 
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +13,8 @@ import com.taitsmith.swolemate.data.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.taitsmith.swolemate.ui.MyDetailsFragment.uid;
+
 /**
  * For handling necessary Firebase communications.
  */
@@ -24,33 +25,6 @@ public class FirebaseUtils {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         reference.child("People").child(uid).setValue(person);
-    }
-
-    //we want to be able to get the user's details from the DB
-    //to display them when they open their details page
-    public static Person getMyDetails(FirebaseUser user) {
-        final List<Person> people = new ArrayList<>(1);
-        people.add(new Person());
-        final Person toReturn = new Person();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("People");
-
-        reference = reference.child(user.getUid());
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Person me = dataSnapshot.getValue(Person.class);
-                toReturn.setShortBio(me.getShortBio());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return toReturn;
     }
 
     //Calls the Firebase db to get a list of people who share the same
@@ -65,12 +39,12 @@ public class FirebaseUtils {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                buddyList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Person person =  snapshot.getValue(Person.class);
+                    Log.d("GET_BUDDIES", person.getCityLocation());
+                    buddyList.add(person);
 
-                    if (!person.isHidden()) {
-                        buddyList.add(person);
-                    }
                 }
             }
 
@@ -80,5 +54,10 @@ public class FirebaseUtils {
             }
         });
         return buddyList;
+    }
+
+    static void updateMyLocation(String location) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("People").child(uid).child("cityLocation").setValue(location);
     }
 }

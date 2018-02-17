@@ -48,9 +48,10 @@
     <string name="session_summary_date_label">Workout session from:</string>
     <string name="session_summary_workouts_completed">Workouts completed:</string>
     <string name="sign_in_description">If you want to use some of the Swolemate services (like finding
-        a workout buddy), you need to sign in. Swolemate doesn\'t collect any information from you,
-        and the code is fully available on Github. The app will still function normally if you decline
-        this option, but you won\'t be able to utilise certain features.</string>
+        a workout buddy) you need to sign in with your Google account. Swolemate doesn\'t save any of
+        your data with the exception of what you enter into the app. The app will still function normally
+        if you decline this option, but you won\'t be able to utilise certain features.</string>
+
     <string name="sign_in_successful">Great news, %1$s. You\'re all signed in to Swolemate. Go ahead
         and set your personal details in the main menu to start finding friends.\n\nExcept that part
         doesn\'t actually do anything yet.</string>
@@ -98,6 +99,7 @@
     <string name="toast_save_succesful">Workout saved successfully</string>
     <string name="toast_need_permission">Location permission needed</string>
     <string name="title_activity_buddy">Find a Workout Buddy</string>
+    <string name="toast_details_saved">Details saved</string>
 
     <!-- buddy activity strings-->
     <string name="bottom_nav_me">My Details</string>

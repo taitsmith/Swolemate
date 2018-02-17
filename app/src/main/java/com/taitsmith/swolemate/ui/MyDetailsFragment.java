@@ -1,19 +1,18 @@
 package com.taitsmith.swolemate.ui;
 
+import android.content.Context;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Person;
 import com.taitsmith.swolemate.utils.FirebaseUtils;
-import com.taitsmith.swolemate.utils.GymAdapter;
+import com.taitsmith.swolemate.utils.LocationListenerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +36,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
-import io.realm.RealmResults;
-
-import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
-import static com.taitsmith.swolemate.utils.FirebaseUtils.getMyDetails;
 
 /**
  * Fragment to be used in the MyDetails view on the {@link com.taitsmith.swolemate.activities.BuddyActivity}
@@ -75,8 +69,10 @@ public class MyDetailsFragment extends Fragment {
 
     private FirebaseUser user;
     private FirebaseAuth auth;
-    private boolean detailsUpdated;
     private Person me;
+    public static StringBuilder myLocation;
+
+    public static String uid;
 
     @Nullable
     @Override
@@ -86,7 +82,7 @@ public class MyDetailsFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        detailsUpdated = false;
+        uid = user.getUid();
 
         getMyDetails();
 
@@ -119,11 +115,12 @@ public class MyDetailsFragment extends Fragment {
     @OnClick(R.id.fabSaveDetails)
     public void saveDetails() {
         Person person = new Person(user.getDisplayName(), bioEditText.getText().toString(),
-                "Oakland", getActivities(), 26, keepMeHidden.isChecked());
+                getMyLocation(), getActivities(), 29, keepMeHidden.isChecked());
         FirebaseUtils.saveMyDetails(person, user.getUid());
+        Toast.makeText(getContext(), getString(R.string.toast_details_saved), Toast.LENGTH_SHORT).show();
     }
 
-    private void getMyDetails() {
+    protected void getMyDetails() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("People");
 
         reference = reference.child(user.getUid());
@@ -133,7 +130,11 @@ public class MyDetailsFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 me = dataSnapshot.getValue(Person.class);
 
-                bioEditText.setText(me.getShortBio());
+                try {
+                    bioEditText.setText(me.getShortBio());
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -141,5 +142,23 @@ public class MyDetailsFragment extends Fragment {
 
             }
         });
+    }
+
+    private String getMyLocation() {
+        myLocation = new StringBuilder();
+
+        LocationManager locationManager = (LocationManager)
+                getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new LocationListenerUtil(getContext());
+
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
+                    10, locationListener);
+        } catch (SecurityException e) {
+            Toast.makeText(getContext(), getString(R.string.toast_need_permission), Toast.LENGTH_SHORT).show();
+        }
+
+        return myLocation.toString();
     }
 }

@@ -29,7 +29,6 @@ public class SwolemateApplication extends Application {
     public static TypedArray workoutInstructions;
     public static List<String> sortedDates;
     public static RealmConfiguration realmConfiguration;
-    public static RealmResults<Session> sessionList;
 
     @Override
     public void onCreate() {

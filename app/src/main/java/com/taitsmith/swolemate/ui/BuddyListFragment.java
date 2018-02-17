@@ -103,4 +103,6 @@ public class BuddyListFragment extends Fragment {
     public static void setMyLocation(String location) {
         myLocation = location;
     }
+
+
 }
