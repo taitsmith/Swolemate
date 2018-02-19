@@ -232,16 +232,21 @@ public class MainActivity extends AppCompatActivity implements
                 summary.execute();
                 return true;
             case R.id.menu_sign_in:
-                if (user != null) {
+                if (auth.getCurrentUser() != null) {
                     auth.signOut();
-                    Toast.makeText(this, getString(R.string.toast_sign_out), Toast.LENGTH_SHORT).show();
-                    return true;
+                } else {
+                    intent = new Intent(this, SignInActivity.class);
+                    startActivity(intent);
                 }
-                intent = new Intent(this, SignInActivity.class);
-                startActivity(intent);
+                return true;
             case R.id.menu_settings:
-                Intent intent1 = new Intent(this, BuddyActivity.class);
-                startActivity(intent1);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    intent = new Intent(this, BuddyActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Please sign in to use this feature", Toast.LENGTH_LONG).show();
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

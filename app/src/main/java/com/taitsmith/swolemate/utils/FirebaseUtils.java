@@ -13,7 +13,9 @@ import com.taitsmith.swolemate.data.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taitsmith.swolemate.ui.MyDetailsFragment.uid;
+import static com.taitsmith.swolemate.activities.BuddyActivity.uid;
+import static com.taitsmith.swolemate.activities.BuddyActivity.user;
+
 
 /**
  * For handling necessary Firebase communications.
@@ -42,9 +44,9 @@ public class FirebaseUtils {
                 buddyList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Person person =  snapshot.getValue(Person.class);
-                    Log.d("GET_BUDDIES", person.getCityLocation());
-                    buddyList.add(person);
-
+                    if (!person.isHidden()) {
+                        buddyList.add(person);
+                    }
                 }
             }
 
@@ -56,8 +58,37 @@ public class FirebaseUtils {
         return buddyList;
     }
 
-    static void updateMyLocation(String location) {
+    public static void updateMyLocation(String location) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("People").child(uid).child("cityLocation").setValue(location);
+    }
+
+    //gets the user information based on the currently signed in account.
+    //sa
+    public static Person whoAmI() {
+        final Person me = new Person();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("People");
+
+        reference = reference.child(user.getUid());
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Person person = dataSnapshot.getValue(Person.class);
+                me.setShortBio(person.getShortBio());
+                me.setCityLocation(person.getCityLocation());
+                me.setActivities(person.getActivities());
+                me.setAge(person.getAge());
+                me.setHidden(person.isHidden());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return me;
     }
 }

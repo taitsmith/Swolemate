@@ -1,5 +1,11 @@
 package com.taitsmith.swolemate.activities;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,16 +15,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.Person;
 import com.taitsmith.swolemate.ui.BuddyListFragment;
 import com.taitsmith.swolemate.ui.MyDetailsFragment;
 import com.taitsmith.swolemate.ui.SavedLocationsFragment;
+import com.taitsmith.swolemate.utils.FirebaseUtils;
+import com.taitsmith.swolemate.utils.LocationListenerUtil;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.taitsmith.swolemate.ui.BuddyListFragment.setMyLocation;
+import static com.taitsmith.swolemate.utils.FirebaseUtils.updateMyLocation;
+import static com.taitsmith.swolemate.utils.FirebaseUtils.whoAmI;
+
 
 public class BuddyActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
@@ -28,7 +46,11 @@ public class BuddyActivity extends AppCompatActivity {
     private MyDetailsFragment detailsFragment;
     private BuddyListFragment buddyListFragment;
     private SavedLocationsFragment locationsFragment;
-    public static String usp;
+
+    public static FirebaseUser user;
+    public static FirebaseAuth auth;
+    public static Person me;
+    public static String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +62,13 @@ public class BuddyActivity extends AppCompatActivity {
         detailsFragment = new MyDetailsFragment();
         buddyListFragment = new BuddyListFragment();
         locationsFragment = new SavedLocationsFragment();
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        uid = user.getUid();
+        me = whoAmI();
+
+        getMyLocation();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -58,7 +87,6 @@ public class BuddyActivity extends AppCompatActivity {
                             .commit();
                     return true;
                 case R.id.navigation_buddy_list:
-                    setMyLocation("Oakland");
                     toolbar.setTitle(getString(R.string.buddy_activity_title_buddy_list));
                     manager.beginTransaction()
                             .replace(R.id.buddyFragmentContainer, buddyListFragment)
@@ -81,5 +109,27 @@ public class BuddyActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.personal_details_menu, menu);
         return true;
+    }
+
+    //get last known GPS location and start listener for location changes.
+    private void getMyLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new LocationListenerUtil(this);
+
+        try {
+            Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+            List<Address> address = geocoder.getFromLocation(last.getLatitude(), last.getLongitude(), 1);
+
+            updateMyLocation(address.get(0).getLocality());
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
+                    10, locationListener);
+        } catch (SecurityException | IOException e) {
+            Toast.makeText(this, getString(R.string.toast_need_permission), Toast.LENGTH_SHORT).show();
+        }
     }
 }

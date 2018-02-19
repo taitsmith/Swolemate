@@ -41,17 +41,11 @@
             android:parentActivityName=".activities.InstructionSummaryActivity" />
         <activity
             android:name=".activities.SignInActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".activities.SettingsActivity" />
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.BuddyActivity"
             android:label="@string/title_activity_buddy"
             android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.taitsmith.swolemate.activities.MainActivity" />
         </activity>
 
         <receiver android:name=".utils.GeofenceReceiver" />

@@ -33,6 +33,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 
+import static com.taitsmith.swolemate.activities.BuddyActivity.me;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.getBuddyList;
 
 /**
@@ -48,8 +49,6 @@ public class BuddyListFragment extends Fragment {
     ProgressBar loadingIndicator;
     @BindView(R.id.buddyListErrorView)
     TextView errorView;
-
-    private static String myLocation;
 
     @Nullable
     @Override
@@ -95,14 +94,11 @@ public class BuddyListFragment extends Fragment {
         return rx.Observable.defer(new Func0<rx.Observable<List<Person>>>() {
             @Override
             public Observable<List<Person>> call() {
-                return Observable.just(getBuddyList(myLocation));
+                return Observable.just(getBuddyList(me.getCityLocation()));
             }
         });
     }
 
-    public static void setMyLocation(String location) {
-        myLocation = location;
-    }
 
 
 }
