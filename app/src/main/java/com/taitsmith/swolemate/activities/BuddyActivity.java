@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,16 +25,22 @@ import com.taitsmith.swolemate.data.Person;
 import com.taitsmith.swolemate.ui.BuddyListFragment;
 import com.taitsmith.swolemate.ui.MyDetailsFragment;
 import com.taitsmith.swolemate.ui.SavedLocationsFragment;
-import com.taitsmith.swolemate.utils.FirebaseUtils;
 import com.taitsmith.swolemate.utils.LocationListenerUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func0;
+import rx.schedulers.Schedulers;
 
+import static com.taitsmith.swolemate.utils.FirebaseUtils.getBuddyList;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.updateMyLocation;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.whoAmI;
 
@@ -52,6 +59,8 @@ public class BuddyActivity extends AppCompatActivity {
     public static Person me;
     public static String uid;
 
+    public static List<Person> buddyList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +72,33 @@ public class BuddyActivity extends AppCompatActivity {
         buddyListFragment = new BuddyListFragment();
         locationsFragment = new SavedLocationsFragment();
 
+        buddyList = new ArrayList<>();
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         uid = user.getUid();
         me = whoAmI();
+
+        getBuddyListObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Person>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(List<Person> people) {
+                        if (people.size() > 0) {
+                            buddyList.addAll(people);
+                        }
+                    }
+                });
 
         getMyLocation();
 
@@ -88,6 +120,7 @@ public class BuddyActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_buddy_list:
                     toolbar.setTitle(getString(R.string.buddy_activity_title_buddy_list));
+
                     manager.beginTransaction()
                             .replace(R.id.buddyFragmentContainer, buddyListFragment)
                             .commit();
@@ -131,5 +164,14 @@ public class BuddyActivity extends AppCompatActivity {
         } catch (SecurityException | IOException e) {
             Toast.makeText(this, getString(R.string.toast_need_permission), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Observable<List<Person>> getBuddyListObservable() {
+        return rx.Observable.defer(new Func0<Observable<List<Person>>>() {
+            @Override
+            public Observable<List<Person>> call() {
+                return Observable.just(getBuddyList(me.getCityLocation()));
+            }
+        });
     }
 }

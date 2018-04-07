@@ -43,7 +43,7 @@ public class PastSessionsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if (view == null) {
             view = inflater.inflate(R.layout.list_item_session, null);

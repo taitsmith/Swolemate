@@ -32,7 +32,7 @@ public class FirebaseUtils {
     //Calls the Firebase db to get a list of people who share the same
     //location as the current user, then adds them to a list if they're listed
     //as visible.
-    public static List<Person> getBuddyList(final String myLocation) {
+    public static List<Person> getBuddyList(String myLocation) {
         final List<Person> buddyList = new ArrayList<>();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -41,7 +41,6 @@ public class FirebaseUtils {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                buddyList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Person person =  snapshot.getValue(Person.class);
                     if (!person.isHidden()) {

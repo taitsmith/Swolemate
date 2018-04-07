@@ -14,11 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.taitsmith.swolemate.R;
 import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Person;
@@ -45,6 +40,8 @@ public class MyDetailsFragment extends Fragment {
     ImageView personalPortait;
     @BindView(R.id.myNameTextView)
     TextView personalName;
+    @BindView(R.id.myLocationTextView)
+    TextView personalLocation;
     @BindView(R.id.liftCheckBox)
     CheckBox liftBox;
     @BindView(R.id.bikeCheckBox)
@@ -63,8 +60,6 @@ public class MyDetailsFragment extends Fragment {
     EditText bioEditText;
     @BindView(R.id.fabSaveDetails)
     FloatingActionButton saveDetailsFab;
-
-    public static StringBuilder myLocation;
 
     @Nullable
     @Override
@@ -117,6 +112,7 @@ public class MyDetailsFragment extends Fragment {
         List<String> myActivities = me.getActivities();
         try {
             bioEditText.setText(me.getShortBio());
+            personalLocation.setText(me.getCityLocation());
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -128,7 +124,7 @@ public class MyDetailsFragment extends Fragment {
             bikeBox.setChecked(myActivities.contains("Bike"));
             runBox.setChecked(myActivities.contains("Run"));
             crossfitBox.setChecked(myActivities.contains("Crossfit"));
-            otherBox.setChecked(myActivities.contains("Other"));
+            otherBox.setChecked(myActivities.contains("Something else"));
             liftBox.setChecked(myActivities.contains("Lift"));
         }
     }

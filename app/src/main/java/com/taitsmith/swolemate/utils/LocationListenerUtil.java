@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static com.taitsmith.swolemate.ui.MyDetailsFragment.myLocation;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.updateMyLocation;
 
 /**
@@ -38,7 +37,6 @@ public class LocationListenerUtil implements LocationListener {
             addresses = geocoder.getFromLocation(location.getLatitude(),
                     location.getLongitude(), 1);
             if (addresses.size() > 0) {
-                myLocation.append(addresses.get(0).getLocality());
                 updateMyLocation(addresses.get(0).getLocality());
             }
         } catch (IOException e) {

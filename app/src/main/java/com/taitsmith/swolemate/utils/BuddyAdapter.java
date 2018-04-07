@@ -78,4 +78,10 @@ public class BuddyAdapter extends RecyclerView.Adapter<BuddyAdapter.BuddyHolder>
             lastposition = position;
         }
     }
+
+    public void addItemsToList(List<Person> toAdd) {
+        buddyList.clear();
+        buddyList.addAll(toAdd);
+        notifyDataSetChanged();
+    }
 }
