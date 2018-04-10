@@ -38,7 +38,7 @@ public class FirebaseUtils {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         Query query = database.child("People").orderByChild("cityLocation").equalTo(myLocation);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -54,6 +54,7 @@ public class FirebaseUtils {
                 Log.e("LOG", databaseError.toException().toString());
             }
         });
+
         return buddyList;
     }
 

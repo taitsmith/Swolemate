@@ -34,18 +34,14 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func0;
-import rx.schedulers.Schedulers;
+import rx.Subscription;
 
-import static com.taitsmith.swolemate.utils.FirebaseUtils.getBuddyList;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.updateMyLocation;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.whoAmI;
 
 
-public class BuddyActivity extends AppCompatActivity {
+public class BuddyActivity extends AppCompatActivity implements
+        BuddyListFragment.OnBuddyClickListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -53,6 +49,7 @@ public class BuddyActivity extends AppCompatActivity {
     private MyDetailsFragment detailsFragment;
     private BuddyListFragment buddyListFragment;
     private SavedLocationsFragment locationsFragment;
+    private Subscription blSub;
 
     public static FirebaseUser user;
     public static FirebaseAuth auth;
@@ -71,34 +68,12 @@ public class BuddyActivity extends AppCompatActivity {
         detailsFragment = new MyDetailsFragment();
         buddyListFragment = new BuddyListFragment();
         locationsFragment = new SavedLocationsFragment();
-
         buddyList = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         uid = user.getUid();
         me = whoAmI();
-
-        getBuddyListObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Person>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(List<Person> people) {
-                        if (people.size() > 0) {
-                            buddyList.addAll(people);
-                        }
-                    }
-                });
 
         getMyLocation();
 
@@ -120,14 +95,12 @@ public class BuddyActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_buddy_list:
                     toolbar.setTitle(getString(R.string.buddy_activity_title_buddy_list));
-
                     manager.beginTransaction()
                             .replace(R.id.buddyFragmentContainer, buddyListFragment)
                             .commit();
                     return true;
                 case R.id.navigation_my_locations:
                     toolbar.setTitle(getString(R.string.buddy_activity_title_saved_locations));
-
                     manager.beginTransaction()
                             .replace(R.id.buddyFragmentContainer, locationsFragment)
                             .commit();
@@ -166,12 +139,8 @@ public class BuddyActivity extends AppCompatActivity {
         }
     }
 
-    public Observable<List<Person>> getBuddyListObservable() {
-        return rx.Observable.defer(new Func0<Observable<List<Person>>>() {
-            @Override
-            public Observable<List<Person>> call() {
-                return Observable.just(getBuddyList(me.getCityLocation()));
-            }
-        });
+    @Override
+    public void onBuddySelected(int position) {
+        Toast.makeText(this, Integer.toString(position), Toast.LENGTH_LONG).show();
     }
 }
