@@ -34,14 +34,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscription;
 
 import static com.taitsmith.swolemate.utils.FirebaseUtils.updateMyLocation;
 import static com.taitsmith.swolemate.utils.FirebaseUtils.whoAmI;
 
 
-public class BuddyActivity extends AppCompatActivity implements
-        BuddyListFragment.OnBuddyClickListener{
+public class BuddySearchActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -49,7 +47,6 @@ public class BuddyActivity extends AppCompatActivity implements
     private MyDetailsFragment detailsFragment;
     private BuddyListFragment buddyListFragment;
     private SavedLocationsFragment locationsFragment;
-    private Subscription blSub;
 
     public static FirebaseUser user;
     public static FirebaseAuth auth;
@@ -139,8 +136,4 @@ public class BuddyActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onBuddySelected(int position) {
-        Toast.makeText(this, Integer.toString(position), Toast.LENGTH_LONG).show();
-    }
 }

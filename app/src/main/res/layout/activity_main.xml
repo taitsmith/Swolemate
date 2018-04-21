@@ -34,8 +34,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ads:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/colorPrimaryLight">
+        ads:layout_behavior="@string/appbar_scrolling_view_behavior">
+
     <ListView
         android:id="@+id/past_workouts_list_view"
         android:layout_width="match_parent"

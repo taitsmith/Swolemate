@@ -13,8 +13,8 @@ import com.taitsmith.swolemate.data.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.taitsmith.swolemate.activities.BuddyActivity.uid;
-import static com.taitsmith.swolemate.activities.BuddyActivity.user;
+import static com.taitsmith.swolemate.activities.BuddySearchActivity.uid;
+import static com.taitsmith.swolemate.activities.BuddySearchActivity.user;
 
 
 /**

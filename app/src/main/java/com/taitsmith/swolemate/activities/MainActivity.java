@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
             case R.id.menu_settings:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    intent = new Intent(this, BuddyActivity.class);
+                    intent = new Intent(this, BuddySearchActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Please sign in to use this feature", Toast.LENGTH_LONG).show();
@@ -281,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void refreshPlaces() {
-
         RealmResults<GymLocation> gymLocations = realm.where(GymLocation.class)
                 .findAll();
 

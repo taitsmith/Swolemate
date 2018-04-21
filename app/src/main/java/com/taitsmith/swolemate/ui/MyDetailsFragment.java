@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.activities.BuddySearchActivity;
 import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Person;
 import com.taitsmith.swolemate.utils.FirebaseUtils;
@@ -26,11 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.taitsmith.swolemate.activities.BuddyActivity.me;
-import static com.taitsmith.swolemate.activities.BuddyActivity.user;
+import static com.taitsmith.swolemate.activities.BuddySearchActivity.me;
+import static com.taitsmith.swolemate.activities.BuddySearchActivity.user;
 
 /**
- * Fragment to be used in the MyDetails view on the {@link com.taitsmith.swolemate.activities.BuddyActivity}
+ * Fragment to be used in the MyDetails view on the {@link BuddySearchActivity}
  * Allows users to set their personal details to be displayed to other users (stored in Firebase DB)
  * as well as view as the {@link GymLocation}
  */
@@ -70,6 +72,7 @@ public class MyDetailsFragment extends Fragment {
         setMyDetails();
 
         if (user != null) {
+            Log.d("PHOTO ",user.getPhotoUrl().toString());
             Glide.with(this).load(user.getPhotoUrl()).into(personalPortait);
             personalName.setText(user.getDisplayName());
         }
@@ -103,7 +106,8 @@ public class MyDetailsFragment extends Fragment {
     @OnClick(R.id.fabSaveDetails)
     public void saveDetails() {
         Person person = new Person(user.getDisplayName(), bioEditText.getText().toString(),
-                me.getCityLocation(), getActivities(), 29, keepMeHidden.isChecked());
+                me.getCityLocation(), getActivities(), 29, keepMeHidden.isChecked(),
+                user.getPhotoUrl().toString());
         FirebaseUtils.saveMyDetails(person, user.getUid());
         Toast.makeText(getContext(), getString(R.string.toast_details_saved), Toast.LENGTH_SHORT).show();
     }

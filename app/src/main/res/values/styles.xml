@@ -57,4 +57,16 @@
         <item name="android:layout_height">@dimen/layout_zero_dp</item>
         <item name="android:layout_margin">@dimen/layout_margin</item>
     </style>
+    
+    <style name="BuddyViewCheckBox">
+        <item name="android:clickable">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+    </style>
+    
+    <style name="BuddyViewCheckBoxBottom" parent="BuddyViewCheckBox">
+        <item name="android:layout_marginEnd">@dimen/layout_margin</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin</item>
+    </style>
 </resources>
