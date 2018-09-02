@@ -1,3 +1,5 @@
+
+(On pause temporarily as of 9/2018)
 # Swolemate
 It's a pun on soulmate. It helps you keep track of your gym workouts, and teaches you how to do those workouts if you don't already know (thanks to some great gifs from
 musclewiki.org). Select a location from the Google Places API and the app sets up a geofence. When you enter the selected location, it'll prompt you to record workouts, and then give you an encouraging message when you leave (because everyone needs a pat on the back sometimes).
