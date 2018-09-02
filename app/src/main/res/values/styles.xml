@@ -8,18 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Tablet" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-
-    </style>
+    <style name="AppTheme.Tablet" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
 
     <style name="EditTextLayout" parent="Widget.Design.TextInputLayout">
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-        <item name="android:textColorHint">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#000</item>
+        <item name="android:textColorHint">#000</item>
     </style>
 
     <style name="EditTextView" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:backgroundTint">#000</item>
     </style>
 
     <style name="InstructionDetailTextView">
@@ -58,5 +56,17 @@
         <item name="android:layout_width">@dimen/layout_zero_dp</item>
         <item name="android:layout_height">@dimen/layout_zero_dp</item>
         <item name="android:layout_margin">@dimen/layout_margin</item>
+    </style>
+    
+    <style name="BuddyViewCheckBox">
+        <item name="android:clickable">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+    </style>
+    
+    <style name="BuddyViewCheckBoxBottom" parent="BuddyViewCheckBox">
+        <item name="android:layout_marginEnd">@dimen/layout_margin</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin</item>
     </style>
 </resources>

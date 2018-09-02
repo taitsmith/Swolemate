@@ -31,4 +31,7 @@ public class Session extends RealmObject{
         this.workoutCount = workoutCount;
     }
 
+    public int get_id() {
+        return _id;
+    }
 }

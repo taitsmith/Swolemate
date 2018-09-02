@@ -5,17 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.PastSessionsAdapter;
+import com.taitsmith.swolemate.utils.PastSessionsAdapter;
 import com.taitsmith.swolemate.data.Session;
 
 import io.realm.Realm;
@@ -67,6 +65,14 @@ public class PastSessionsListFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 listener.onWorkoutSelected(position);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), Integer.toString(position) + "Long click", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 

@@ -1,10 +1,12 @@
 package com.taitsmith.swolemate.utils;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.places.Place;
+import com.taitsmith.swolemate.R;
+import com.taitsmith.swolemate.data.GymLocation;
 import com.taitsmith.swolemate.data.Session;
 import com.taitsmith.swolemate.data.Workout;
 
@@ -16,8 +18,8 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import static com.taitsmith.swolemate.activities.MainActivity.pastSessionsAdapter;
 import static com.taitsmith.swolemate.activities.SwolemateApplication.realmConfiguration;
-import static com.taitsmith.swolemate.utils.DbContract.*;
 
 /**
  * A home for all friendly and helpful utilities that involve interacting with the database through
@@ -38,10 +40,13 @@ import static com.taitsmith.swolemate.utils.DbContract.*;
  *
  * makeUpWorkouts just makes some fake data to populate the list in main activity for display and
  * testing purposes
+ *
+ * NOTE none of that is relevant.
  */
 
 public class HelpfulUtils {
 
+    //pretty self explanatory.
     public static RealmResults<Session> createSessionList() {
         Realm realm = Realm.getInstance(realmConfiguration);
 
@@ -49,20 +54,41 @@ public class HelpfulUtils {
                 .findAllSorted("_id", Sort.DESCENDING);
     }
 
+    //create a realm object for a gym location when selected from the
+    //place picker, otherwise tell the user they've previously selected
+    //that location. Stores lat/long for Geofence purposes
     public static void addLocation(Context context, Place place) {
-        ContentResolver resolver = context.getContentResolver();
-        ContentValues values = new ContentValues();
+        Realm realm = Realm.getInstance(realmConfiguration);
+        realm.beginTransaction();
+
         String name = (String) place.getName();
         String id = place.getId();
         double placeLong = place.getLatLng().longitude;
         double placeLat = place.getLatLng().latitude;
 
-        values.put(DbContract.GymLocationEntry.COLUMN_LOCATION_NAME, name);
-        values.put(GymLocationEntry.COLUMN_LOCATION_LAT, placeLat);
-        values.put(GymLocationEntry.COLUMN_LOCATION_LONG, placeLong);
-        values.put(GymLocationEntry.COLUMN_PLACE_ID, id);
+        Log.d("LOG", place.getAddress().toString());
 
-        resolver.insert(GymLocationEntry.CONTENT_URI, values);
+        try {
+            if (realm.where(GymLocation.class)
+                    .equalTo("placeId", id)
+                    .findFirst() != null) {
+                Toast.makeText(context, context.getString(R.string.toast_place_exists), Toast.LENGTH_SHORT).show();
+            } else {
+                //use the Place's ID as its primary key
+                GymLocation location = realm.createObject(GymLocation.class, id);
+
+                location.setPlaceName(name);
+                location.setPlaceLat(placeLat);
+                location.setPlaceLong(placeLong);
+
+                Toast.makeText(context, context.getString(R.string.toast_place_saved, name), Toast.LENGTH_SHORT).show();
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(context, context.getString(R.string.toast_something_wrong), Toast.LENGTH_SHORT).show();
+        }
+
+        realm.commitTransaction();
     }
 
     //so we can display a short version of the date on the add workout page
@@ -79,10 +105,10 @@ public class HelpfulUtils {
         return dateTime.toString(formatter);
     }
 
-
     //thanks to Bachiet Tansime on SO for this autoincrement key replacement
-    public static int getNextRealmKey() {
+    private static int getNextRealmKey() {
         Realm realm = Realm.getInstance(realmConfiguration);
+
         try {
             Number number = realm.where(Session.class).max("_id");
             if (number != null) {
@@ -95,6 +121,8 @@ public class HelpfulUtils {
         }
     }
 
+    //create a new Session object for Realm if we can't find one with
+    //the current datestamp, otherwise increment its workout count
     public static void createOrUpdateSession(String date) {
         Realm realm = Realm.getInstance(realmConfiguration);
         if (!realm.isInTransaction()) {
@@ -112,6 +140,60 @@ public class HelpfulUtils {
             session = realm.createObject(Session.class, getNextRealmKey());
             session.setDate(date);
             session.setWorkoutCount(1);
+        }
+
+        realm.commitTransaction();
+
+        try {
+            pastSessionsAdapter.notifyDataSetChanged();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            //two pane mode.
+        }
+    }
+
+    //long press on a session in the main activity allows users to delete it
+    //and its corresponding workouts.
+    public static void deleteSessionAndWorkouts(int id, Context context) {
+        Realm realm = Realm.getInstance(realmConfiguration);
+
+        RealmResults<Session> sessionToDelete = realm.where(Session.class)
+                .findAllSorted("_id", Sort.DESCENDING);
+        Session session = sessionToDelete.get(id);
+
+        RealmResults<Workout> workoutsToDelete = realm.where(Workout.class)
+                .equalTo("date", session.getDate())
+                .findAll();
+
+        realm.beginTransaction();
+        session.deleteFromRealm();
+        workoutsToDelete.deleteAllFromRealm();
+        realm.commitTransaction();
+
+        Toast.makeText(context, context.getString(R.string.toast_deletion_successful),
+                Toast.LENGTH_SHORT).show();
+
+        pastSessionsAdapter.notifyDataSetChanged();
+    }
+
+    public static void workoutListSwipeHandler(Workout workout) {
+        Realm realm = Realm.getInstance(realmConfiguration);
+        String date = workout.getDate();
+
+        realm.beginTransaction();
+
+        workout.deleteFromRealm();
+
+        Session session = realm.where(Session.class)
+                .equalTo("date", date)
+                .findFirst();
+
+        int count = session.getWorkoutCount() - 1;
+
+        if (count == 0) {
+            session.deleteFromRealm();
+        } else {
+            session.setWorkoutCount(count);
         }
 
         realm.commitTransaction();

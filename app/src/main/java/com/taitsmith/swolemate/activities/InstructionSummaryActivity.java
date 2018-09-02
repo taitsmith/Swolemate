@@ -27,7 +27,7 @@ public class InstructionSummaryActivity extends AppCompatActivity implements
         detailFragment = new InstructionDetailFragment();
         manager = getSupportFragmentManager();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

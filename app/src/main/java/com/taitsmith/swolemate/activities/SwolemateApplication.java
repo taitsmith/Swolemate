@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.support.v4.app.ActivityCompat;
 
 import com.taitsmith.swolemate.R;
-import com.taitsmith.swolemate.data.Session;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 /**
  * Sets up our important lists, shared preferences.
@@ -29,7 +27,6 @@ public class SwolemateApplication extends Application {
     public static TypedArray workoutInstructions;
     public static List<String> sortedDates;
     public static RealmConfiguration realmConfiguration;
-    public static RealmResults<Session> sessionList;
 
     @Override
     public void onCreate() {
@@ -42,7 +39,6 @@ public class SwolemateApplication extends Application {
                 .schemaVersion(2)
                 .deleteRealmIfMigrationNeeded() //TODO delete this at some point
                 .build();
-
 
         //list of workout names
         workoutArray = getResources().obtainTypedArray(R.array.workout_list);

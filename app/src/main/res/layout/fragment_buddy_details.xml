@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/buddyPortait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/personal_details_portait_description"
+        app:layout_constraintBottom_toTopOf="@+id/buddyNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buddyNameTextView"
+        app:srcCompat="@drawable/ic_person_black_24px" />
+
+    <TextView
+        android:id="@+id/buddyNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="test"
+        app:layout_constraintStart_toEndOf="@+id/buddyPortait"
+        tools:layout_editor_absoluteY="15dp" />
+
+    <TextView
+        android:id="@+id/buddyLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buddyPortait" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/personalDetailsLookingFor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/personal_details_looking_for"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buddyLocationTextView" />
+
+    <CheckBox
+        android:id="@+id/liftCheckBox"
+        android:text="@string/personal_details_lift"
+        app:layout_constraintStart_toStartOf="@+id/bikeCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/personalDetailsLookingFor"
+        style="@style/BuddyViewCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/bikeCheckBox"
+        android:text="@string/personal_details_bike"
+        app:layout_constraintStart_toStartOf="@+id/crossfitCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/liftCheckBox"
+        style="@style/BuddyViewCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/swimCheckBox"
+        android:text="@string/personal_details_swim"
+        app:layout_constraintStart_toStartOf="@+id/runCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/personalDetailsLookingFor"
+        style="@style/BuddyViewCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/runCheckBox"
+        android:text="@string/personal_details_run"
+        app:layout_constraintStart_toStartOf="@+id/otherCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/swimCheckBox"
+        style="@style/BuddyViewCheckBox"/>
+
+    <CheckBox
+        android:id="@+id/crossfitCheckBox"
+        android:text="@string/personal_details_crossfit"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bikeCheckBox"
+        style="@style/BuddyViewCheckBoxBottom"/>
+
+    <CheckBox
+        android:id="@+id/otherCheckBox"
+        android:text="@string/personal_details_other"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/runCheckBox"
+        style="@style/BuddyViewCheckBoxBottom"/>
+
+    <TextView
+        android:id="@+id/buddyBioTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/personal_details_bio_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherCheckBox" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabMessageBuddy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
+
+</android.support.constraint.ConstraintLayout>

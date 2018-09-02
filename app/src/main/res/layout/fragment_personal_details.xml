@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/portraitImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/personal_details_portait_description"
+        app:layout_constraintBottom_toTopOf="@+id/myNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myNameTextView"
+        app:srcCompat="@drawable/ic_person_black_24px" />
+
+    <TextView
+        android:id="@+id/myNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="test"
+        app:layout_constraintBottom_toTopOf="@+id/keepMeHiddenCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/portraitImageView"
+        app:layout_constraintTop_toBottomOf="@+id/keepMeHiddenCheckBox"
+        app:layout_constraintVertical_bias="0.56" />
+
+    <TextView
+        android:id="@+id/myLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portraitImageView" />
+
+    <CheckBox
+        android:id="@+id/keepMeHiddenCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:text="@string/personal_details_checkbox_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/personalDetailsLookingFor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/personal_details_looking_for"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keepMeHiddenCheckBox" />
+
+    <CheckBox
+        android:id="@+id/liftCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_lift"
+        app:layout_constraintStart_toStartOf="@+id/bikeCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/personalDetailsLookingFor" />
+
+    <CheckBox
+        android:id="@+id/bikeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_bike"
+        app:layout_constraintStart_toStartOf="@+id/crossfitCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/liftCheckBox" />
+
+    <CheckBox
+        android:id="@+id/swimCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_swim"
+        app:layout_constraintStart_toStartOf="@+id/runCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/personalDetailsLookingFor" />
+
+    <CheckBox
+        android:id="@+id/runCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_run"
+        app:layout_constraintStart_toStartOf="@+id/otherCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/swimCheckBox" />
+
+    <CheckBox
+        android:id="@+id/crossfitCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_crossfit"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bikeCheckBox" />
+
+    <CheckBox
+        android:id="@+id/otherCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/personal_details_other"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/runCheckBox" />
+
+    <EditText
+        android:id="@+id/shortBioEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/personal_details_bio_hint"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:nestedScrollingEnabled="true"
+        android:singleLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherCheckBox" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSaveDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_sd_storage_black_24px" />
+
+</android.support.constraint.ConstraintLayout>

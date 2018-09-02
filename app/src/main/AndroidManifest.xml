@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="SUPER_SECRET_API_KEY" />
+            android:value="AIzaSyCmXNIpLSUQwqujVgPFYqqg16YQ0XBehZQ" />
 
         <activity
             android:name=".activities.MainActivity"
@@ -27,15 +27,27 @@
         </activity>
         <activity
             android:name=".activities.AddWorkoutActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.SessionDetailActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".activities.InstructionSummaryActivity" />
-        <activity android:name=".activities.InstructionDetailActivity" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.InstructionSummaryActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.InstructionDetailActivity"
+            android:parentActivityName=".activities.InstructionSummaryActivity" />
+        <activity
+            android:name=".activities.SignInActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.BuddySearchActivity"
+            android:label="@string/title_activity_buddy"
+            android:parentActivityName=".activities.MainActivity"/>
 
-        <receiver android:name=".data.GeofenceReceiver"/>
-
+        <receiver android:name=".utils.GeofenceReceiver" />
         <receiver android:name=".ui.LastWorkoutWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -45,6 +57,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/last_workout_widget_info" />
         </receiver>
+
+        <activity android:name=".activities.BuddyViewActivity"/>
     </application>
 
 </manifest>

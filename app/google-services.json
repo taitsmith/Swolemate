@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "357181286024-h6fbmpc9ei4ipo30sp0bhduocud2nf74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taitsmith.swolemate",
+            "certificate_hash": "3763ff6620a6967d57a12c1899dbc0ac2ebbb9f1"
+          }
+        },
+        {
           "client_id": "357181286024-fsgd9ac7iee755ro9d8el4aprm1jp685.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
