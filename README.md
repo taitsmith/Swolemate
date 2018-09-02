@@ -1,3 +1,5 @@
+(Temporarily on hold as of 9/2018.)
+
 # Swolemate
 Current working branch is add_buddies.
 
